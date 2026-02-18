@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Login — Gonzalo Pareja">
+  <header class="absolute inset-x-0 top-0 z-20">
+    <!-- Desktop header (match Kajabi style) -->
+    <nav class="mx-auto hidden max-w-6xl grid-cols-3 items-center px-6 py-5 text-sm font-medium tracking-wide text-white/90 md:grid">
+      <div class="flex items-center justify-end gap-5 pr-4">
+        <a href="/intervencion-estrategica" class="hover:text-white">Ver las Salas</a>
+        <a href="/login" class="hover:text-white">Login Alumnos</a>
+      </div>
+      <div class="mx-auto w-full max-w-[260px] text-center">
+        <a href="/" class="text-base font-black tracking-widest">GONZALO PAREJA</a>
+      </div>
+      <div class="flex items-center justify-start pl-4">
+        <a href="#" class="hover:text-white">Contáctame por WhatsApp (Soy yo)</a>
+      </div>
+    </nav>
+
+    <!-- Mobile header (hamburger) -->
+    <nav class="fixed inset-x-0 top-0 z-30 mx-auto flex items-center justify-between bg-black/40 px-5 py-4 text-white/90 backdrop-blur md:hidden">
+      <a href="/" class="font-chivo text-base font-black tracking-widest">GONZALO PAREJA</a>
+
+      <details class="relative">
+        <summary class="list-none cursor-pointer select-none">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-lg hover:bg-white/15">☰</span>
+        </summary>
+        <div class="absolute right-0 mt-3 w-60 rounded-md bg-black/70 p-3 text-sm shadow-2xl ring-1 ring-white/10 backdrop-blur">
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/intervencion-estrategica">Ver las Salas</a>
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/login">Login Alumnos</a>
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="#">Contáctame por WhatsApp (Soy yo)</a>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main class="relative min-h-dvh overflow-hidden">
+    <!-- Brown background / vignette -->
+    <div class="absolute inset-0 bg-[#2a120c]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),rgba(0,0,0,0.85))]"></div>
+
+    <div class="relative z-10 mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center px-6 pt-24 md:pt-16">
+      <h1 class="text-6xl font-black tracking-wide text-white sm:text-7xl md:text-8xl">LOGIN</h1>
+
+      <form id="magicLinkForm" class="mt-14 w-full max-w-xl">
+        <label class="block">
+          <span class="sr-only">Email</span>
+          <input
+            id="email"
+            class="w-full bg-transparent pb-4 text-sm text-white/80 outline-none placeholder:text-white/30"
+            placeholder="Tu email"
+            autocomplete="email"
+            type="email"
+            required
+          />
+          <div class="h-px w-full bg-white/35"></div>
+        </label>
+
+        <p class="mt-6 text-center text-xs text-white/55">
+          Te enviaremos un enlace de acceso (magic link). No necesitas contraseña.
+        </p>
+
+        <div class="mt-10 flex w-full justify-center">
+          <button
+            type="submit"
+            class="inline-flex h-12 w-56 items-center justify-center border border-white/35 bg-transparent text-sm font-semibold tracking-widest text-white/70 hover:bg-white/10"
+          >
+            ENVIAR ENLACE
+          </button>
+        </div>
+
+        <p id="status" class="mt-8 text-center text-xs text-white/70"></p>
+      </form>
+
+      <script>
+        const form = document.getElementById('magicLinkForm');
+        const statusEl = document.getElementById('status');
+        const emailInput = document.getElementById('email');
+
+        async function requestLink(email) {
+          const res = await fetch('https://fluirplus-webhook.gonzalo-pareja.workers.dev/auth/request-link', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ email }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            const err = data?.error || 'request_failed';
+            const e = new Error(err);
+            e.code = err;
+            throw e;
+          }
+          return data;
+        }
+
+        form?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          statusEl.textContent = 'Enviando...';
+          const email = emailInput.value;
+          try {
+            await requestLink(email);
+            statusEl.textContent = 'Listo. Te hemos enviado un email con tu enlace de acceso. Revisa también la carpeta de Spam.';
+          } catch (err) {
+            if (err?.code === 'no_entitlement') {
+              statusEl.textContent = 'No encontramos un pago con este email. Si acabas de pagar, revisa Spam o vuelve a intentar el checkout.';
+            } else {
+              statusEl.textContent = 'No pude enviar el enlace. Intenta de nuevo en 30s.';
+            }
+          }
+        });
+
+        // After Stripe success we redirect here with ?paid=1&email=...
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('paid') === '1') {
+          const paidEmail = params.get('email');
+          if (paidEmail) {
+            emailInput.value = paidEmail;
+            statusEl.textContent = 'Pago confirmado. Te estamos enviando el email de acceso… (revisa también Spam)';
+            // Auto-trigger magic link request
+            requestLink(paidEmail)
+              .then(() => {
+                statusEl.textContent = 'Listo. Te hemos enviado un email con tu enlace de acceso. Revisa también la carpeta de Spam.';
+              })
+              .catch((err) => {
+                if (err?.code === 'no_entitlement') {
+                  statusEl.textContent = 'Pago confirmado, pero aún no aparece el acceso asociado a tu email. Espera 30s y vuelve a intentarlo.';
+                } else {
+                  statusEl.textContent = 'Pago confirmado, pero no pude enviar el enlace automáticamente. Dale a “ENVIAR ENLACE”.';
+                }
+              });
+          }
+        }
+      </script>
+    </div>
+  </main>
+</BaseLayout>

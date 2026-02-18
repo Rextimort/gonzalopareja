@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Checkout — FLUIR+">
+  <main class="min-h-dvh bg-white text-black">
+    <!-- top blue band (Kajabi-like) -->
+    <div
+      class="h-36"
+      style="background-image: url('/checkout-banner.png'); background-size: cover; background-position: center;"
+    ></div>
+
+    <div class="mx-auto -mt-20 grid max-w-5xl gap-10 px-6 pb-16 pt-10 md:grid-cols-2">
+      <!-- Left column (content) -->
+      <section class="order-2 md:order-1">
+        <div class="rounded-md bg-white px-2 py-2 md:px-0 md:py-0">
+          <div class="inline-block rounded-md bg-white p-0 shadow-sm">
+            <img
+              src="/checkout-zoom.jpg?v=1"
+              alt=""
+              class="h-auto w-full max-w-[520px] rounded-md bg-white"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+
+          <h1 class="mt-8 text-3xl font-extrabold tracking-tight">
+            Diagnóstico Estratégico 1:1
+          </h1>
+
+          <p class="mt-4 text-[15px] leading-relaxed text-black/70">
+            Si estás aquí, es porque <span class="font-semibold text-black/85">sabes que no quieres seguir igual</span>.
+          </p>
+
+          <hr class="mt-8 border-black/10" />
+
+          <h2 class="mt-8 text-lg font-extrabold tracking-tight">¿Qué es esta sesión?</h2>
+          <div class="mt-4 space-y-2 text-[15px] leading-relaxed text-black/70">
+            <p>No es una llamada para animarte.</p>
+            <p>No es una charla amable.</p>
+            <p class="mt-4">Es una conversación de 60 minutos donde vamos a:</p>
+            <ul class="mt-3 space-y-2 text-[15px] leading-relaxed text-black/70">
+              <li>– Ver con claridad dónde estás.</li>
+              <li>– Detectar qué decisiones te están frenando.</li>
+              <li>– Entender qué está pasando realmente.</li>
+            </ul>
+            <p class="mt-4">Si veo que no estás preparado, te lo diré.</p>
+            <p>Y si veo que sí, te explicaré cómo podemos trabajar juntos.</p>
+            <p class="mt-4">Sin presión.</p>
+            <p>Sin rodeos.</p>
+            <p>Hablando claro.</p>
+          </div>
+
+          <hr class="mt-8 border-black/10" />
+
+          <h2 class="mt-8 text-lg font-extrabold tracking-tight">¿Qué incluye?</h2>
+          <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
+            <ul class="space-y-2 text-[15px] leading-relaxed text-black/70">
+              <li>– 60 minutos 1:1 conmigo.</li>
+              <li>– Análisis directo de tu situación.</li>
+              <li>– Un siguiente paso definido.</li>
+            </ul>
+            <p class="mt-4">No trabajo con cualquiera.</p>
+            <p>Trabajo con quien está dispuesto a tomárselo en serio.</p>
+          </div>
+
+          <hr class="mt-8 border-black/10" />
+
+          <p class="mt-8 text-sm text-black/70">No estás pagando por una llamada.</p>
+          <p class="mt-2 text-sm text-black/70">Estás pagando por <span class="font-semibold text-black/85">ver las cosas como son</span>.</p>
+        </div>
+      </section>
+
+      <!-- Right column (payment card) -->
+      <aside class="order-1 md:order-2">
+        <div class="rounded-md bg-white p-7 shadow-xl ring-1 ring-black/5">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-2xl font-extrabold">€60,00 EUR</p>
+              <p class="mt-1 text-xs text-black/45">Pago único</p>
+            </div>
+            <a href="/login" class="text-xs font-semibold text-blue-600 hover:underline">Iniciar sesión</a>
+          </div>
+
+          <form id="checkoutForm" class="mt-7 space-y-4">
+            <input
+              id="name"
+              class="h-10 w-full rounded border border-black/15 bg-white px-3 text-sm outline-none placeholder:text-black/30"
+              placeholder="Nombre"
+              autocomplete="name"
+              required
+            />
+
+            <input
+              id="email"
+              class="h-10 w-full rounded border border-black/15 bg-white px-3 text-sm outline-none placeholder:text-black/30"
+              placeholder="Dirección de correo electrónico"
+              autocomplete="email"
+              type="email"
+              required
+            />
+
+            <p class="text-xs text-black/45">No es una suscripción. No hay pagos ocultos.</p>
+            <p class="mt-2 text-xs text-black/55">Tras el pago, te enviaremos el acceso por email (revisa Spam).</p>
+
+            <button
+              id="payBtn"
+              type="submit"
+              class="mt-2 inline-flex h-11 w-full items-center justify-center rounded bg-slate-700 px-5 text-sm font-semibold text-white"
+            >
+              👉 Pagar con Stripe
+            </button>
+
+            <p id="payStatus" class="text-xs text-black/55"></p>
+          </form>
+
+          <script>
+            const form = document.getElementById('checkoutForm');
+            const statusEl = document.getElementById('payStatus');
+            const btn = document.getElementById('payBtn');
+
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('payment') === 'cancelled') {
+              statusEl.textContent = '⚠️ El pago no se ha realizado. Vuelve a intentarlo.';
+            }
+
+            form?.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              statusEl.textContent = 'Redirigiendo a Stripe…';
+              btn.disabled = true;
+              btn.classList.add('opacity-60');
+
+              const name = document.getElementById('name').value;
+              const email = document.getElementById('email').value;
+
+              try {
+                const res = await fetch('https://fluirplus-webhook.gonzalo-pareja.workers.dev/stripe/create-checkout-session', {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({ name, email }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data?.url) throw new Error('stripe_session_failed');
+                window.location.href = data.url;
+              } catch (err) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-60');
+                statusEl.textContent = 'No pude iniciar el pago. Intenta de nuevo en 30s.';
+              }
+            });
+          </script>
+        </div>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>

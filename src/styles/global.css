@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Utility: use Chivo for specific elements (e.g., mobile brand) */
+.font-chivo {
+  font-family: Chivo, Cabin, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+/* Make interactive elements show the hand cursor */
+a[href],
+button,
+[role="button"],
+summary,
+label {
+  cursor: pointer;
+}

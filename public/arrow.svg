@@ -1,0 +1,6 @@
+<svg width="30" height="190" viewBox="0 0 30 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- vertical line (thicker) -->
+  <path d="M15 0 V160" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <!-- arrow head -->
+  <path d="M6 145 L15 170 L24 145" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

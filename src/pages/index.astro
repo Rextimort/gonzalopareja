@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Gonzalo Pareja">
+  <header class="absolute inset-x-0 top-0 z-20">
+    <!-- Desktop header (match Kajabi) -->
+    <nav class="mx-auto hidden max-w-6xl grid-cols-3 items-center px-6 py-5 text-sm font-medium tracking-wide text-white/90 md:grid">
+      <div class="flex items-center justify-end gap-5 pr-4">
+        <a href="/intervencion-estrategica" class="hover:text-white">Empieza aquí</a>
+        <a href="/login" class="hover:text-white">Login Alumnos</a>
+      </div>
+      <div class="mx-auto w-full max-w-[260px] text-center">
+        <a href="/" class="text-base font-black tracking-widest">GONZALO PAREJA</a>
+      </div>
+      <div class="flex items-center justify-start pl-4">
+        <a href="#" class="hover:text-white">Contáctame por WhatsApp (Soy yo)</a>
+      </div>
+    </nav>
+
+    <!-- Mobile header (hamburger) -->
+    <nav class="fixed inset-x-0 top-0 z-30 mx-auto flex items-center justify-between bg-black/90 px-5 py-4 text-white/90 backdrop-blur md:hidden">
+      <a href="/" class="font-chivo text-base font-black tracking-widest">GONZALO PAREJA</a>
+
+      <details class="relative">
+        <summary class="list-none cursor-pointer select-none">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-lg hover:bg-white/15">☰</span>
+        </summary>
+        <div class="absolute right-0 mt-3 w-60 rounded-md bg-black/90 p-3 text-sm shadow-2xl ring-1 ring-white/10 backdrop-blur">
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/intervencion-estrategica">Empieza aquí</a>
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/login">Login Alumnos</a>
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="#">Contáctame por WhatsApp (Soy yo)</a>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main class="bg-neutral-100 text-black">
+    <!-- HERO (vídeo) -->
+    <!-- On small screens, shorten hero so the opt-in box is fully visible on first paint -->
+    <section class="relative h-[58vh] min-h-[420px] max-h-[560px] md:h-dvh md:min-h-[760px] md:max-h-none">
+      <div class="absolute inset-0">
+        <video
+          class="h-full w-full object-cover"
+          style="filter: brightness(1.06) contrast(0.98) saturate(1.02);"
+          src="/hero.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        ></video>
+        <!-- subtle whitening / haze like Kajabi -->
+        <div class="absolute inset-0 bg-white/10"></div>
+      </div>
+
+      <div class="relative z-10 px-6">
+        <div class="mx-auto flex h-[58vh] min-h-[420px] max-h-[560px] max-w-6xl flex-col items-center justify-center pt-16 text-center text-white md:h-dvh md:min-h-[760px] md:max-h-none md:pt-12">
+          <div class="mx-auto w-full max-w-[860px]">
+            <h1 class="text-5xl font-black leading-none tracking-tight sm:text-7xl md:text-8xl">TOMA DECISIONES.</h1>
+            <p class="mt-1 text-2xl font-extrabold leading-none tracking-tight sm:text-4xl md:text-5xl">CAMBIA TU NIVEL.</p>
+            <p class="mt-2 text-sm font-medium tracking-wide text-white/90 sm:text-base">(sin autoengaños)</p>
+          </div>
+          <img
+            src="/arrow.svg"
+            alt=""
+            class="relative z-10 mt-5 h-12 w-auto opacity-95 md:mt-10 md:h-24"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Black band under hero on mobile (like Kajabi) -->
+    <div class="h-12 bg-black md:hidden"></div>
+
+    <!-- OPT-IN (banda blanca debajo, sin tapar el vídeo) -->
+    <section class="relative bg-neutral-100 px-6">
+      <div class="mx-auto w-full max-w-4xl -translate-y-44 bg-white text-black shadow-2xl md:-translate-y-32">
+        <div class="px-8 py-7 text-center">
+          <p class="text-xl font-semibold sm:text-2xl" style="color:#474747;">Estás decidiendo por debajo de tu nivel. En una semana sabrás por qué.<br />Tu siguiente paso empieza aquí.</p>
+          <p class="mt-3 text-base text-black/60 sm:mt-2 sm:text-sm">Correos directos sobre mentalidad, carácter y toma de decisiones. Para pensar distinto, elevar tu estándar y dejar de sabotearte.</p>
+
+          <form class="mt-8 grid gap-6 sm:grid-cols-3" method="post" action="/api/optin">
+            <input
+              class="h-12 border-b border-black/20 bg-transparent px-3 text-base outline-none placeholder:text-black/35 sm:h-11 sm:text-sm"
+              name="name"
+              placeholder="Full Name"
+              autocomplete="name"
+              required
+            />
+            <input
+              class="h-12 border-b border-black/20 bg-transparent px-3 text-base outline-none placeholder:text-black/35 sm:h-11 sm:text-sm"
+              name="email"
+              type="email"
+              placeholder="Email"
+              autocomplete="email"
+              required
+            />
+            <button
+              class="flex h-12 items-center justify-center border border-[#474747] bg-white px-3 text-base font-semibold leading-tight text-[#474747] hover:bg-[#474747] hover:text-white sm:h-11 sm:px-4 sm:text-sm"
+              type="submit"
+            >
+              <span>👉 Quiero claridad</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="mx-auto max-w-4xl pb-14 pt-10 text-center text-xs text-black/45">
+        <div class="flex items-center justify-center gap-10">
+          <a href="https://www.instagram.com/gonzalo.pareja.ig/" target="_blank" rel="noopener noreferrer" class="hover:text-[#8d8d8d]" style="color:#6c6c6c;" aria-label="Instagram">
+            <!-- Simple filled glyph (closer to Kajabi look) -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Z"/>
+              <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+              <path d="M18 6.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/>
+            </svg>
+          </a>
+
+          <a href="https://www.youtube.com/@GonzaloParejaBola%C3%B1os" target="_blank" rel="noopener noreferrer" class="hover:text-[#8d8d8d]" style="color:#6c6c6c;" aria-label="YouTube">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.6 7.6a3.1 3.1 0 0 0-2.2-2.2C17.5 5 12 5 12 5s-5.5 0-7.4.4A3.1 3.1 0 0 0 2.4 7.6 32.4 32.4 0 0 0 2 12s.1 3.1.4 4.4a3.1 3.1 0 0 0 2.2 2.2C6.5 19 12 19 12 19s5.5 0 7.4-.4a3.1 3.1 0 0 0 2.2-2.2c.3-1.3.4-4.4.4-4.4s0-3.1-.4-4.4ZM10.2 15.2V8.8l5.6 3.2-5.6 3.2Z"/>
+            </svg>
+          </a>
+
+          <a href="https://www.linkedin.com/in/gonzalo-pareja-bola%C3%B1os/" target="_blank" rel="noopener noreferrer" class="hover:text-[#8d8d8d]" style="color:#6c6c6c;" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.45 2H3.55A1.55 1.55 0 0 0 2 3.55v16.9A1.55 1.55 0 0 0 3.55 22h16.9A1.55 1.55 0 0 0 22 20.45V3.55A1.55 1.55 0 0 0 20.45 2ZM8.34 19H5.67V10.5h2.67V19ZM7 9.34a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM19 19h-2.66v-4.64c0-1.1-.02-2.5-1.52-2.5-1.52 0-1.75 1.19-1.75 2.42V19H10.4V10.5h2.56v1.16h.04c.36-.68 1.23-1.4 2.53-1.4 2.7 0 3.2 1.78 3.2 4.1V19Z"/>
+            </svg>
+          </a>
+        </div>
+        <p class="mt-8">© {new Date().getFullYear()} Gonzalo Pareja Bolaños</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
