@@ -116,19 +116,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           const paidEmail = params.get('email');
           if (paidEmail) {
             emailInput.value = paidEmail;
-            statusEl.textContent = 'Pago confirmado. Te estamos enviando el email de acceso… (revisa también Spam)';
-            // Auto-trigger magic link request
-            requestLink(paidEmail)
-              .then(() => {
-                statusEl.textContent = 'Listo. Te hemos enviado un email con tu enlace de acceso. Revisa también la carpeta de Spam.';
-              })
-              .catch((err) => {
-                if (err?.code === 'no_entitlement') {
-                  statusEl.textContent = 'Pago confirmado, pero aún no aparece el acceso asociado a tu email. Espera 30s y vuelve a intentarlo.';
-                } else {
-                  statusEl.textContent = 'Pago confirmado, pero no pude enviar el enlace automáticamente. Dale a “ENVIAR ENLACE”.';
-                }
-              });
+            statusEl.textContent = 'Pago confirmado. Enviando tu enlace de acceso… (revisa también Spam)';
+
+            // Auto-trigger magic link request (ensure UI updates before the request finishes)
+            setTimeout(() => {
+              requestLink(paidEmail)
+                .then(() => {
+                  statusEl.textContent = 'Listo. Te hemos enviado un email con tu enlace de acceso. Revisa también la carpeta de Spam.';
+                })
+                .catch((err) => {
+                  if (err?.code === 'no_entitlement') {
+                    statusEl.textContent = 'Pago confirmado, pero aún no aparece el acceso asociado a tu email. Espera 30s y vuelve a intentarlo.';
+                  } else {
+                    statusEl.textContent = 'Pago confirmado, pero no pude enviar el enlace automáticamente. Dale a “ENVIAR ENLACE”.';
+                  }
+                });
+            }, 50);
           }
         }
       </script>
