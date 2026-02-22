@@ -37,31 +37,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <iframe
               id="metodoFluirVideo"
               class="absolute inset-0 h-full w-full"
-              src="https://www.loom.com/embed/f9d027b6f519406fa72bde2b69fb403e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true&autoplay=1"
+              src="https://www.loom.com/embed/f9d027b6f519406fa72bde2b69fb403e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
               frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
+              allow="fullscreen; picture-in-picture"
               allowfullscreen
             ></iframe>
+          </div>
 
-            <!-- Overlay shown when video ends (manual trigger for embeds) -->
-            <div
-              id="videoEndOverlay"
-              class="pointer-events-auto absolute inset-0 hidden items-center justify-center bg-black/70 px-6 py-6 text-center"
-            >
-              <div class="max-w-3xl">
-                <p class="text-balance text-2xl font-extrabold leading-snug tracking-tight sm:text-5xl">
-                  Lograr tus objetivos no es cuestión de suerte. Es cuestión de estrategia y decisiones sostenidas.
-                  Si quieres otro resultado, tendrás que empezar a <span class="text-red-500">decidir distinto</span>.
-                </p>
-                <button
-                  type="button"
-                  id="ignoreOverlayBtn"
-                  class="mt-8 text-[10px] font-semibold tracking-widest text-white/70 underline decoration-white/60 underline-offset-4 hover:text-white"
-                >
-                  <span class="underline decoration-white/60 underline-offset-4">La pregunta es si tú estás dispuesto.</span>
-                </button>
-              </div>
-            </div>
+          <!-- Loom is an embed, so we can't reliably detect "video ended" to show an overlay.
+               Show the closing line right under the video instead. -->
+          <div class="mt-6 rounded-md bg-black/55 px-6 py-6 text-center ring-1 ring-white/10 backdrop-blur">
+            <p class="text-balance text-lg font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
+              Lograr tus objetivos no es cuestión de suerte. Es cuestión de estrategia y decisiones sostenidas.
+              Si quieres otro resultado, tendrás que empezar a <span class="text-red-500">decidir distinto</span>.
+            </p>
+            <p class="mt-4 text-[11px] font-semibold tracking-widest text-white/70 underline decoration-white/60 underline-offset-4">
+              La pregunta es si tú estás dispuesto.
+            </p>
           </div>
         </div>
 
