@@ -2,9 +2,12 @@
 import '../styles/global.css';
 
 const {
-  title = 'Gonzalo Pareja — Decisiones, Límites y Coherencia (FLUIR+)',
-  description = 'Para gente capaz que ya no quiere vivir por debajo de su nivel. Trabajo foco, objetivos, prioridades, límites y decisiones reales. Sin teoría vacía. Trabajo directo.',
+  title = 'Gonzalo Pareja — Decisiones, Límites y Coherencia',
+  description = 'Intervención estratégica 1:1 para gente capaz: claridad, límites, coherencia y decisiones ejecutables. Sin motivación barata. Trabajo directo.',
 } = Astro.props;
+
+const CANONICAL_BASE = 'https://gonzalopareja.com';
+const canonicalUrl = new URL(Astro.url.pathname, CANONICAL_BASE).toString();
 ---
 <!doctype html>
 <html lang="es">
@@ -15,6 +18,20 @@ const {
     <link rel="preload" as="video" href="/metodo-fluir.mp4" type="video/mp4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Twitter (sharing) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gonzalo Pareja" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <title>{title}</title>
 
     <!-- Fonts -->
