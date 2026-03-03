@@ -2,15 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!-- Meta: mark this page as content -->
-<script is:inline>
-  try {
-    if (typeof window !== 'undefined' && window.fbq) {
-      window.fbq('track', 'ViewContent');
-    }
-  } catch (e) {}
-</script>
-
 <BaseLayout title="Intervención Estratégica — Gonzalo Pareja">
   <main class="relative min-h-dvh bg-black" style="background-color: #000;">
     <!-- Global background (keep consistent, avoid hard cuts) -->
@@ -23,6 +14,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
 
     <div class="relative z-10">
+
+    <!-- Meta: ViewContent (fire after pixel is ready) -->
+    <script is:inline>
+      (function () {
+        function fire() {
+          try {
+            if (window.fbq) {
+              window.fbq('track', 'ViewContent');
+              return true;
+            }
+          } catch (e) {}
+          return false;
+        }
+        // Try immediately, then retry briefly in case the pixel script hasn't loaded yet.
+        if (fire()) return;
+        var tries = 0;
+        var t = setInterval(function () {
+          tries++;
+          if (fire() || tries >= 20) clearInterval(t);
+        }, 150);
+      })();
+    </script>
 
     <!-- Hero: copy impactante + vídeo -->
     <section class="relative">
