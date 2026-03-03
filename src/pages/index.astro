@@ -137,9 +137,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 // best-effort (we still redirect)
               }
 
-              // Meta: newsletter opt-in
+              // Meta: newsletter opt-in (best-effort). Disparamos Lead aunque el fetch falle por CORS/adblock.
               try {
-                if (ok && window.fbq) window.fbq('track', 'Lead');
+                if (window.fbq) window.fbq('track', 'Lead');
               } catch (e) {}
 
               window.location.href = '/intervencion-estrategica';
