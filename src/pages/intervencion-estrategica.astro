@@ -338,7 +338,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
           <!-- CARD 1 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-intervencion-1-1_v2.png" alt="Intervención 1:1" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
+            <div class="mx-auto w-full max-w-[640px] rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+              <img
+                src="/cards/card-intervencion-1-1_v2.png"
+                alt="Intervención 1:1"
+                class="mx-auto w-full select-none"
+                style="filter: drop-shadow(0 24px 40px rgba(0,0,0,.45));"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">DECISIONES REALES</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Intervención 1:1 (90–120 min)</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
