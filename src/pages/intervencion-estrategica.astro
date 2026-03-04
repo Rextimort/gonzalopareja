@@ -15,28 +15,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <div class="relative z-10">
 
-    <!-- Meta: ViewContent (fire after pixel is ready) -->
-    <script is:inline>
-      (function () {
-        function fire() {
-          try {
-            if (window.fbq) {
-              window.fbq('track', 'ViewContent');
-              return true;
-            }
-          } catch (e) {}
-          return false;
-        }
-        // Try immediately, then retry briefly in case the pixel script hasn't loaded yet.
-        if (fire()) return;
-        var tries = 0;
-        var t = setInterval(function () {
-          tries++;
-          if (fire() || tries >= 20) clearInterval(t);
-        }, 150);
-      })();
-    </script>
-
     <!-- Hero: copy impactante + vídeo -->
     <section class="relative">
       <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-10 pt-16 text-center">
@@ -86,7 +64,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/checkout"
             class="inline-flex h-12 w-full max-w-md items-center justify-center bg-red-600 px-8 text-sm font-semibold"
-            onclick="try{window.fbq&&window.fbq('track','InitiateCheckout')}catch(e){}; setTimeout(()=>{window.location.href=this.href},150); return false;"
           >
             👉 Solicitar sesión 1:1 (60€)
           </a>
@@ -301,7 +278,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/checkout"
             class="mt-10 inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-sm font-semibold text-white sm:h-14 sm:px-14 sm:text-base"
-            onclick="try{window.fbq&&window.fbq('track','InitiateCheckout')}catch(e){}; setTimeout(()=>{window.location.href=this.href},150); return false;"
           >
             Solicitar sesión 1:1 (60€)
           </a>
