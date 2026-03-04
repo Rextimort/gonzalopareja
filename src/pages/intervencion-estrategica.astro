@@ -531,7 +531,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </p>
               </div>
 
-              <div class="space-y-5">
+              <div class="space-y-5" id="faqAccordion">
                 <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm" open>
                   <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Por qué tengo que reservar una sesión 1:1 antes de la Intervención 60D?</span>
@@ -642,6 +642,89 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
                 <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
                   <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                    <span class="text-lg font-extrabold tracking-tight text-black">¿En qué se diferencia de una mentoría o un coach típico?</span>
+                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                    <p>Un coach suele acompañarte. Un mentor suele tener una metodología generalista que funciona mejor para gente <span class="font-semibold text-black/85">parecida a él</span>.</p>
+                    <p class="mt-3">Esto no va de plantillas. Va de intervención a medida.</p>
+                    <p class="mt-3">Aquí no compras “un método”. Compras <span class="font-semibold text-black/85">dirección</span> desde alguien que se ha construido desde cero hasta alcanzar la riqueza y que ha dirigido empresas —muchas de ellas con pérdidas sostenidas— hasta devolverlas a rentabilidades históricas.</p>
+                  </div>
+                </details>
+
+                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                    <span class="text-lg font-extrabold tracking-tight text-black">¿Cuánto tiempo tengo que dedicarle?</span>
+                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                    <p>No es “hacer tareas sueltas”. Es vivir 60 días dentro de un marco: decisiones, acción, comunicación y prioridades alineadas.</p>
+                    <p class="mt-3">Si quieres seguir viviendo igual y añadir dos hábitos por encima, no es aquí.</p>
+                  </div>
+                </details>
+
+                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                    <span class="text-lg font-extrabold tracking-tight text-black">¿Cuándo voy a notar resultados?</span>
+                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                    <p><span class="font-semibold text-black/85">Perceptivos</span> (claridad, calma, dirección): rápido. Desde el día 1 notas que no estás improvisando.</p>
+                    <p class="mt-3"><span class="font-semibold text-black/85">Tangibles</span> (dinero, trabajo, decisiones cerradas, cambios externos): dependen del proceso y de tu ejecución.</p>
+                    <p class="mt-3">Lo que sí te doy es el carril. Lo que no puedo hacer por ti es andar.</p>
+                  </div>
+                </details>
+
+                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                    <span class="text-lg font-extrabold tracking-tight text-black">¿Qué pasa si mis objetivos no se pueden alcanzar en solo 60 días?</span>
+                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                    <p>Perfecto. Muchísimos objetivos serios no se consiguen “en dos tardes”.</p>
+                    <p class="mt-3">La Intervención 60D es para darte dirección, estrategia y tracción real. Y si el proceso necesita más recorrido, existe un formato de continuidad: <span class="font-semibold text-black/85">Acompañamiento Estratégico (6–12 meses)</span>.</p>
+                    <p class="mt-3">No es “pagar otra intervención y empezar de cero”. Es continuidad: ya estás dentro, ya hay plan, y solo pagas por mantener el acompañamiento el tiempo que el objetivo requiera (si ambos vemos que tiene sentido).</p>
+                  </div>
+                </details>
+
+                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                    <span class="text-lg font-extrabold tracking-tight text-black">¿Y si mi caso es raro o mi negocio es específico?</span>
+                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                    <p>Me da igual el sector. La mayoría de bloqueos se repiten:</p>
+                    <ul class="mt-2 ml-5 list-disc space-y-1">
+                      <li>estás demasiado dentro del problema como para ver con claridad,</li>
+                      <li>no alineas decisiones y acciones con el resultado real,</li>
+                      <li>y no sostienes foco cuando llega la incomodidad.</li>
+                    </ul>
+                    <p class="mt-3">Si tu caso requiere otra cosa (legal, fiscal, terapia), te lo diré. No vendo humo.</p>
+                  </div>
+                </details>
+
+                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Me garantizas resultados?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -657,6 +740,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
             </div>
           </section>
+
+          <!-- FAQ accordion behavior: only one open at a time -->
+          <script is:inline>
+            (function () {
+              const root = document.getElementById('faqAccordion');
+              if (!root) return;
+
+              const items = Array.from(root.querySelectorAll('details'));
+              items.forEach((d) => {
+                d.addEventListener('toggle', () => {
+                  if (!d.open) return;
+                  items.forEach((other) => {
+                    if (other !== d) other.open = false;
+                  });
+                });
+              });
+            })();
+          </script>
         </div>
       </div>
     </section>
