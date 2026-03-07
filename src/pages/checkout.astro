@@ -126,6 +126,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             form?.addEventListener('submit', async (e) => {
               e.preventDefault();
+              try { window.clarity && window.clarity('event', 'CHECKOUT_PAY_CLICK'); } catch (e) {}
               statusEl.textContent = 'Redirigiendo a Stripe…';
               btn.disabled = true;
               btn.classList.add('opacity-60');

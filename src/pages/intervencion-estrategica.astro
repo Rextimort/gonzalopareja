@@ -64,6 +64,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/checkout"
             class="inline-flex h-12 w-full max-w-md items-center justify-center bg-red-600 px-8 text-sm font-semibold"
+            onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}"
           >
             👉 Solicitar sesión 1:1 (60€)
           </a>
@@ -256,7 +257,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <div class="mx-auto mt-12 flex w-full max-w-md flex-col items-center gap-4">
-          <a href="/checkout" class="inline-flex h-12 w-full items-center justify-center bg-red-600 px-8 text-sm font-semibold text-white">
+          <a href="/checkout" class="inline-flex h-12 w-full items-center justify-center bg-red-600 px-8 text-sm font-semibold text-white" onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}">
             👉 Solicitar sesión 1:1 (60€)
           </a>
         </div>
@@ -278,6 +279,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <a
             href="/checkout"
             class="mt-10 inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-sm font-semibold text-white sm:h-14 sm:px-14 sm:text-base"
+            onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}"
           >
             Solicitar sesión 1:1 (60€)
           </a>
@@ -514,6 +516,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <a
               href="/checkout"
               class="mt-10 inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-sm font-semibold text-white sm:h-14 sm:px-14 sm:text-base"
+              onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}"
             >
               Solicitar sesión 1:1 (60€)
             </a>
