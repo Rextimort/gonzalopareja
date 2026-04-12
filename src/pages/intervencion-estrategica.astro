@@ -21,57 +21,69 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <p class="text-xs font-semibold tracking-widest text-white/60">GONZALO PAREJA (Dirección Estratégica)</p>
 
         <h1 class="mt-3 max-w-4xl text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-          Estás haciendo lo que puedes. Pero no <span class="text-red-500">lo que deberías</span>.
-          Y eso <span class="text-red-500">tiene consecuencias</span>
+          No estás atrapado por lo que haces.
+          Estás atrapado por la vida que has construido.
+          Y eso <span class="text-red-500">también tiene consecuencias</span>.
         </h1>
 
         <p class="mt-6 max-w-3xl text-pretty text-base text-white/80 sm:text-lg">
-          Si estás en un momento importante y
-          <span class="underline decoration-white/80 decoration-1 underline-offset-4">no quieres volver a equivocarte</span>,
+          Si sabes que tu vida podría ser muy distinta…
+          <span class="underline decoration-white/80 decoration-1 underline-offset-4">pero no puedes cambiarla sin que todo se rompa</span>,
           empieza aquí.
         </p>
 
         <div class="mt-10 w-full max-w-4xl">
-          <div class="mx-auto mb-6 flex w-full max-w-xl items-center justify-center">
-            <img src="/proof-50-clientes.png" alt="50+ clientes" class="h-7 w-auto select-none sm:h-11" loading="lazy" decoding="async" />
-          </div>
           <div class="relative aspect-video overflow-hidden rounded-md bg-black" style="contain: paint; isolation: isolate; transform: translateZ(0);">
-            <!-- Loom embed (temporary). Note: autoplay with sound may be blocked by browsers. -->
-            <iframe
+            <video
               id="metodoFluirVideo"
-              class="absolute inset-0 h-full w-full"
-              src="https://www.loom.com/embed/f9d027b6f519406fa72bde2b69fb403e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-              frameborder="0"
-              allow="fullscreen; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
+              class="absolute block bg-black object-cover"
+              style="
+                /* Overscan without scaling (reduces Chrome edge shimmer/jitter) */
+                top: -2px;
+                left: -2px;
+                width: calc(100% + 4px);
+                height: calc(100% + 4px);
 
-          <!-- Loom is an embed, so we can't reliably detect "video ended" to show an overlay.
-               Show the closing line right under the video instead. -->
-          <div class="mt-6 rounded-md bg-black/55 px-6 py-6 text-center ring-1 ring-white/10 backdrop-blur">
-            <p class="text-balance text-lg font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-              Lograr tus objetivos no es cuestión de suerte. Es cuestión de estrategia y decisiones sostenidas.
-              Si quieres otro resultado, tendrás que empezar a <span class="text-red-500">decidir distinto</span>.
-            </p>
-            <p class="mt-4 text-[11px] font-semibold tracking-widest text-white/70 underline decoration-white/60 underline-offset-4">
-              La pregunta es si tú estás dispuesto.
-            </p>
+                transform: translate3d(0,0,0);
+                backface-visibility: hidden;
+                will-change: transform;
+              "
+              src="/metodo-fluir.mp4"
+              autoplay
+              playsinline
+              controls
+              preload="metadata"
+            ></video>
+
+            <!-- Overlay shown when video ends -->
+            <div
+              id="videoEndOverlay"
+              class="pointer-events-auto absolute inset-0 hidden items-center justify-center bg-black/70 px-6 py-6 text-center"
+            >
+              <div class="max-w-3xl">
+                <p class="text-balance text-2xl font-extrabold leading-snug tracking-tight sm:text-5xl">
+                  No es suerte. Es el resultado de decisiones sostenidas.
+                  Si quieres otro resultado, tendrás que empezar a <span class="text-red-500">decidir distinto</span>.
+                </p>
+                <button
+                  type="button"
+                  id="ignoreOverlayBtn"
+                  class="mt-8 text-[10px] font-semibold tracking-widest text-white/70 underline decoration-white/60 underline-offset-4 hover:text-white"
+                >
+                  <span class="underline decoration-white/60 underline-offset-4">La pregunta es si tú estás dispuesto.</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="mt-10 flex w-full flex-col items-center gap-4">
-          <a
-            href="/checkout"
-            class="inline-flex h-12 w-full max-w-md items-center justify-center bg-red-600 px-8 text-sm font-semibold"
-            onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}"
-          >
-            👉 Solicitar sesión 1:1 (60€)
+          <a href="/checkout" class="inline-flex h-12 w-full max-w-md items-center justify-center bg-red-600 px-8 text-sm font-semibold">
+            👉 Solicitar diagnóstico estratégico (60€)
           </a>
         </div>
       </div>
     </section>
-
 
     <!-- Casos reales / resultados -->
     <section class="relative px-6 pt-10 pb-16 sm:pt-14 sm:pb-20">
@@ -82,13 +94,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             Casos reales. Cambios reales.
           </h2>
           <p class="mt-5 text-pretty text-base text-white/75 sm:text-lg">
-            No promesas. Contexto, decisiones y ejecución.
+            Personas que dejaron de sostener su vida… y empezaron a dirigirla.
           </p>
         </div>
 
         <div class="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
           <!-- BOX 1 -->
-          <div class="rounded-2xl bg-white/105 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
+          <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
             <div class="flex items-start gap-4">
               <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -97,26 +109,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Cambio de carrera + salto salarial</p>
+                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de no tener dirección… a construir una vida con opciones reales.</p>
                 <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
                   “De 1.100€ en un bingo a trabajar en tech en menos de 12 meses”
                 </p>
                 <p class="mt-4 text-sm leading-relaxed text-white/75">
                   No sabía por dónde empezar ni qué estudiar. En 3 meses se formó en maquetación web, la preparé para entrevistas y consiguió trabajo en el sector. Al año ya estaba cambiando de empresa y ganando mucho más que en su trabajo anterior.
                 </p>
-                <div class="mt-5 flex gap-1" aria-label="5 estrellas">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
               </div>
             </div>
           </div>
 
           <!-- BOX 2 -->
-          <div class="rounded-2xl bg-white/105 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
+          <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
             <div class="flex items-start gap-4">
               <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -125,26 +130,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">De empleada a propietaria con inversión inteligente</p>
+                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de depender de un sueldo… a tener margen para decidir cómo vivir.</p>
                 <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
                   “De empleada a propietaria en un año”
                 </p>
                 <p class="mt-4 text-sm leading-relaxed text-white/75">
                   Tras estabilizar su nueva carrera, la ayudé a comprar su primer piso. Lo estructuramos para alquilar por habitaciones y maximizar ingresos. Pasó de depender solo de su sueldo a tener ingresos extra todos los meses.
                 </p>
-                <div class="mt-5 flex gap-1" aria-label="5 estrellas">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
               </div>
             </div>
           </div>
 
           <!-- BOX 3 -->
-          <div class="rounded-2xl bg-white/105 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
+          <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
             <div class="flex items-start gap-4">
               <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -153,26 +151,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">De 1.200€ y presión laboral a +5.000€ por cuenta propia</p>
+                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de estar atrapada en una situación… a poder sostener su vida sin depender de nadie.</p>
                 <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
                   “De 1.200€ al mes a facturar más de 5.000€”
                 </p>
                 <p class="mt-4 text-sm leading-relaxed text-white/75">
                   Después de más de 20 años trabajando para otros, la estaban presionando para que se fuera sin indemnización. La ayudé a sostener la situación, preparar el caso y conseguir su despido improcedente. Un año después trabaja por su cuenta, con costes mínimos y facturación propia.
                 </p>
-                <div class="mt-5 flex gap-1" aria-label="5 estrellas">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
               </div>
             </div>
           </div>
 
           <!-- BOX 4 -->
-          <div class="rounded-2xl bg-white/105 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
+          <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
             <div class="flex items-start gap-4">
               <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -181,26 +172,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Salto salarial del 40% al 50%</p>
+                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de avanzar sin control… a tomar decisiones con impacto real en su vida.</p>
                 <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
                   “De 35.000€ a 55.000€ en un cambio estratégico”
                 </p>
                 <p class="mt-4 text-sm leading-relaxed text-white/75">
                   Redefinimos posicionamiento, negociamos correctamente y planificamos el movimiento. En menos de 12 meses pasó de un salario medio a uno claramente superior.
                 </p>
-                <div class="mt-5 flex gap-1" aria-label="5 estrellas">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
               </div>
             </div>
           </div>
 
           <!-- BOX 5 -->
-          <div class="rounded-2xl bg-white/105 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
+          <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
             <div class="flex items-start gap-4">
               <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -209,26 +193,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Reorientación profesional con duplicación de ingresos</p>
+                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de estar mal posicionada… a tener control sobre su crecimiento.</p>
                 <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
                   “Duplicó sus ingresos en 6 meses”
                 </p>
                 <p class="mt-4 text-sm leading-relaxed text-white/75">
                   Estaba en el sector equivocado y mal posicionado. Redefinimos su estrategia profesional y ejecutó el movimiento correcto. En medio año estaba ganando el doble.
                 </p>
-                <div class="mt-5 flex gap-1" aria-label="5 estrellas">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
               </div>
             </div>
           </div>
 
           <!-- BOX 6 -->
-          <div class="rounded-2xl bg-white/105 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
+          <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
             <div class="flex items-start gap-4">
               <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -237,100 +214,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Desbloqueo profesional sin cambiar de sector</p>
+                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de estar bloqueado… a recuperar capacidad de movimiento.</p>
                 <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
                   “Pasó de años estancado a ascender en su propia empresa”
                 </p>
                 <p class="mt-4 text-sm leading-relaxed text-white/75">
                   Llevaba tiempo haciendo bien su trabajo, pero nadie lo veía como candidato a subir de nivel. Redefinimos su posicionamiento interno, ajustamos su enfoque y preparó la negociación. En pocos meses consiguió el ascenso y una mejora salarial significativa.
                 </p>
-                <div class="mt-5 flex gap-1" aria-label="5 estrellas">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="mx-auto mt-12 flex w-full max-w-md flex-col items-center gap-4">
-          <a href="/checkout" class="inline-flex h-12 w-full items-center justify-center bg-red-600 px-8 text-sm font-semibold text-white" onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}">
-            👉 Solicitar sesión 1:1 (60€)
+          <a href="/checkout" class="inline-flex h-12 w-full items-center justify-center bg-red-600 px-8 text-sm font-semibold text-white">
+            👉 Solicitar diagnóstico estratégico (60€)
           </a>
         </div>
       </div>
     </section>
 
-    <!-- INTERVENCIÓN ESTRATÉGICA 60D (high-ticket visual) -->
-    <section class="relative px-6 pt-10 pb-20 sm:pt-14 sm:pb-28">
-      <div class="relative z-10 mx-auto max-w-6xl">
-        <!-- HERO CARD -->
-        <div class="mx-auto max-w-4xl rounded-2xl bg-black/55 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-          <p class="text-xs font-semibold tracking-widest text-white/70">GONZALO PAREJA · DIRECCIÓN ESTRATÉGICA</p>
-          <h2 class="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
-            Intervención Estratégica 60D
-          </h2>
-          <p class="mt-6 text-pretty text-base text-white/80 sm:text-lg">
-            Si estás en un momento importante y no quieres volver a equivocarte, trabajamos eso.
-          </p>
-          <a
-            href="/checkout"
-            class="mt-10 inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-sm font-semibold text-white sm:h-14 sm:px-14 sm:text-base"
-            onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}"
-          >
-            Solicitar sesión 1:1 (60€)
-          </a>
-        </div>
-
-        <!-- CARDS STACK (background visible around cards) -->
-        <div class="mx-auto mt-14 grid max-w-5xl gap-8">
-          <!-- Problema real -->
-          <div class="rounded-2xl bg-white/95 p-10 text-center shadow-2xl ring-1 ring-black/5 sm:p-14">
-            <h3 class="text-balance text-3xl font-extrabold tracking-tight text-black sm:text-5xl">Tu problema no es de falta de información</h3>
-            <p class="mt-8 text-balance text-lg text-black/75 sm:text-2xl">
-              Es cómo estás decidiendo.<br />
-              Mientras eso no cambie, todo se repite.
-            </p>
-          </div>
-
-          <!-- Qué es / qué no es -->
-          <div class="rounded-2xl bg-black/55 p-10 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-            <div class="mx-auto grid max-w-4xl gap-10 sm:grid-cols-2">
-              <div class="mx-auto max-w-md">
-                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ ES</p>
-                <p class="mt-5 text-xl font-semibold text-white sm:text-2xl">Intervención directa. Trabajo 1:1. Decisiones reales.</p>
-                <p class="mt-4 text-base leading-relaxed text-white/75">
-                  60 días de enfoque absoluto, orientados totalmente a conseguir los resultados, sin perder el tiempo.
-                </p>
-              </div>
-              <div class="mx-auto max-w-md">
-                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ NO ES</p>
-                <p class="mt-5 text-base leading-relaxed text-white/75">
-                  No es un curso. No es un grupo. No es mentoría motivacional. No es inspiración semanal.
-                  <span class="font-semibold text-white">Es trabajo serio.</span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Qué hacemos -->
-          <div class="rounded-2xl bg-white/95 p-10 text-center shadow-2xl ring-1 ring-black/5 sm:p-14">
-            <h3 class="text-3xl font-extrabold tracking-tight text-black sm:text-5xl">Qué trabajamos en 60 días</h3>
-            <ul class="mx-auto mt-10 grid max-w-3xl gap-4 text-left text-base text-black/75 sm:text-center">
-              <li>– Analizamos tu situación con total honestidad.</li>
-              <li>– Definimos juntos tus objetivos.</li>
-              <li>– Detectamos patrones que te frenan.</li>
-              <li>– Reordenamos prioridades.</li>
-              <li>– Elevamos estándar.</li>
-              <li>– Definimos decisiones ejecutables.</li>
-            </ul>
-            <p class="mt-10 text-sm font-semibold tracking-wide text-black/60">Sin teoría. Solo trabajo, foco y dirección.</p>
-          </div>
-
-          <!-- Qué te llevas (Intervención 60D) -->
+    <!-- Qué te llevas (Intervención 60D) -->
     <section class="relative px-6 pt-14 pb-16 sm:pt-20 sm:pb-20">
       <div class="relative z-10 mx-auto max-w-6xl">
         <div class="mx-auto max-w-4xl text-center">
@@ -346,7 +250,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
           <!-- CARD 1 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-intervencion-1-1_v2.png" alt="Intervención 1:1" class="mx-auto w-full max-w-[291px] select-none" loading="lazy" decoding="async" />
+            <img src="/cards/card-intervencion-1-1_v2.png" alt="Intervención 1:1" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">DECISIONES REALES</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Intervención 1:1 (90–120 min)</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -364,7 +268,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <!-- CARD 2 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-plan-60d_v2.png" alt="Plan 60D" class="mx-auto w-full max-w-[291px] select-none" loading="lazy" decoding="async" />
+            <img src="/cards/card-plan-60d_v2.png" alt="Plan 60D" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">HOJA DE RUTA</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Plan 60D (por escrito en 24–48h)</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -382,7 +286,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <!-- CARD 3 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-revision-semanal.png" alt="Revisión semanal" class="mx-auto w-full max-w-[291px] select-none" loading="lazy" decoding="async" />
+            <img src="/cards/card-revision-semanal.png" alt="Revisión semanal" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">CONTROL DE RUMBO</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Revisión semanal (60 días)</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -400,7 +304,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <!-- CARD 4 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-telegram_final2.png" alt="Telegram" class="mx-auto w-full max-w-[291px] select-none" loading="lazy" decoding="async" />
+            <img src="/cards/card-telegram_final2.png" alt="Telegram" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">CANAL PRIVADO</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Telegram (24–48h laborables)</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -418,7 +322,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <!-- CARD 5 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-minicalls.png" alt="Minicalls" class="mx-auto w-full max-w-[291px] select-none" loading="lazy" decoding="async" />
+            <img src="/cards/card-minicalls.png" alt="Minicalls" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">SOLO SI LO ABRO YO</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Minicalls estratégicas</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -436,7 +340,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <!-- CARD 6 -->
           <div class="rounded-2xl bg-black/55 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <img src="/cards/card-cierre.png" alt="Cierre" class="mx-auto w-full max-w-[291px] select-none" loading="lazy" decoding="async" />
+            <img src="/cards/card-cierre.png" alt="Cierre" class="mx-auto w-full max-w-[520px] select-none" loading="lazy" decoding="async" />
             <p class="mt-6 text-xs font-semibold tracking-widest text-white/60">CONSOLIDACIÓN</p>
             <p class="mt-2 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Cierre + sistema para no recaer</p>
             <p class="mt-3 text-sm leading-relaxed text-white/75">
@@ -464,6 +368,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
     </section>
+
+    <!-- INTERVENCIÓN ESTRATÉGICA 60D (high-ticket visual) -->
+    <section class="relative px-6 pt-10 pb-20 sm:pt-14 sm:pb-28">
+      <div class="relative z-10 mx-auto max-w-6xl">
+        <!-- HERO CARD -->
+        <div class="mx-auto max-w-4xl rounded-2xl bg-black/55 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
+          <p class="text-xs font-semibold tracking-widest text-white/70">GONZALO PAREJA · DIRECCIÓN ESTRATÉGICA</p>
+          <h2 class="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
+            Intervención Estratégica 60D
+          </h2>
+          <p class="mt-6 text-pretty text-base text-white/80 sm:text-lg">
+            Si estás en un punto donde sabes que así no quieres seguir… pero tampoco puedes cambiar sin romperlo todo, trabajamos eso.
+          </p>
+          <a
+            href="/checkout"
+            class="mt-10 inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-sm font-semibold text-white sm:h-14 sm:px-14 sm:text-base"
+          >
+            Solicitar diagnóstico estratégico (60€)
+          </a>
+        </div>
+
+        <!-- CARDS STACK (background visible around cards) -->
+        <div class="mx-auto mt-14 grid max-w-5xl gap-8">
+          <!-- Problema real -->
+          <div class="rounded-2xl bg-white/95 p-10 text-center shadow-2xl ring-1 ring-black/5 sm:p-14">
+            <h3 class="text-balance text-3xl font-extrabold tracking-tight text-black sm:text-5xl">Tu problema no es de falta de información</h3>
+            <p class="mt-8 text-balance text-lg text-black/75 sm:text-2xl">
+              Es que has construido una vida que te obliga a decidir así.<br />
+              Y mientras eso no cambie… todo se repite.
+            </p>
+          </div>
+
+          <!-- Qué es / qué no es -->
+          <div class="rounded-2xl bg-black/55 p-10 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
+            <div class="mx-auto grid max-w-4xl gap-10 sm:grid-cols-2">
+              <div class="mx-auto max-w-md">
+                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ ES</p>
+                <p class="mt-5 text-xl font-semibold text-white sm:text-2xl">Intervención directa. Trabajo 1:1. Decisiones reales.</p>
+                <p class="mt-4 text-base leading-relaxed text-white/75">
+                  60 días de enfoque absoluto. Sin teoría innecesaria. Sin perder el tiempo.
+                </p>
+              </div>
+              <div class="mx-auto max-w-md">
+                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ NO ES</p>
+                <p class="mt-5 text-base leading-relaxed text-white/75">
+                  No es un curso. No es un grupo. No es mentoría motivacional. No es inspiración semanal.
+                  <span class="font-semibold text-white">Es trabajo serio.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Qué hacemos -->
+          <div class="rounded-2xl bg-white/95 p-10 text-center shadow-2xl ring-1 ring-black/5 sm:p-14">
+            <h3 class="text-3xl font-extrabold tracking-tight text-black sm:text-5xl">Qué trabajamos en 60 días</h3>
+            <ul class="mx-auto mt-10 grid max-w-3xl gap-4 text-left text-base text-black/75 sm:text-center">
+              <li>– Analizamos tu situación sin autoengaños.</li>
+              <li>– Definimos juntos tus objetivos.</li>
+              <li>– Detectamos patrones que te frenan.</li>
+              <li>– Reordenamos prioridades.</li>
+              <li>– Elevamos estándar.</li>
+              <li>– Definimos decisiones ejecutables.</li>
+            </ul>
+            <p class="mt-10 text-sm font-semibold tracking-wide text-black/60">Sin teoría vacía. Trabajo directo.</p>
+          </div>
 
           <!-- Cómo funciona -->
           <div class="rounded-2xl bg-black/55 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
@@ -516,27 +485,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <a
               href="/checkout"
               class="mt-10 inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-sm font-semibold text-white sm:h-14 sm:px-14 sm:text-base"
-              onclick="try{window.clarity&&window.clarity('event','CTA_CLICK_DIAGNOSTICO')}catch(e){}"
             >
-              Solicitar sesión 1:1 (60€)
+              Solicitar diagnóstico estratégico (60€)
             </a>
           </div>
 
           <!-- FAQ -->
-          <section class="rounded-2xl bg-white p-10 shadow-2xl ring-1 ring-black/5 sm:p-14" aria-label="Preguntas frecuentes">
+          <section class="rounded-2xl bg-white p-10 shadow-2xl ring-1 ring-black/5 sm:p-14">
             <div class="grid gap-10 lg:grid-cols-[420px_1fr] lg:gap-14">
               <div>
                 <p class="text-xs font-semibold tracking-widest text-black/50">FAQ</p>
                 <h2 class="mt-3 text-4xl font-extrabold tracking-tight text-black sm:text-5xl">Preguntas frecuentes</h2>
                 <p class="mt-5 text-base text-black/65">
-                  Si estás a punto de pagar por dirección, <span class="font-semibold text-black/90">es normal tener dudas</span>.
+                  Si estás a punto de pagar por dirección, es normal tener dudas.
                   Mejor resolverlas aquí que inventarte una excusa y seguir igual.
                 </p>
               </div>
 
-              <div class="space-y-5" id="faqAccordion">
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm" open>
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+              <div class="space-y-4">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm" open>
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Por qué tengo que reservar una sesión 1:1 antes de la Intervención 60D?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -544,20 +512,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>Porque <span class="font-semibold text-black/85">valoro mi tiempo</span>. Y el tuyo.</p>
-                    <p class="mt-3">Una hora conmigo bien hecha es suficiente para cambiar el rumbo de mucha gente.</p>
-                    <p class="mt-3">Y, sobre todo, porque es mi filtro:</p>
-                    <ul class="mt-2 ml-5 list-disc space-y-1">
+                    <p>Una hora conmigo bien hecha es suficiente para cambiar el rumbo de mucha gente.</p>
+                    <p>Y, sobre todo, porque es mi filtro:</p>
+                    <ul class="ml-5 list-disc space-y-1">
                       <li>Si vienes a “ver qué tal”, aquí no entras.</li>
                       <li>Si vienes a <span class="font-semibold text-black/85">tomar acción</span>, se nota.</li>
                     </ul>
-                    <p class="mt-3">La sesión 1:1 separa a curiosos de gente en un momento serio.</p>
+                    <p>La sesión 1:1 separa a curiosos de gente en un momento serio.</p>
                   </div>
                 </details>
 
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Qué diferencia hay entre la sesión 1:1 de diagnóstico y la Intervención 60D?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -565,16 +533,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>El diagnóstico es <span class="font-semibold text-black/85">claridad + decisión</span>.</p>
-                    <p class="mt-3">La Intervención 60D es <span class="font-semibold text-black/85">plan + ejecución + supervisión</span>.</p>
-                    <p class="mt-3">Hay personas a las que con una decisión bien tomada les basta. Para esas, el diagnóstico es suficiente.</p>
-                    <p class="mt-3">Pero si tu objetivo es más grande, más complejo o más fácil de abandonar cuando llega la incomodidad… entonces no necesitas una llamada. Necesitas que yo <span class="font-semibold text-black/85">me meta en el proceso</span>.</p>
+                    <p>La Intervención 60D es <span class="font-semibold text-black/85">plan + ejecución + supervisión</span>.</p>
+                    <p>Hay personas a las que con una decisión bien tomada les basta. Para esas, el diagnóstico es suficiente.</p>
+                    <p>Pero si tu objetivo es más grande, más complejo o más fácil de abandonar cuando llega la incomodidad… entonces no necesitas una llamada. Necesitas que yo <span class="font-semibold text-black/85">me meta en el proceso</span>.</p>
                   </div>
                 </details>
 
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Qué es una Intervención Estratégica, exactamente?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -582,19 +550,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>Es mi intervención desde fuera para ver con frialdad:</p>
-                    <ul class="mt-2 ml-5 list-disc space-y-1">
+                    <ul class="ml-5 list-disc space-y-1">
                       <li>qué objetivo estás persiguiendo (de verdad),</li>
                       <li>por qué no lo estás consiguiendo,</li>
                       <li>y qué estrategia te falta para maximizar la probabilidad de éxito.</li>
                     </ul>
-                    <p class="mt-3">Si ya tienes un plan, encontramos el cuello de botella. Si no lo tienes, lo diseñamos desde cero.</p>
+                    <p>Si ya tienes un plan, encontramos el cuello de botella. Si no lo tienes, lo diseñamos desde cero.</p>
                   </div>
                 </details>
 
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Para quién es?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -602,15 +570,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>Para personas capaces, con estructura interior.</p>
-                    <p class="mt-3">Gente que puede sostener incomodidad, poner límites y ejecutar sin estar negociando consigo misma cada día.</p>
-                    <p class="mt-3">Si no avanzas por falta de dirección (no por falta de potencial), te encaja.</p>
+                    <p>Gente que puede sostener incomodidad, poner límites y ejecutar sin estar negociando consigo misma cada día.</p>
+                    <p>Si no avanzas por falta de dirección (no por falta de potencial), te encaja.</p>
                   </div>
                 </details>
 
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Para quién NO es?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -618,15 +586,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>Para quien vive en procrastinación, dopamina barata y parálisis por análisis.</p>
-                    <p class="mt-3">Para quien quiere que le digan lo que quiere oír.</p>
-                    <p class="mt-3">Y para quien todavía no está en un punto vital como para tomar acción sostenida. Esa gente no pasa el diagnóstico.</p>
+                    <p>Para quien quiere que le digan lo que quiere oír.</p>
+                    <p>Y para quien todavía no está en un punto vital como para tomar acción sostenida. Esa gente no pasa el diagnóstico.</p>
                   </div>
                 </details>
 
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Qué me llevo en la práctica tras la sesión 1:1?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -634,100 +602,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>Depende del tipo de bloqueo:</p>
-                    <ul class="mt-2 ml-5 list-disc space-y-1">
+                    <ul class="ml-5 list-disc space-y-1">
                       <li>Si tu bloqueo es una decisión clave: sales con la decisión, el porqué y <span class="font-semibold text-black/85">el siguiente paso que debes dar</span>.</li>
                       <li>Si tu objetivo requiere proceso: sales con un primer diagnóstico que deja el terreno listo para arrancar la Intervención 60D sin perder semanas.</li>
                     </ul>
                   </div>
                 </details>
 
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿En qué se diferencia de una mentoría o un coach típico?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
-                    <p>Un coach suele acompañarte. Un mentor suele tener una metodología generalista que funciona mejor para gente <span class="font-semibold text-black/85">parecida a él</span>.</p>
-                    <p class="mt-3">Esto no va de plantillas. Va de intervención a medida.</p>
-                    <p class="mt-3">Aquí no compras “un método”. Compras <span class="font-semibold text-black/85">dirección</span> desde alguien que se ha construido desde cero hasta alcanzar la riqueza y que ha dirigido empresas —muchas de ellas con pérdidas sostenidas— hasta devolverlas a rentabilidades históricas.</p>
-                  </div>
-                </details>
-
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Cuánto tiempo tengo que dedicarle?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
-                    <p>No es “hacer tareas sueltas”. Es vivir 60 días dentro de un marco: decisiones, acción, comunicación y prioridades alineadas.</p>
-                    <p class="mt-3">Si quieres seguir viviendo igual y añadir dos hábitos por encima, no es aquí.</p>
-                  </div>
-                </details>
-
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Cuándo voy a notar resultados?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
-                    <p><span class="font-semibold text-black/85">Perceptivos</span> (claridad, calma, dirección): rápido. Desde el día 1 notas que no estás improvisando.</p>
-                    <p class="mt-3"><span class="font-semibold text-black/85">Tangibles</span> (dinero, trabajo, decisiones cerradas, cambios externos): dependen del proceso y de tu ejecución.</p>
-                    <p class="mt-3">Lo que sí te doy es el carril. Lo que no puedo hacer por ti es andar.</p>
-                  </div>
-                </details>
-
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Qué pasa si mis objetivos no se pueden alcanzar en solo 60 días?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
-                    <p>Perfecto. Muchísimos objetivos serios no se consiguen “en dos tardes”.</p>
-                    <p class="mt-3">La Intervención 60D es para darte dirección, estrategia y tracción real. Y si el proceso necesita más recorrido, existe un formato de continuidad: <span class="font-semibold text-black/85">Acompañamiento Estratégico (6–12 meses)</span>.</p>
-                    <p class="mt-3">No es “pagar otra intervención y empezar de cero”. Es continuidad: ya estás dentro, ya hay plan, y solo pagas por mantener el acompañamiento el tiempo que el objetivo requiera (si ambos vemos que tiene sentido).</p>
-                  </div>
-                </details>
-
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Y si mi caso es raro o mi negocio es específico?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
-                    <p>Me da igual el sector. La mayoría de bloqueos se repiten:</p>
-                    <ul class="mt-2 ml-5 list-disc space-y-1">
-                      <li>estás demasiado dentro del problema como para ver con claridad,</li>
-                      <li>no alineas decisiones y acciones con el resultado real,</li>
-                      <li>y no sostienes foco cuando llega la incomodidad.</li>
-                    </ul>
-                    <p class="mt-3">Si tu caso requiere otra cosa (legal, fiscal, terapia), te lo diré. No vendo humo.</p>
-                  </div>
-                </details>
-
-                <details class="group overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 bg-black/5 px-6 py-5">
+                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span class="text-lg font-extrabold tracking-tight text-black">¿Me garantizas resultados?</span>
                     <span class="shrink-0 text-black/50 transition group-open:rotate-180">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -735,32 +620,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       </svg>
                     </span>
                   </summary>
-                  <div class="px-6 pb-6 pt-1 text-[15px] leading-relaxed text-black/70">
+                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
                     <p>No. Y desconfía del que lo haga.</p>
-                    <p class="mt-3">Lo que sí garantizo es dirección, claridad y un marco de ejecución real. El resultado depende de que ejecutes.</p>
+                    <p>Lo que sí garantizo es dirección, claridad y un marco de ejecución real. El resultado depende de que ejecutes.</p>
                   </div>
                 </details>
               </div>
             </div>
           </section>
-
-          <!-- FAQ accordion behavior: only one open at a time -->
-          <script is:inline>
-            (function () {
-              const root = document.getElementById('faqAccordion');
-              if (!root) return;
-
-              const items = Array.from(root.querySelectorAll('details'));
-              items.forEach((d) => {
-                d.addEventListener('toggle', () => {
-                  if (!d.open) return;
-                  items.forEach((other) => {
-                    if (other !== d) other.open = false;
-                  });
-                });
-              });
-            })();
-          </script>
         </div>
       </div>
     </section>
