@@ -16,7 +16,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="rounded-md bg-white px-2 py-2 md:px-0 md:py-0">
           <div class="inline-block rounded-md bg-white p-0 shadow-sm">
             <img
-              src="/checkout-zoom.jpg?v=1"
+              src="/checkout-zoom-v10.png?v=1"
               alt=""
               class="h-auto w-full max-w-[520px] rounded-md bg-white"
               loading="eager"
@@ -28,24 +28,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             Diagnóstico Estratégico 1:1
           </h1>
 
-          <p class="mt-4 text-[15px] leading-relaxed text-black/70">
+          <p id="checkoutIntro" class="mt-4 text-[15px] leading-relaxed text-black/70">
             Si estás aquí, es porque <span class="font-semibold text-black/85">sabes que no quieres seguir igual</span>.
+          </p>
+
+          <p id="checkoutIntroNewsletter" class="mt-3 hidden text-[15px] leading-relaxed text-black/70">
+            Si vienes de la newsletter: aquí es donde <span class="font-semibold text-black/85">valoramos tu caso</span>. En 60 minutos te digo qué decisión estás evitando, qué te está atando y cuál es tu siguiente paso para dejar de vivir al límite.
           </p>
 
           <hr class="mt-8 border-black/10" />
 
           <h2 class="mt-8 text-lg font-extrabold tracking-tight">¿Qué es esta sesión?</h2>
           <div class="mt-4 space-y-2 text-[15px] leading-relaxed text-black/70">
-            <p>No es una llamada para animarte.</p>
-            <p>No es una charla amable.</p>
             <p class="mt-4">Es una conversación de 60 minutos donde vamos a:</p>
             <ul class="mt-3 space-y-2 text-[15px] leading-relaxed text-black/70">
-              <li>– Ver con claridad dónde estás.</li>
+              <li>– Ver con claridad dónde estás <span class="font-semibold text-black/85">de verdad</span>.</li>
               <li>– Detectar qué decisiones te están frenando.</li>
-              <li>– Entender qué está pasando realmente.</li>
+              <li>– Salir con un plan simple de 30 días.</li>
             </ul>
-            <p class="mt-4">Si veo que no estás preparado, te lo diré.</p>
-            <p>Y si veo que sí, te explicaré cómo podemos trabajar juntos.</p>
+            <p id="checkoutNotReadyLine" class="mt-4">Si no estás listo, te lo diré.</p>
+            <p id="checkoutReadyLine">Si lo estás, también.</p>
+            <p id="checkoutReadyLineNewsletter" class="hidden">Y si veo que estás preparado, te explicaré cómo podemos trabajar juntos los próximos 60 días.</p>
             <p class="mt-4">Sin presión.</p>
             <p>Sin rodeos.</p>
             <p>Hablando claro.</p>
@@ -57,7 +60,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
             <ul class="space-y-2 text-[15px] leading-relaxed text-black/70">
               <li>– 60 minutos 1:1 conmigo.</li>
-              <li>– Análisis directo de tu situación.</li>
+              <li>– Análisis directo (y con honestidad).</li>
               <li>– Un siguiente paso definido.</li>
             </ul>
             <p class="mt-4">No trabajo con cualquiera.</p>
@@ -67,7 +70,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <hr class="mt-8 border-black/10" />
 
           <p class="mt-8 text-sm text-black/70">No estás pagando por una llamada.</p>
-          <p class="mt-2 text-sm text-black/70">Estás pagando por <span class="font-semibold text-black/85">ver las cosas como son</span>.</p>
+          <p class="mt-2 text-sm text-black/70">Estás pagando por <span class="font-semibold text-black/85">desbloquear tu situación</span>.</p>
         </div>
       </section>
 
@@ -122,6 +125,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             const params = new URLSearchParams(window.location.search);
             if (params.get('payment') === 'cancelled') {
               statusEl.textContent = '⚠️ El pago no se ha realizado. Vuelve a intentarlo.';
+            }
+
+            // Personalize copy when coming from newsletter
+            if (params.get('src') === 'newsletter') {
+              const intro = document.getElementById('checkoutIntro');
+              const introNl = document.getElementById('checkoutIntroNewsletter');
+              if (intro) intro.classList.add('hidden');
+              if (introNl) introNl.classList.remove('hidden');
+
+              // Newsletter copy tweaks
+              const notReady = document.getElementById('checkoutNotReadyLine');
+              const ready = document.getElementById('checkoutReadyLine');
+              const readyNl = document.getElementById('checkoutReadyLineNewsletter');
+              if (notReady) notReady.classList.add('hidden');
+              if (ready) ready.classList.add('hidden');
+              if (readyNl) readyNl.classList.remove('hidden');
             }
 
             form?.addEventListener('submit', async (e) => {
