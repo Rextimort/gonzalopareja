@@ -82,7 +82,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="rounded-md bg-white p-7 shadow-xl ring-1 ring-black/5">
           <div class="flex items-start justify-between">
             <div>
-              <p class="text-2xl font-extrabold">€60,00 EUR</p>
+              <p class="text-2xl font-extrabold">
+                <span id="priceFull">€60,00 EUR</span>
+                <span id="priceDiscounted" class="ml-2 hidden text-2xl font-extrabold text-black">€30,00 EUR</span>
+              </p>
+              <p id="priceNote" class="mt-1 hidden text-xs text-black/55">
+                <span class="line-through text-black/45">€60,00</span> → <span class="font-semibold">€30,00</span> (código aplicado)
+              </p>
               <p class="mt-1 text-xs text-black/45">Pago único</p>
             </div>
             <a href="/login" class="text-xs font-semibold text-blue-600 hover:underline">Iniciar sesión</a>
@@ -109,6 +115,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <p class="text-xs text-black/45">No es una suscripción. No hay pagos ocultos.</p>
             <p class="mt-2 text-xs text-black/55">Tras el pago, te envío el acceso por email (revisa Spam).</p>
 
+            <p id="promoBanner" class="hidden rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+              Descuento detectado. Se aplicará automáticamente al continuar con Stripe.
+            </p>
+
             <button
               id="payBtn"
               type="submit"
@@ -128,6 +138,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             const params = new URLSearchParams(window.location.search);
             if (params.get('payment') === 'cancelled') {
               statusEl.textContent = '⚠️ El pago no se ha realizado. Vuelve a intentarlo.';
+            }
+
+            // If a promo is present, make it visible in the UI (cold-traffic reassurance)
+            const promo = (params.get('promo') || params.get('code') || '').trim();
+            if (promo) {
+              const banner = document.getElementById('promoBanner');
+              if (banner) {
+                banner.classList.remove('hidden');
+                banner.textContent = `Código “${promo}” detectado. Se aplicará automáticamente al continuar con Stripe.`;
+              }
+
+              // For the current IG code (LIBRE = 50%), show the discounted price preview.
+              if (promo.toUpperCase() === 'LIBRE') {
+                const priceFull = document.getElementById('priceFull');
+                const priceDiscounted = document.getElementById('priceDiscounted');
+                const priceNote = document.getElementById('priceNote');
+                if (priceFull) priceFull.classList.add('line-through');
+                if (priceDiscounted) priceDiscounted.classList.remove('hidden');
+                if (priceNote) priceNote.classList.remove('hidden');
+              }
             }
 
             // Personalize copy when coming from newsletter
