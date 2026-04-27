@@ -8,6 +8,9 @@ const {
 
 const CANONICAL_BASE = 'https://gonzalopareja.com';
 const canonicalUrl = new URL(Astro.url.pathname, CANONICAL_BASE).toString();
+
+// Default share image (LinkedIn/Twitter/Facebook)
+const ogImageUrl = `${CANONICAL_BASE}/intervencion-bg.jpg`;
 ---
 <!doctype html>
 <html lang="es">
@@ -27,10 +30,14 @@ const canonicalUrl = new URL(Astro.url.pathname, CANONICAL_BASE).toString();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image:alt" content="Gonzalo Pareja" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <title>{title}</title>
 
