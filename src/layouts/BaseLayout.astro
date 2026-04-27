@@ -2,7 +2,10 @@
 import '../styles/global.css';
 
 const {
+  // Page title (SEO/browser tab)
   title = 'Gonzalo Pareja — Libertad real',
+  // Share title (Open Graph / Twitter): keep consistent across the whole site
+  ogTitle = 'Gonzalo Pareja',
   description = 'El camino más rápido para dejar de depender de un salario. Diagnóstico 1:1 y Programa de Intervención 60D para ganar margen, ingresos y libertad real.',
 } = Astro.props;
 
@@ -27,7 +30,7 @@ const ogImageUrl = `${CANONICAL_BASE}/og-2026-04-27-a.jpg`;
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Gonzalo Pareja" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:image" content={ogImageUrl} />
@@ -35,7 +38,7 @@ const ogImageUrl = `${CANONICAL_BASE}/og-2026-04-27-a.jpg`;
     <meta property="og:image:alt" content="Gonzalo Pareja" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
