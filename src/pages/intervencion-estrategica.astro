@@ -88,11 +88,89 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Bloques VSL (moved up): Programa + Qué es/Qué no es + Qué trabajamos -->
-    <section class="relative px-6 pt-10 pb-16 sm:pt-14 sm:pb-20">
+    <section class="relative px-6 pt-10 pb-20 sm:pt-14 sm:pb-28">
       <div class="relative z-10 mx-auto max-w-6xl">
+        <!-- HERO CARD -->
+        <div class="mx-auto max-w-4xl rounded-2xl bg-black/55 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
+          <p class="text-xs font-semibold tracking-widest text-white/70">GONZALO PAREJA (Dirección Real para una Vida Libre)</p>
+          <h2 class="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
+            Programa de Intervención 60D
+          </h2>
+          <p class="mt-6 text-pretty text-base text-white/80 sm:text-lg">
+            Para dejar de depender de un salario y ganar libertad real.
+          </p>
+          <div class="mt-10 flex flex-col items-center gap-2">
+            <a
+              href="/checkout"
+              class="inline-flex h-12 items-center justify-center rounded bg-red-600 px-10 text-center text-sm font-extrabold leading-tight tracking-tight text-white sm:h-14 sm:px-14 sm:text-base"
+            >
+              👉 QUIERO DEJAR DE DEPENDER DE UN SALARIO
+            </a>
+            <p class="text-[12px] font-semibold text-white/75">
+              Solicitar Diagnóstico 1:1 · 60€ (pago único)
+            </p>
+          </div>
+        </div>
 
         <!-- CARDS STACK (background visible around cards) -->
         <div class="mx-auto mt-14 grid max-w-5xl gap-8">
+          <!-- Qué es / qué no es -->
+          <div class="rounded-2xl bg-black/55 p-10 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
+            <div class="mx-auto grid max-w-4xl gap-10 sm:grid-cols-2">
+              <div class="mx-auto max-w-md">
+                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ ES</p>
+                <p class="mt-5 text-xl font-semibold text-white sm:text-2xl">Intervención directa. Trabajo 1:1. Decisiones reales.</p>
+                <p class="mt-4 text-base leading-relaxed text-white/75">
+                  60 días de enfoque absoluto. Sin teoría innecesaria. Sin perder el tiempo.
+                </p>
+              </div>
+              <div class="mx-auto max-w-md">
+                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ NO ES</p>
+                <p class="mt-5 text-base leading-relaxed text-white/75">
+                  No es un curso. No es un grupo. No es mentoría motivacional. No es inspiración semanal.
+                  <span class="font-semibold text-white">Es trabajo serio.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Qué hacemos -->
+          <div class="rounded-2xl bg-white/95 p-10 text-center shadow-2xl ring-1 ring-black/5 sm:p-14">
+            <h3 class="text-3xl font-extrabold tracking-tight text-black sm:text-5xl">Qué trabajamos en 60 días</h3>
+            <div class="mx-auto mt-10 max-w-3xl space-y-6 text-left sm:text-center">
+              <div>
+                <p class="text-base font-extrabold tracking-widest text-black/80">DIAGNÓSTICO DE SITUACIÓN</p>
+                <p class="mt-2 text-base text-black/75">Vemos exactamente qué estás sosteniendo, dónde se te va el margen y qué decisiones estás evitando.</p>
+              </div>
+
+              <div>
+                <p class="text-base font-extrabold tracking-widest text-black/80">RECUPERAMOS MARGEN (RÁPIDO)</p>
+                <p class="mt-2 text-base text-black/75">Recortes inteligentes + reestructura de gastos/compromisos + primeros movimientos para que tu vida deje de ir “justa” por defecto.</p>
+              </div>
+
+              <div>
+                <p class="text-base font-extrabold tracking-widest text-black/80">MOVIMIENTO PRINCIPAL</p>
+                <p class="mt-2 text-base text-black/75">Una decisión grande (bien elegida) que te devuelve opciones sin romperlo todo.</p>
+              </div>
+
+              <div>
+                <p class="text-base font-extrabold tracking-widest text-black/80">AUMENTAMOS INGRESOS (SIN ECHAR MÁS HORAS)</p>
+                <p class="mt-2 text-base text-black/75">Elegimos la vía más realista para tu caso y la ejecutamos: reposicionamiento (cómo te vendes), revalorización (negociación/ascenso/cambio), o nueva skill (si no hay otra salida).</p>
+              </div>
+
+              <div>
+                <p class="text-base font-extrabold tracking-widest text-black/80">CONSOLIDAMOS MARGEN</p>
+                <p class="mt-2 text-base text-black/75">Marco mental + estructura de vida + reglas de decisión para subir ingresos sin subir tu nivel de vida.</p>
+              </div>
+
+              <div>
+                <p class="text-base font-extrabold tracking-widest text-black/80">EJECUCIÓN SUPERVISADA</p>
+                <p class="mt-2 text-base text-black/75">Lo conviertes en hechos. No en “intención”. Ajustamos rápido cuando te bloqueas.</p>
+              </div>
+            </div>
+            <p class="mt-10 text-sm font-semibold tracking-wide text-black/60">Nada de teoría. Trabajo directo.</p>
+          </div>
+
         </div>
       </div>
     </section>
@@ -440,65 +518,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
         </div>
 
-        <!-- CARDS STACK (background visible around cards) -->
-        <div class="mx-auto mt-14 grid max-w-5xl gap-8">
-          <!-- Qué es / qué no es -->
-          <div class="rounded-2xl bg-black/55 p-10 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-            <div class="mx-auto grid max-w-4xl gap-10 sm:grid-cols-2">
-              <div class="mx-auto max-w-md">
-                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ ES</p>
-                <p class="mt-5 text-xl font-semibold text-white sm:text-2xl">Intervención directa. Trabajo 1:1. Decisiones reales.</p>
-                <p class="mt-4 text-base leading-relaxed text-white/75">
-                  60 días de enfoque absoluto. Sin teoría innecesaria. Sin perder el tiempo.
-                </p>
-              </div>
-              <div class="mx-auto max-w-md">
-                <p class="text-xs font-semibold tracking-widest text-white/60">QUÉ NO ES</p>
-                <p class="mt-5 text-base leading-relaxed text-white/75">
-                  No es un curso. No es un grupo. No es mentoría motivacional. No es inspiración semanal.
-                  <span class="font-semibold text-white">Es trabajo serio.</span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Qué hacemos -->
-          <div class="rounded-2xl bg-white/95 p-10 text-center shadow-2xl ring-1 ring-black/5 sm:p-14">
-            <h3 class="text-3xl font-extrabold tracking-tight text-black sm:text-5xl">Qué trabajamos en 60 días</h3>
-            <div class="mx-auto mt-10 max-w-3xl space-y-6 text-left sm:text-center">
-              <div>
-                <p class="text-base font-extrabold tracking-widest text-black/80">DIAGNÓSTICO DE SITUACIÓN</p>
-                <p class="mt-2 text-base text-black/75">Vemos exactamente qué estás sosteniendo, dónde se te va el margen y qué decisiones estás evitando.</p>
-              </div>
-
-              <div>
-                <p class="text-base font-extrabold tracking-widest text-black/80">RECUPERAMOS MARGEN (RÁPIDO)</p>
-                <p class="mt-2 text-base text-black/75">Recortes inteligentes + reestructura de gastos/compromisos + primeros movimientos para que tu vida deje de ir “justa” por defecto.</p>
-              </div>
-
-              <div>
-                <p class="text-base font-extrabold tracking-widest text-black/80">MOVIMIENTO PRINCIPAL</p>
-                <p class="mt-2 text-base text-black/75">Una decisión grande (bien elegida) que te devuelve opciones sin romperlo todo.</p>
-              </div>
-
-              <div>
-                <p class="text-base font-extrabold tracking-widest text-black/80">AUMENTAMOS INGRESOS (SIN ECHAR MÁS HORAS)</p>
-                <p class="mt-2 text-base text-black/75">Elegimos la vía más realista para tu caso y la ejecutamos: reposicionamiento (cómo te vendes), revalorización (negociación/ascenso/cambio), o nueva skill (si no hay otra salida).</p>
-              </div>
-
-              <div>
-                <p class="text-base font-extrabold tracking-widest text-black/80">CONSOLIDAMOS MARGEN</p>
-                <p class="mt-2 text-base text-black/75">Marco mental + estructura de vida + reglas de decisión para subir ingresos sin subir tu nivel de vida.</p>
-              </div>
-
-              <div>
-                <p class="text-base font-extrabold tracking-widest text-black/80">EJECUCIÓN SUPERVISADA</p>
-                <p class="mt-2 text-base text-black/75">Lo conviertes en hechos. No en “intención”. Ajustamos rápido cuando te bloqueas.</p>
-              </div>
-            </div>
-            <p class="mt-10 text-sm font-semibold tracking-wide text-black/60">Nada de teoría. Trabajo directo.</p>
-          </div>
-
+<div class="mx-auto mt-14 grid max-w-5xl gap-8">
           <!-- Cómo funciona -->
           <div class="rounded-2xl bg-black/55 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
             <h3 class="text-center text-3xl font-extrabold tracking-tight text-white sm:text-5xl">Cómo funciona</h3>
@@ -699,6 +719,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
             </div>
           </section>
+        </div>
+      </div>
+    </section>
+
+    </div>
+
+    <!-- Footer (Kajabi-like) -->
+    <footer class="relative z-10 mt-12 bg-[#2f343a] px-6 py-10 text-white">
+      <div class="mx-auto max-w-5xl text-center">
+        <p class="text-sm font-semibold text-white/95">© {new Date().getFullYear()} Gonzalo Pareja Bolaños</p>
+
+        <div class="mt-6 flex items-center justify-center gap-8">
+          <a href="https://www.instagram.com/gonzalo.pareja.ig/" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="Instagram">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@GonzaloParejaBola%C3%B1os" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="YouTube">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.7 8.1a3 3 0 0 0-2.1-2.1C17.8 5.5 12 5.5 12 5.5s-5.8 0-7.6.5A3 3 0 0 0 2.3 8.1 31 31 0 0 0 2 12a31 31 0 0 0 .3 3.9 3 3 0 0 0 2.1 2.1c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.3-3.9Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/gonzalo-pareja-bola%C3%B1os/" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="LinkedIn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.5 9.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M6.5 6.8h0" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+              <path d="M10 18v-5.2c0-1.8 1-3 2.7-3 1.6 0 2.3 1 2.3 3V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M10 9.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M3.5 2h17a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-17a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      const v = document.getElementById('metodoFluirVideo');
+      const overlay = document.getElementById('videoEndOverlay');
+      const ignoreBtn = document.getElementById('ignoreOverlayBtn');
+
+      if (v && overlay) {
+        v.addEventListener('ended', () => {
+          overlay.classList.remove('hidden');
+          overlay.classList.add('flex');
+        });
+      }
+
+      if (ignoreBtn && overlay) {
+        ignoreBtn.addEventListener('click', () => {
+          overlay.classList.add('hidden');
+          overlay.classList.remove('flex');
+        });
+      }
+    </script>
+  </main>
+</BaseLayout>
         </div>
       </div>
     </section>
