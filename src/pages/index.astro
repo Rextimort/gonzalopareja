@@ -35,26 +35,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </nav>
   </header>
 
-  <main class="bg-neutral-100 text-black">
-    <!-- HERO (vídeo) -->
-    <!-- On small screens, shorten hero so the opt-in box is fully visible on first paint -->
-    <section class="relative h-[58vh] min-h-[420px] max-h-[560px] md:h-dvh md:min-h-[760px] md:max-h-none">
-      <div class="absolute inset-0">
-        <video
-          class="h-full w-full object-cover"
-          style="filter: brightness(1.06) contrast(0.98) saturate(1.02);"
-          src="/hero.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-        ></video>
-        <!-- subtle whitening / haze like Kajabi -->
-        <div class="absolute inset-0 bg-white/10"></div>
-      </div>
+  <main class="relative text-black">
+    <!-- Global background (covers the whole page, not only the hero) -->
+    <div class="pointer-events-none fixed inset-0 z-0">
+      <video
+        class="h-full w-full object-cover"
+        style="filter: brightness(1.06) contrast(0.98) saturate(1.02);"
+        src="/hero.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+      <!-- readability overlay -->
+      <div class="absolute inset-0 bg-black/35"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/40"></div>
+    </div>
 
-      <div class="relative z-10 px-6">
+    <!-- HERO (text only; background is global) -->
+    <!-- On small screens, shorten hero so the opt-in box is fully visible on first paint -->
+    <section class="relative z-10 h-[58vh] min-h-[420px] max-h-[560px] md:h-dvh md:min-h-[760px] md:max-h-none">
+      <div class="relative px-6">
         <div class="mx-auto flex h-[58vh] min-h-[420px] max-h-[560px] max-w-6xl flex-col items-center justify-center pt-16 text-center text-white md:h-dvh md:min-h-[760px] md:max-h-none md:pt-12">
           <div class="mx-auto w-full max-w-[860px]">
             <p class="text-2xl font-extrabold leading-none tracking-tight text-white/95 sm:text-3xl md:text-4xl">EL CAMINO MÁS RÁPIDO</p>
@@ -75,8 +77,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- Black band under hero on mobile (like Kajabi) -->
     <div class="h-12 bg-black md:hidden"></div>
 
-    <!-- OPT-IN (banda blanca debajo, sin tapar el vídeo) -->
-    <section class="relative bg-neutral-100 px-6">
+    <!-- OPT-IN (banda blanca debajo, sin tapar el hero) -->
+    <section class="relative z-10 px-6">
       <div class="mx-auto w-full max-w-4xl -translate-y-28 bg-white text-black shadow-2xl md:-translate-y-32">
         <div class="px-8 py-7 text-center">
           <p class="text-xl font-semibold sm:text-2xl" style="color:#474747;">Recibe la estrategia completa (paso a paso) que yo mismo seguí para alcanzar la libertad.</p>
@@ -143,9 +145,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <div class="mx-auto max-w-4xl pb-14 pt-10 text-center text-xs text-black/45">
+      <!-- Bridge CTA to Intervención (more visible than nav) -->
+      <div class="mx-auto max-w-4xl pb-10 pt-2">
+        <div
+          id="actionBridge"
+          class="mx-auto mt-2 rounded-3xl bg-[#0b0f14]/75 px-8 py-12 text-center text-white backdrop-blur sm:px-14 sm:py-14"
+          style="border: 4px solid rgba(245,210,120,0.75); box-shadow: 0 35px 80px rgba(0,0,0,0.55), 0 0 0 2px rgba(245,210,120,0.20), 0 0 20px rgba(245,210,120,0.70), inset 0 0 18px rgba(245,210,120,0.12);"
+        >
+          <p class="text-xs font-semibold tracking-widest text-white/70">Y SI QUIERES PASAR A LA ACCIÓN</p>
+          <h2 class="mt-5 text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Construye una vida que no dependa de un salario</h2>
+          <p class="mx-auto mt-6 max-w-2xl text-pretty text-base text-white/80 sm:text-lg">
+            Te explico exactamente qué tienes que cambiar en tu estructura, en qué orden y por qué.
+          </p>
+
+          <div class="mx-auto mt-10 flex w-full max-w-md flex-col items-center gap-3">
+            <a
+              href="/intervencion-estrategica"
+              class="inline-flex h-12 w-full items-center justify-center rounded bg-[#f5f0e6] px-8 text-center text-sm font-extrabold leading-tight tracking-tight text-[#111] shadow-[0_18px_40px_rgba(0,0,0,0.35)] hover:bg-white sm:h-14 sm:text-base"
+            >
+              Ver la Intervención Estratégica
+            </a>
+            <!-- (removed) -->
+          </div>
+        </div>
+      </div>
+
+      <script is:inline>
+        // Neon comparison toggles: default = neon1, add ?v=neon2 to intensify.
+        (function () {
+          const el = document.getElementById('actionBridge');
+          if (!el) return;
+          const q = (window.location && window.location.search) ? window.location.search : '';
+          if (!/v=neon2|neon2/i.test(q)) return;
+
+          el.style.border = '5px solid rgba(245,210,120,0.92)';
+          el.style.boxShadow = [
+            '0 35px 80px rgba(0,0,0,0.55)',
+            '0 0 0 2px rgba(245,210,120,0.30)',
+            '0 0 34px rgba(245,210,120,0.95)',
+            '0 0 18px rgba(245,210,120,0.75)',
+            'inset 0 0 26px rgba(245,210,120,0.16)'
+          ].join(', ');
+        })();
+      </script>
+
+      <div class="mx-auto max-w-4xl pb-14 pt-6 text-center text-xs text-white/70">
         <div class="flex items-center justify-center gap-10">
-          <a href="https://www.instagram.com/gonzalo.pareja.ig/" target="_blank" rel="noopener noreferrer" class="hover:text-[#8d8d8d]" style="color:#6c6c6c;" aria-label="Instagram">
+          <a href="https://www.instagram.com/gonzalo.pareja.ig/" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white" aria-label="Instagram">
             <!-- Simple filled glyph (closer to Kajabi look) -->
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Z"/>
@@ -154,13 +200,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </svg>
           </a>
 
-          <a href="https://www.youtube.com/@GonzaloParejaBola%C3%B1os" target="_blank" rel="noopener noreferrer" class="hover:text-[#8d8d8d]" style="color:#6c6c6c;" aria-label="YouTube">
+          <a href="https://www.youtube.com/@GonzaloParejaBola%C3%B1os" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white" aria-label="YouTube">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M21.6 7.6a3.1 3.1 0 0 0-2.2-2.2C17.5 5 12 5 12 5s-5.5 0-7.4.4A3.1 3.1 0 0 0 2.4 7.6 32.4 32.4 0 0 0 2 12s.1 3.1.4 4.4a3.1 3.1 0 0 0 2.2 2.2C6.5 19 12 19 12 19s5.5 0 7.4-.4a3.1 3.1 0 0 0 2.2-2.2c.3-1.3.4-4.4.4-4.4s0-3.1-.4-4.4ZM10.2 15.2V8.8l5.6 3.2-5.6 3.2Z"/>
             </svg>
           </a>
 
-          <a href="https://www.linkedin.com/in/gonzalo-pareja-bola%C3%B1os/" target="_blank" rel="noopener noreferrer" class="hover:text-[#8d8d8d]" style="color:#6c6c6c;" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/gonzalo-pareja-bola%C3%B1os/" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white" aria-label="LinkedIn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M20.45 2H3.55A1.55 1.55 0 0 0 2 3.55v16.9A1.55 1.55 0 0 0 3.55 22h16.9A1.55 1.55 0 0 0 22 20.45V3.55A1.55 1.55 0 0 0 20.45 2ZM8.34 19H5.67V10.5h2.67V19ZM7 9.34a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM19 19h-2.66v-4.64c0-1.1-.02-2.5-1.52-2.5-1.52 0-1.75 1.19-1.75 2.42V19H10.4V10.5h2.56v1.16h.04c.36-.68 1.23-1.4 2.53-1.4 2.7 0 3.2 1.78 3.2 4.1V19Z"/>
             </svg>
