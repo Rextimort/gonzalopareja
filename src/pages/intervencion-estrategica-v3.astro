@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Deja de depender de un salario — Programa de Intervención 60D">
+  <header class="fixed inset-x-0 top-0 z-30 bg-black/70 backdrop-blur">
+    <!-- Desktop header -->
+    <nav class="mx-auto hidden max-w-6xl grid-cols-3 items-center px-6 py-5 text-sm font-medium tracking-wide text-white/85 md:grid">
+      <div class="flex items-center justify-end gap-5 pr-4">
+        <a href="/diagnostico" class="hover:text-white">Empieza aquí</a>
+        <a href="/login" class="hover:text-white">Login Alumnos</a>
+      </div>
+      <div class="mx-auto w-full max-w-[260px] text-center">
+        <a href="/" class="text-base font-black tracking-widest">GONZALO PAREJA</a>
+      </div>
+      <div class="flex items-center justify-start pl-4">
+        <a
+          href="https://wa.me/34690205133?text=Hola%2C%20vengo%20de%20tu%20web%20y%20me%20gustar%C3%ADa%20saber%20si%20puedes%20ayudarme.%20%C2%BFTe%20cuento%20mi%20caso%3F"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-white"
+          >Contáctame por WhatsApp (Soy yo)</a
+        >
+      </div>
+    </nav>
+
+    <!-- Mobile header -->
+    <nav class="mx-auto flex items-center justify-between px-5 py-4 text-white/90 md:hidden">
+      <a href="/" class="font-chivo text-base font-black tracking-widest">GONZALO PAREJA</a>
+
+      <details class="relative">
+        <summary class="list-none cursor-pointer select-none">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-lg hover:bg-white/15">☰</span>
+        </summary>
+        <div class="absolute right-0 mt-3 w-60 rounded-md bg-black/85 p-3 text-sm shadow-2xl ring-1 ring-white/10 backdrop-blur">
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/diagnostico">Empieza aquí</a>
+          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/login">Login Alumnos</a>
+          <a
+            class="block rounded px-3 py-2 hover:bg-white/10"
+            href="https://wa.me/34690205133?text=Hola%2C%20vengo%20de%20tu%20web%20y%20me%20gustar%C3%ADa%20saber%20si%20puedes%20ayudarme.%20%C2%BFTe%20cuento%20mi%20caso%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Contáctame por WhatsApp (Soy yo)</a
+          >
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main class="relative isolate min-h-dvh bg-black text-white">
+    <!-- Background (match /diagnostico: black + subtle old-gold aura) -->
+    <div class="pointer-events-none absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),rgba(0,0,0,0.90))]"></div>
+      <div class="absolute -left-56 top-[10vh] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(216,170,90,0.14),rgba(216,170,90,0)_62%)] blur-3xl"></div>
+      <div class="absolute -right-56 top-[44vh] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(216,170,90,0.12),rgba(216,170,90,0)_62%)] blur-3xl"></div>
+      <div class="absolute bottom-[-300px] left-1/2 h-[660px] w-[660px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(216,170,90,0.10),rgba(216,170,90,0)_62%)] blur-3xl"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/55 to-black/85"></div>
+    </div>
+
+    <!-- HERO PANEL -->
+    <section class="relative px-6 pt-28 pb-6 sm:pt-32 sm:pb-10">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-4xl rounded-3xl bg-white/5 px-8 py-8 text-center ring-1 ring-white/10 backdrop-blur neon-panel sm:px-12 sm:py-10">
+          <h1 class="text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
+            Si tu vida depende de un sueldo,
+            <span class="text-white">estás en riesgo.</span>
+            Yo te ayudo a salir de ahí.
+          </h1>
+
+          <p class="mx-auto mt-6 max-w-3xl text-pretty text-base text-white/75 sm:text-lg">
+            Si has construido una vida que te mantiene atrapado…
+            <span class="underline decoration-white/70 decoration-1 underline-offset-4">y que ya no sabes cómo cambiar</span>,
+            empieza aquí.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VSL (free, like before) -->
+    <section id="vsl" class="relative px-6 pt-4 pb-10 sm:pb-14">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto w-full max-w-4xl">
+          <div class="relative aspect-video overflow-hidden rounded-2xl bg-black ring-1 ring-white/10" style="contain: paint; isolation: isolate; transform: translateZ(0);">
+            <iframe
+              class="absolute inset-0 h-full w-full"
+              src="https://www.loom.com/embed/4a023603841845c597abf82503b0e363?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+              frameborder="0"
+              allow="fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="mt-10 flex w-full flex-col items-center gap-2">
+            <a
+              href="/checkout"
+              class="inline-flex h-12 w-full max-w-md items-center justify-center rounded bg-[#f5f0e6] px-8 text-center text-sm font-extrabold tracking-tight text-black shadow-[0_18px_45px_rgba(0,0,0,0.55)] hover:bg-white sm:h-14 sm:text-base"
+            >
+              Solicitar diagnóstico 1:1
+            </a>
+            <p class="text-[12px] font-semibold text-white/75">Diagnóstico 1:1 · 60€ (pago único)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTO ES PARA TI SI... -->
+    <section class="relative px-6 pt-6 pb-10 sm:pt-8 sm:pb-16">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-xs font-semibold tracking-widest text-white/60">ESTO ES PARA TI SI…</p>
+          <h2 class="mt-4 text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">No estás mal. Pero estás atrapado.</h2>
+        </div>
+
+        <div class="mx-auto mt-10 grid max-w-5xl gap-6 sm:grid-cols-2">
+          <div class="rounded-3xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur neon-soft">
+            <p class="text-sm font-extrabold text-white">No puedes parar sin miedo.</p>
+            <p class="mt-3 text-sm text-white/70">No miedo a “perder trabajo”. Miedo a que tu vida se te venga abajo.</p>
+          </div>
+          <div class="rounded-3xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur neon-soft">
+            <p class="text-sm font-extrabold text-white">Sabes trabajar. Pero no sabes moverte.</p>
+            <p class="mt-3 text-sm text-white/70">Decisiones importantes = ansiedad, parálisis, negociación contigo mismo.</p>
+          </div>
+          <div class="rounded-3xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur neon-soft">
+            <p class="text-sm font-extrabold text-white">Has construido una estructura rígida.</p>
+            <p class="mt-3 text-sm text-white/70">Y cuanto más crece… más difícil parece cambiarla.</p>
+          </div>
+          <div class="rounded-3xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur neon-soft">
+            <p class="text-sm font-extrabold text-white">Quieres dirección clara.</p>
+            <p class="mt-3 text-sm text-white/70">No motivación. No gurú barato. Un mapa de decisiones real.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO TRABAJAMOS -->
+    <section class="relative px-6 pt-6 pb-10 sm:pt-8 sm:pb-16">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-xs font-semibold tracking-widest text-white/60">CÓMO TRABAJAMOS</p>
+          <h2 class="mt-4 text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Decisiones. Estructura. Seguimiento.</h2>
+          <p class="mt-5 text-pretty text-base text-white/75 sm:text-lg">Sin teatro. Sin teoría eterna. Con dirección y fricción útil.</p>
+        </div>
+
+        <div class="mx-auto mt-10 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-3xl bg-black/35 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-semibold tracking-widest text-white/70">PASO 1</p>
+            <p class="mt-3 text-sm font-extrabold">Diagnóstico 1:1</p>
+            <p class="mt-3 text-sm text-white/70">Radiografía real de tu estructura y decisiones evitadas.</p>
+          </div>
+          <div class="rounded-3xl bg-black/35 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-semibold tracking-widest text-white/70">PASO 2</p>
+            <p class="mt-3 text-sm font-extrabold">Plan 60D</p>
+            <p class="mt-3 text-sm text-white/70">Hoja de ruta escrita: qué cambia, en qué orden y por qué.</p>
+          </div>
+          <div class="rounded-3xl bg-black/35 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-semibold tracking-widest text-white/70">PASO 3</p>
+            <p class="mt-3 text-sm font-extrabold">Revisión semanal</p>
+            <p class="mt-3 text-sm text-white/70">Sostener decisiones distintas cuando tu vida empuja hacia atrás.</p>
+          </div>
+          <div class="rounded-3xl bg-black/35 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-semibold tracking-widest text-white/70">PASO 4</p>
+            <p class="mt-3 text-sm font-extrabold">Acompañamiento</p>
+            <p class="mt-3 text-sm text-white/70">Contacto directo para desbloquear decisiones cuando toca.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ OBTIENES (placeholder: keep your existing section later) -->
+    <section class="relative px-6 pt-6 pb-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-4xl rounded-3xl bg-white/5 px-8 py-12 text-center ring-1 ring-white/10 backdrop-blur">
+          <h2 class="text-balance text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">Qué obtienes</h2>
+          <p class="mt-5 text-pretty text-base text-white/75 sm:text-lg">
+            (En esta v3, aquí moveremos tus tarjetas actuales de “Qué obtienes” para mantener copy pero cambiar forma/estilo.)
+          </p>
+          <div class="mt-10 flex w-full justify-center">
+            <a
+              href="/checkout"
+              class="inline-flex h-12 items-center justify-center rounded bg-[#f5f0e6] px-10 text-sm font-extrabold tracking-tight text-black shadow-[0_18px_45px_rgba(0,0,0,0.55)] hover:bg-white sm:h-14 sm:px-12 sm:text-base"
+            >
+              Solicitar diagnóstico 1:1
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      /* reuse the goldsoft boxes like /diagnostico */
+      .neon-panel {
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.10),
+          0 0 26px rgba(216, 170, 90, 0.22),
+          0 0 72px rgba(216, 170, 90, 0.14);
+      }
+      .neon-soft {
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.08),
+          0 0 16px rgba(216, 170, 90, 0.16),
+          0 0 46px rgba(216, 170, 90, 0.10);
+      }
+    </style>
+  </main>
+</BaseLayout>

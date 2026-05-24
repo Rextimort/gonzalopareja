@@ -50,12 +50,9 @@ const PAGE_TITLE = 'Diagnóstico — Gonzalo Pareja';
   </header>
 
   <main class="relative isolate min-h-dvh bg-black text-white">
-    <!-- Premium background (subtle) -->
+    <!-- Premium background (pure black base, so hero image edge doesn't cut) -->
     <div class="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),rgba(0,0,0,0.90))]"></div>
-
-      <!-- Background only (no glow) -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/55 to-black/85"></div>
+      <div class="absolute inset-0 bg-black"></div>
     </div>
 
     <!-- HERO (with image) -->
@@ -269,8 +266,9 @@ const PAGE_TITLE = 'Diagnóstico — Gonzalo Pareja';
       </div>
 
       <!-- Señalador 16:9 (mobile con más aire; desktop pegado) -->
-      <div class="mx-auto mt-0 max-w-6xl sm:-mt-2">
-        <div class="pointing-soft relative overflow-hidden rounded-3xl bg-black/40 ring-1 ring-white/10">
+      <div class="mx-auto mt-[5px] max-w-6xl sm:mt-2">
+        <!-- Transparent wrapper: no grey/black card behind the image -->
+        <div class="relative overflow-hidden rounded-3xl bg-transparent">
           <picture>
             <source media="(max-width: 639px)" srcset="/diagnostico/pointing-16x9-mobile.png" />
             <img
@@ -282,8 +280,6 @@ const PAGE_TITLE = 'Diagnóstico — Gonzalo Pareja';
               decoding="async"
             />
           </picture>
-          <!-- soften poster vibe -->
-          <div class="pointer-events-none absolute inset-0 bg-black/15"></div>
         </div>
       </div>
 
