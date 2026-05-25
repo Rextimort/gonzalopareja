@@ -41,13 +41,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <video
         class="h-full w-full object-cover"
         style="filter: brightness(1.06) contrast(0.98) saturate(1.02);"
-        src="/hero.mp4"
         autoplay
         muted
         loop
         playsinline
         preload="auto"
-      ></video>
+        poster="/hero-poster.jpg"
+      >
+        <!-- H.264 fallback for tablets/older iPads -->
+        <source src="/hero-h264.mp4" type="video/mp4" />
+        <!-- Original (HEVC) -->
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
       <!-- readability overlay -->
       <div class="absolute inset-0 bg-black/35"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/40"></div>
