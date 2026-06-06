@@ -926,12 +926,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     </div>
 
-    <!-- Footer (Kajabi-like) -->
-    <footer class="relative z-10 mt-12 bg-[#2f343a] px-6 py-10 text-white">
-      <div class="mx-auto max-w-5xl text-center">
-        <p class="text-sm font-semibold text-white/95">© {new Date().getFullYear()} Gonzalo Pareja Bolaños</p>
+    <!-- Footer (premium, match page look) -->
+    <footer class="relative z-10 mt-12 px-6 pb-12 pt-10 text-white">
+      <div class="mx-auto max-w-5xl">
+        <!-- Gold neon separator -->
+        <div class="mx-auto h-px w-full max-w-5xl bg-[linear-gradient(90deg,rgba(216,170,90,0)_0%,rgba(216,170,90,0.85)_50%,rgba(216,170,90,0)_100%)] shadow-[0_0_28px_rgba(216,170,90,0.22)]"></div>
 
-        <div class="mt-6 flex items-center justify-center gap-8">
+        <div class="mt-8 flex flex-col items-center justify-center gap-6 text-center">
+          <div class="flex items-center justify-center gap-8">
           <a href="https://www.instagram.com/gonzalo.pareja.ig/" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="Instagram">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.8"/>
@@ -954,6 +956,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <path d="M3.5 2h17a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-17a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="1.3"/>
             </svg>
           </a>
+          </div>
+
+          <p class="text-sm font-semibold text-white/75">© {new Date().getFullYear()} Gonzalo Pareja Bolaños</p>
         </div>
       </div>
     </footer>
