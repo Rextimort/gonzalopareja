@@ -1,0 +1,86 @@
+---
+interface Props {
+  title: string;
+  eyebrow: string;
+  src?: string;
+  poster?: string;
+  posterLabel?: string;
+  placeholder?: boolean;
+}
+
+const {
+  title,
+  eyebrow,
+  src,
+  poster,
+  posterLabel = "Vídeo preparado",
+  placeholder = false,
+} = Astro.props;
+---
+
+<div class={placeholder ? "video-card is-placeholder" : "video-card"}>
+  <div class="video-meta">
+    <span>{eyebrow}</span>
+    <span>16:9</span>
+  </div>
+  <div class="video-window">
+    {!placeholder && src && (
+      <iframe
+        src={src}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    )}
+
+    {placeholder && src && (
+      <button
+        class={poster ? "video-placeholder video-poster-button has-poster" : "video-placeholder video-poster-button"}
+        type="button"
+        aria-label={`Reproducir vídeo: ${title}`}
+        data-video-src={src}
+        data-video-title={title}
+      >
+        {poster && <img class="video-poster-image" src={poster} alt="" aria-hidden="true" />}
+        <span class="play-button" aria-hidden="true">▶</span>
+        <span class="video-placeholder-copy">
+          <span class="placeholder-label">{posterLabel}</span>
+          <strong>{title}</strong>
+          <small>Pulsa para reproducir el vídeo completo</small>
+        </span>
+      </button>
+    )}
+
+    {placeholder && !src && (
+      <div class="video-placeholder" role="img" aria-label={`${title}. Espacio preparado para el vídeo`}>
+        <span class="play-button" aria-hidden="true">▶</span>
+        <div>
+          <span class="placeholder-label">{posterLabel}</span>
+          <strong>{title}</strong>
+          <small>Se activará al añadir la URL definitiva</small>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-video-src]").forEach((button) => {
+    if (button.dataset.bound === "true") return;
+    button.dataset.bound = "true";
+
+    button.addEventListener("click", () => {
+      const source = button.dataset.videoSrc;
+      if (!source) return;
+
+      const iframe = document.createElement("iframe");
+      iframe.src = source;
+      iframe.title = button.dataset.videoTitle || "Vídeo";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      button.replaceWith(iframe);
+    });
+  });
+</script>

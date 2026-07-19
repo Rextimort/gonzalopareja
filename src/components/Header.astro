@@ -1,0 +1,28 @@
+---
+interface Props {
+  active: "home" | "diagnostico" | "intervencion" | "login";
+  overlay?: boolean;
+}
+
+const { active, overlay = false } = Astro.props;
+const whatsapp = "https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20web%20y%20quiero%20saber%20si%20la%20Intervenci%C3%B3n%2060D%20encaja%20con%20mi%20situaci%C3%B3n.";
+---
+
+<header class={overlay ? "site-header header-overlay" : "site-header"}>
+  <div class="shell header-inner">
+    <nav class="header-left" aria-label="Accesos principales">
+      <a class={active === "diagnostico" ? "nav-link active" : "nav-link"} href="/diagnostico">
+        Empieza aquí
+      </a>
+      <a class={active === "login" ? "nav-link active" : "nav-link"} href="/login">Login Alumnos</a>
+    </nav>
+    <a class="brand" href="/" aria-label="Gonzalo Pareja, inicio">Gonzalo Pareja</a>
+    <nav class="header-right" aria-label="Contacto">
+      <a class="mobile-login" href="/login">Alumnos</a>
+      <a class="header-cta" href={whatsapp} target="_blank" rel="noreferrer">
+        <span class="header-cta-long">Contáctame por WhatsApp <i>(Soy yo)</i></span>
+        <span class="header-cta-short">WhatsApp</span>
+      </a>
+    </nav>
+  </div>
+</header>

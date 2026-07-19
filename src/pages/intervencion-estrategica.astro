@@ -1,1002 +1,348 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+import VideoFrame from "../components/VideoFrame.astro";
+
+const workAreas = [
+  { n: "01", title: "Radiografía real", text: "Qué estás sosteniendo, qué te está frenando y cuánto cuesta seguir exactamente igual." },
+  { n: "02", title: "Capacidad y margen", text: "Reducimos presión y recuperamos espacio para que puedas decidir sin ponerlo todo en riesgo." },
+  { n: "03", title: "Ingresos y dirección", text: "Reposicionamiento, nuevas capacidades y decisiones alineadas con tu potencial real." },
+  { n: "04", title: "Estructura de vida", text: "Rediseñamos lo que mantienes para construir más libertad, estabilidad y opciones." },
+];
+
+const included = [
+  ["90–120 min", "Diagnóstico inicial", "Una radiografía completa de tu situación y del coste real de seguir igual."],
+  ["60 días", "Plan estratégico", "Decisiones ordenadas, prioridades, responsables y plazos concretos."],
+  ["Semanal", "Revisión 1:1", "Seguimiento, desbloqueo y ajuste del plan sobre lo que sucede en tu vida."],
+  ["Directo", "Canal privado", "Contacto conmigo para decisiones clave y minicalls cuando haga falta."],
+];
+
+const journey = [
+  { n: "01", meta: "Días 01–10", title: "Entender antes de mover", text: "Radiografía de ingresos, gastos, compromisos, identidad y coste real de la vida que sostienes." },
+  { n: "02", meta: "Días 11–30", title: "Decidir con margen", text: "Ordenamos prioridades y definimos la dirección: qué proteger, qué cambiar y qué empezar a construir." },
+  { n: "03", meta: "Días 31–60", title: "Ejecutar y ajustar", text: "Las decisiones salen del papel. Revisamos el movimiento real y corrijo contigo lo que haga falta." },
+];
+
+const faqs = [
+  ["¿Tengo que dejar mi trabajo?", "No. El objetivo no es escapar del empleo, sino dejar de necesitar que sea tu única opción. En algunos casos la decisión correcta es reposicionarte y ganar más; en otros, reducir estructura o crear una vía adicional."],
+  ["¿Se consigue la libertad en 60 días?", "No prometo una vida resuelta en 60 días. En ese periodo diagnosticamos la dependencia, tomamos las decisiones principales y ponemos en marcha una salida. Las transformaciones profundas pueden necesitar entre 6 y 12 meses."],
+  ["¿Voy a tener que cambiar radicalmente mi vida?", "No necesariamente. Muchas veces no se trata de destruir lo construido, sino de dejar de sostener partes que ya no eliges conscientemente. El proceso es estratégico y gradual."],
+  ["¿Y si mi situación es demasiado particular?", "Por eso la intervención es personalizada. No trabajamos con una fórmula genérica: partimos de tu estructura, tus miedos, tus obligaciones y el margen que tienes hoy."],
+  ["¿Es terapia o asesoría financiera?", "No es terapia ni una recomendación de inversión aislada. Es una intervención estratégica sobre ingresos, gastos, decisiones, identidad y estructura de vida. Cuando un asunto exige un profesional regulado, se deriva."],
+  ["¿Me garantizas resultados?", "No. Y desconfía de quien lo haga. Lo que sí garantizo es criterio, dirección y un proceso para tomar decisiones y ejecutarlas: recuperar margen, aumentar tus ingresos si ese es tu caso, construir reglas de decisión para no dar pasos atrás y planificar tus primeras inversiones. El recorrido dependerá de los objetivos que fijemos y del tiempo contratado. El resultado depende también de que hagas lo que toca."],
+];
 ---
 
-<BaseLayout title="Deja de depender de un salario — Programa de Intervención 60D">
-  <header class="fixed inset-x-0 top-0 z-30 bg-black/70 backdrop-blur">
-    <!-- Desktop header -->
-    <nav class="mx-auto hidden max-w-6xl grid-cols-3 items-center px-6 py-5 text-sm font-medium tracking-wide text-white/85 md:grid">
-      <div class="flex items-center justify-end gap-5 pr-4">
-        <a href="/diagnostico" class="hover:text-white">Empieza aquí</a>
-        <a href="/login" class="hover:text-white">Login Alumnos</a>
-      </div>
-      <div class="mx-auto w-full max-w-[260px] text-center">
-        <a href="/" class="text-base font-black tracking-widest">GONZALO PAREJA</a>
-      </div>
-      <div class="flex items-center justify-start pl-4">
-        <a
-          href="https://wa.me/34690205133?text=Hola%2C%20vengo%20de%20tu%20web%20y%20me%20gustar%C3%ADa%20saber%20si%20puedes%20ayudarme.%20%C2%BFTe%20cuento%20mi%20caso%3F"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-white"
-          >Contáctame por WhatsApp (Soy yo)</a
-        >
-      </div>
-    </nav>
+<BaseLayout
+  title="Intervención Estratégica 60D"
+  description="Intervención 1:1 para rediseñar ingresos, gastos, decisiones y estructura de vida, construir margen y reducir dependencia salarial."
+>
+  <main class="intervencion-page">
+    <Header active="intervencion" />
 
-    <!-- Mobile header -->
-    <nav class="mx-auto flex items-center justify-between px-5 py-4 text-white/90 md:hidden">
-      <a href="/" class="font-chivo text-base font-black tracking-widest">GONZALO PAREJA</a>
-
-      <details class="relative">
-        <summary class="list-none cursor-pointer select-none">
-          <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-lg hover:bg-white/15">☰</span>
-        </summary>
-        <div class="absolute right-0 mt-3 w-60 rounded-md bg-black/85 p-3 text-sm shadow-2xl ring-1 ring-white/10 backdrop-blur">
-          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/diagnostico">Empieza aquí</a>
-          <a class="block rounded px-3 py-2 hover:bg-white/10" href="/login">Login Alumnos</a>
-          <a
-            class="block rounded px-3 py-2 hover:bg-white/10"
-            href="https://wa.me/34690205133?text=Hola%2C%20vengo%20de%20tu%20web%20y%20me%20gustar%C3%ADa%20saber%20si%20puedes%20ayudarme.%20%C2%BFTe%20cuento%20mi%20caso%3F"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Contáctame por WhatsApp (Soy yo)</a
-          >
+    <section class="hero intervention-hero">
+      <div class="hero-glow copper-glow" aria-hidden="true"></div>
+      <div class="shell intervention-intro">
+        <span class="eyebrow copper">Programa de Intervención 60D · 1:1</span>
+        <h1>Tu salario no es el problema.<br /><em>Que tu vida dependa de él, sí.</em></h1>
+        <p class="hero-lead narrow">
+          <span class="intervention-lead-desktop">Una intervención 1:1 para construir nuevas vías de ingresos, recuperar margen y alcanzar una libertad real: que tu vida responda a tus decisiones, no a una única fuente de estabilidad.</span>
+          <span class="intervention-lead-mobile">Una intervención 1:1 para construir nuevas vías de ingresos, recuperar margen y alcanzar una libertad real: que tu vida responda a tus decisiones.</span>
+        </p>
+        <div class="hero-actions centered">
+          <WhatsAppButton />
+          <span class="cta-note">Te hago dos preguntas. Si no encaja, te lo diré.</span>
         </div>
-      </details>
-    </nav>
-  </header>
-
-  <main class="relative isolate min-h-dvh bg-black text-white">
-    <!-- Background (match /diagnostico: black + subtle old-gold aura) -->
-    <div class="pointer-events-none absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.00),rgba(0,0,0,1))]"></div>
-      <div class="absolute -left-56 top-[10vh] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(216,170,90,0.14),rgba(216,170,90,0)_62%)] blur-3xl"></div>
-      <div class="absolute -right-56 top-[44vh] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(216,170,90,0.12),rgba(216,170,90,0)_62%)] blur-3xl"></div>
-      <div class="absolute bottom-[-300px] left-1/2 h-[660px] w-[660px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(216,170,90,0.10),rgba(216,170,90,0)_62%)] blur-3xl"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/55 to-black/85"></div>
-    </div>
-
-    <div class="relative z-10">
-
-    <!-- Hero: copy impactante + vídeo -->
-    <section class="relative">
-      <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-10 pt-28 text-center">
-        <!-- (removed) -->
-
-        <!-- Premium hero card (frozen) -->
-        <div class="neon-panel w-full max-w-4xl rounded-3xl bg-white/5 px-8 py-10 text-center ring-1 ring-white/10 backdrop-blur sm:px-12">
-          <h1 class="text-balance text-3xl font-extrabold leading-tight tracking-tight text-white/80 sm:text-5xl">
-            Si tu vida depende de un sueldo,
-            <span class="text-white">estás en riesgo.</span>
-            Yo te ayudo a salir de ahí.
-          </h1>
-
-          <p class="mt-6 text-pretty text-base text-white/80 sm:text-lg">
-            Si has construido una vida que te mantiene atrapado…
-            <span class="text-white underline decoration-white/70 decoration-1 underline-offset-4">y que ya no sabes cómo cambiar</span>,
-            empieza aquí.
-          </p>
+      </div>
+      <div class="shell vsl-wrap">
+        <VideoFrame
+          eyebrow="La intervención, explicada por Gonzalo"
+          title="Qué es la Intervención Estratégica 60D"
+          src="https://www.loom.com/embed/4a023603841845c597abf82503b0e363?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+        />
+        <div class="vsl-action">
+          <span class="vsl-action-index" aria-hidden="true">GP</span>
+          <div class="vsl-action-copy">
+            <span>Después de ver el vídeo</span>
+            <p>Si quieres que valore si la Intervención encaja contigo, cuéntame tu situación.</p>
+            <small>Abre WhatsApp · Te hago dos preguntas · Respondo yo personalmente</small>
+          </div>
+          <WhatsAppButton label="Quiero entrar al programa" />
         </div>
-
-        <div class="mt-10 w-full max-w-4xl">
-          <div class="relative aspect-video overflow-hidden rounded-2xl bg-black ring-1 ring-white/10" style="contain: paint; isolation: isolate; transform: translateZ(0);">
-            <!-- Loom embed (temporary). Note: autoplay with sound may be blocked by browsers. -->
-            <iframe
-              id="metodoFluirVideo"
-              class="absolute inset-0 h-full w-full"
-              src="https://www.loom.com/embed/4a023603841845c597abf82503b0e363?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-              frameborder="0"
-              allow="fullscreen; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-
-<div class="mt-10 flex w-full flex-col items-center gap-2">
-            <a
-              href="https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20v%C3%ADdeo%20y%20estoy%20interesad%40%20en%20la%20Intervenci%C3%B3n%2060D.%20%C2%BFTe%20cuento%20mi%20situaci%C3%B3n%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex h-12 w-full max-w-md items-center justify-center rounded bg-[#f5f0e6] px-8 text-center text-sm font-extrabold leading-tight tracking-tight text-black shadow-[0_18px_45px_rgba(0,0,0,0.55)] hover:bg-white"
-            >
-              👉 QUIERO DEJAR DE DEPENDER DE UN SALARIO
-            </a>
-            <p class="text-[12px] font-semibold text-white/75">Abre WhatsApp · Te hago 2 preguntas y me cuentas tu caso</p>
-          </div>
-
-
-          <!-- Loom is an embed, so we can't reliably detect "video ended" to show an overlay.
-               Show the closing line right under the video instead. -->
-          <div class="mt-6 rounded-md bg-white/5 px-6 py-6 text-center ring-1 ring-white/10 backdrop-blur">
-            <p class="text-balance text-lg font-extrabold leading-snug tracking-tight text-white/65 sm:text-2xl">
-              Lograr una vida de completa libertad no es cuestión de suerte. Es cuestión de <span class="text-white">estrategia y decisiones</span> sostenidas.
-              Si tú quieres conseguirlo, tendrás que empezar a <span class="text-white">decidir distinto</span>.
-            </p>
-            <p class="mt-4 text-[11px] font-semibold tracking-widest text-white/70 underline decoration-white/60 underline-offset-4">
-              La pregunta es si tú estás dispuesto.
-            </p>
-          </div>
-
-                  </div>
-
       </div>
     </section>
 
+    <section class="section promise-strip">
+      <div class="shell promise-grid">
+        <p>Esto no es un curso.</p>
+        <p>No es motivación.</p>
+        <p>No es una fórmula para “escalar”.</p>
+        <strong>Es una intervención sobre tu vida real.</strong>
+      </div>
+    </section>
 
-    <!-- Bloques VSL (moved up): Programa + Qué es/Qué no es + Qué trabajamos -->
-    <section class="relative px-6 pt-6 pb-10 sm:pt-10 sm:pb-16">
-      <div class="relative z-10 mx-auto max-w-6xl">
-        <!-- HERO CARD (premium) -->
-        <div class="neon-panel mx-auto max-w-4xl rounded-3xl bg-white/5 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-          <!-- (removed) -->
-          <h2 class="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
-            Programa de Intervención 60D
-          </h2>
-          <p class="mt-6 text-pretty text-base text-white/80 sm:text-lg">
-            Para dejar de depender de un salario y ganar libertad real.
-          </p>
-          <div class="mt-10 flex flex-col items-center gap-2">
-            <a
-              href="https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20v%C3%ADdeo%20y%20estoy%20interesad%40%20en%20la%20Intervenci%C3%B3n%2060D.%20%C2%BFTe%20cuento%20mi%20situaci%C3%B3n%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex h-12 items-center justify-center rounded bg-[#f5f0e6] px-10 text-center text-sm font-extrabold leading-tight tracking-tight text-black hover:bg-white sm:h-14 sm:px-14 sm:text-base"
-            >
-              👉 QUIERO DEJAR DE DEPENDER DE UN SALARIO
-            </a>
-            <p class="text-[12px] font-semibold text-white/75">Abre WhatsApp · Te hago 2 preguntas y me cuentas tu caso</p>
+    <section class="section advisory-section" id="metodo">
+      <div class="shell advisory-card">
+        <figure class="advisory-photo">
+          <img src="/intervencion-private-advisory.jpg" alt="Gonzalo Pareja trabajando en una conversación estratégica individual" />
+          <figcaption>
+            <span>Intervención real</span>
+            Conversación, criterio y decisiones 1:1
+          </figcaption>
+        </figure>
+
+        <div class="advisory-copy">
+          <div class="advisory-copy-intro">
+            <span class="eyebrow copper">Programa de Intervención 60D</span>
+            <h2>Intervención directa.<br /><em>Trabajo 1:1. Decisiones reales.</em></h2>
+            <p class="advisory-lead">Sesenta días de trabajo sobre tu situación real: sin teoría innecesaria ni motivación vacía. Analizamos tus ingresos, gastos, obligaciones y decisiones para construir un plan viable y ejecutarlo contigo.</p>
+          </div>
+
+          <div class="advisory-areas">
+            {workAreas.map((area) => (
+              <article>
+                <span>{area.n}</span>
+                <h3>{area.title}</h3>
+                <p>{area.text}</p>
+              </article>
+            ))}
           </div>
         </div>
 
-<!-- Qué te llevas (Intervención 60D) -->
-    <section class="relative px-6 pt-10 pb-16 sm:pt-14 sm:pb-20">
-      <div class="relative z-10 mx-auto max-w-6xl">
-        <div class="mx-auto max-w-4xl text-center">
-                    <h2 class="mt-4 text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
-            El proceso para recuperar margen, dirección y libertad real
-          </h2>
-          <p class="mt-5 text-pretty text-base text-white/75 sm:text-lg">
-            Para que tu vida no dependa de un salario.
-          </p>
-
+        <div class="advisory-format" aria-label="Formato de la intervención">
+          {included.map(([meta, title, text]) => (
+            <div>
+              <span>{meta}</span>
+              <strong>{title}</strong>
+              <p>{text}</p>
+            </div>
+          ))}
         </div>
+      </div>
+    </section>
 
-        <!-- Arms image between subtitle and first cards -->
-        <div class="relative z-20 mx-auto mt-1 max-w-5xl">
-          <img
-            src="/intervencion/arms-lean.jpg"
-            alt=""
-            aria-hidden="true"
-            class="pointer-events-none mx-auto w-full max-w-[920px] -translate-y-1 select-none rounded-3xl brightness-90"
-            loading="lazy"
-            decoding="async"
+    <section class="section origin-section" id="historia">
+      <div class="shell origin-intro">
+        <div>
+          <span class="eyebrow copper">No nace de un libro</span>
+          <h2>“Mi vida funcionaba… mientras todo siguiera funcionando igual.”</h2>
+        </div>
+        <p class="origin-lead">En 2018, durante una comida con otros directivos, una decisión tomada por «los de arriba» me hizo ver que la vida que había construido podía dejar de depender de mí.</p>
+      </div>
+
+      <div class="shell origin-composition">
+        <figure class="origin-photo-stage">
+          <img src="/intervencion-arms.jpg" alt="Gonzalo Pareja apoyado sobre los bloques que cuentan su historia" />
+        </figure>
+
+        <div class="origin-story-panel" id="historia-bloques">
+          <article>
+            <span>Lo que parecía</span>
+            <h3>Una vida resuelta.</h3>
+            <p>Ganaba más de 3.500 € al mes. Tenía <em>estatus</em>, coche y un piso en propiedad. Desde fuera, todo funcionaba.</p>
+          </article>
+          <article>
+            <span>Lo que realmente había</span>
+            <h3>Todo dependía de mi salario.</h3>
+            <p>Entendí que no tenía capacidad real de decidir. Vacié mi casa, alquilé dormitorios y reduje conscientemente mi nivel de vida para construir margen antes de necesitarlo.</p>
+          </article>
+          <blockquote>“La libertad no se construye con lo que puedes permitirte, sino con lo que eres capaz de sostener sin depender.”</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-section light-section" id="casos-reales">
+      <div class="shell section-heading centered-heading">
+        <span class="eyebrow dark">Dos puntos de entrada. Una misma dirección.</span>
+        <h2 class="display-dark">No todos necesitan empezar por lo mismo.</h2>
+        <p>El primer vídeo recorre un caso real de Nivel 1. El segundo explica el trabajo de Nivel 2 para quien ya gana bien, pero sigue dependiendo de una sola estructura.</p>
+      </div>
+      <div class="shell case-video-grid">
+        <div>
+          <VideoFrame
+            eyebrow="Punto de entrada · Nivel 1"
+            title="Un caso real: cuando faltan capacidad y dirección"
+            src="https://www.loom.com/embed/7e031a268cad4e969e2ce57c1c3de375?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true&autoplay=1"
+            poster="/case-level-1-poster.jpg"
+            posterLabel="Extracto del podcast"
+            placeholder
           />
+          <div class="case-caption">
+            <strong>Construir capacidad</strong>
+            <p>Un caso real sobre cómo desarrollar una capacidad monetizable y convertirla en dirección e ingresos.</p>
+          </div>
         </div>
-
-        <div class="relative z-10 mx-auto -mt-6 grid max-w-5xl gap-6 sm:-mt-8 sm:grid-cols-2">
-          <!-- CARD 1 (premium v1: no mockup) -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex flex-col items-center justify-center text-center">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-white/60">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(216,170,90,0.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
-                  </svg>
-                </span>
-                DECISIONES REALES
-              </div>
-
-              <p class="mt-4 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Diagnóstico 1:1 (90–120 min)</p>
-
-              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">90–120 MIN</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">1:1</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">RADIOGRAFÍA</span>
-              </div>
-            </div>
-
-            <p class="mt-6 text-sm leading-relaxed text-white/75">
-              Analizamos por qué sientes que tu vida no termina de avanzar y qué está haciendo que sigas atrapado en el mismo punto.
-              <br /><br />
-              Detectamos:
-              <br /><span class="text-white/40">•</span> qué te está frenando realmente
-              <br /><span class="text-white/40">•</span> por qué sientes que no consigues salir adelante
-              <br /><span class="text-white/40">•</span> qué hábitos, decisiones o situaciones te están drenando
-              <br /><span class="text-white/40">•</span> y qué tendría que cambiar para que empieces a recuperar control sobre tu vida
-              <br /><br />
-              No hablamos solo de dinero. Hablamos de dirección, estabilidad y de construir una vida que no dependa de sobrevivir constantemente.
-              <br /><br />
-              Trabajamos sobre el coste real de seguir manteniendo la misma situación durante los próximos años.
-            </p>
-            <div class="mt-5 flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-white/70">
-              <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              INCLUIDO
-            </div>
+        <div>
+          <VideoFrame
+            eyebrow="Punto de entrada · Nivel 2"
+            title="Recuperar libertad cuando ganas bien, pero sigues atrapado"
+            src="https://www.loom.com/embed/027f62c2c09442b89a67a6ab04469462?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true&autoplay=1"
+            poster="/case-level-2-poster.jpg"
+            posterLabel="Extracto del podcast"
+            placeholder
+          />
+          <div class="case-caption">
+            <strong>Recuperar libertad</strong>
+            <p>Una explicación del recorrido para quien gana bien, pero necesita margen, estructura y más de una opción.</p>
           </div>
-
-          <!-- CARD 2 (premium v1: no mockup) -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex flex-col items-center justify-center text-center">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-white/60">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(216,170,90,0.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M3 6h6v12H3z" />
-                    <path d="M9 8h6v10H9z" />
-                    <path d="M15 4h6v14h-6z" />
-                  </svg>
-                </span>
-                PLAN + SISTEMA
-              </div>
-
-              <p class="mt-4 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Plan 60D + sistema progresivo</p>
-
-              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">60 DÍAS</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">PROGRESIVO</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">SISTEMA</span>
-              </div>
-            </div>
-            <p class="mt-3 text-sm leading-relaxed text-white/75">
-              Creamos un plan claro y realista para que tu vida deje de depender constantemente de llegar al límite.
-              <br /><br />
-              Definimos:
-              <br /><span class="text-white/40">•</span> qué necesitas cambiar primero
-              <br /><span class="text-white/40">•</span> cómo aumentar ingresos sin destruirte
-              <br /><span class="text-white/40">•</span> qué estructura necesitas construir
-              <br /><span class="text-white/40">•</span> y cómo empezar a recuperar estabilidad, control y libertad real
-              <br /><br />
-              Además, durante el proceso accedes a un sistema progresivo de trabajo dividido por etapas.
-              Cada fase está diseñada para ayudarte a:
-              <br /><span class="text-white/40">•</span> recuperar capacidad
-              <br /><span class="text-white/40">•</span> construir margen
-              <br /><span class="text-white/40">•</span> aumentar ingresos
-              <br /><span class="text-white/40">•</span> desarrollar habilidades monetizables
-              <br /><span class="text-white/40">•</span> y construir una vida con más libertad y menos dependencia
-              <br /><br />
-              No es solo acompañamiento. Es un proceso estructurado de reconstrucción y ejecución real.
-            </p>
-            <div class="mt-5 flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-white/70">
-              <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              INCLUIDO
-            </div>
+        </div>
+      </div>
+      <div class="shell proof-grid">
+        <article>
+          <small>Resultados de clientes</small>
+          <div>
+            <strong>+30–60 %</strong>
+            <span>Incremento del salario anual conseguido por varios clientes en un solo año.</span>
           </div>
-
-          <!-- CARD 3 (premium v1: no mockup) -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex flex-col items-center justify-center text-center">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-white/60">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(216,170,90,0.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M8 3v3" />
-                    <path d="M16 3v3" />
-                    <path d="M4 7h16" />
-                    <path d="M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
-                    <path d="M9.5 13l1.8 1.8L15.5 10.6" />
-                  </svg>
-                </span>
-                REVISIÓN SEMANAL
-              </div>
-
-              <p class="mt-4 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Revisión semanal (60 días)</p>
-
-              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">SEMANAL</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">60 DÍAS</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">CLARIDAD</span>
-              </div>
-            </div>
-            <p class="mt-3 text-sm leading-relaxed text-white/75">
-              Cada semana revisamos contigo:
-              <br /><span class="text-white/40">•</span> bloqueos
-              <br /><span class="text-white/40">•</span> decisiones pendientes
-              <br /><span class="text-white/40">•</span> miedos
-              <br /><span class="text-white/40">•</span> dudas
-              <br /><span class="text-white/40">•</span> y todo lo que esté frenando tu avance
-              <br /><br />
-              Porque cambiar tu vida no suele depender de entender qué hacer. Suele depender de sostener decisiones distintas el tiempo suficiente como para dejar de volver siempre al mismo punto.
-              <br /><br />
-              El objetivo es mantener claridad, dirección y movimiento real durante todo el proceso.
-            </p>
-            <div class="mt-5 flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-white/70">
-              <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              INCLUIDO
-            </div>
+        </article>
+        <article>
+          <small>Tiempo promedio</small>
+          <div>
+            <strong>18 meses</strong>
+            <span>Tiempo promedio observado para pasar desde cero hasta la independencia financiera.</span>
           </div>
-
-          <!-- CARD 4 (premium v1: no mockup) -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex flex-col items-center justify-center text-center">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-white/60">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(216,170,90,0.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z" />
-                    <path d="M7 9h10" />
-                    <path d="M7 13h7" />
-                  </svg>
-                </span>
-                CANAL PRIVADO
-              </div>
-
-              <p class="mt-4 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Canal privado + soporte directo</p>
-
-              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">DIRECTO</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">SOPORTE</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">DIRECCIÓN</span>
-              </div>
-            </div>
-            <p class="mt-3 text-sm leading-relaxed text-white/75">
-              Contacto directo durante todo el proceso para ayudarte a mantener dirección cuando aparezcan bloqueos, dudas o momentos de presión.
-              <br /><br />
-              Aquí trabajamos:
-              <br /><span class="text-white/40">•</span> decisiones incómodas
-              <br /><span class="text-white/40">•</span> situaciones reales
-              <br /><span class="text-white/40">•</span> momentos donde sientes que vas a volver atrás
-              <br /><span class="text-white/40">•</span> y todo lo que normalmente hace que una persona abandone el cambio que necesita
-              <br /><br />
-              Porque el problema no suele ser empezar. El problema suele ser sostener una dirección distinta cuando tu entorno, tus hábitos o tu miedo intentan llevarte otra vez al mismo lugar.
-            </p>
-            <div class="mt-5 flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-white/70">
-              <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              INCLUIDO
-            </div>
+        </article>
+        <article>
+          <small>Casos reales</small>
+          <div>
+            <strong>1.200 € → 5.000 €+</strong>
+            <span>De un salario de 1.200 € al mes a una facturación propia superior a 5.000 € mensuales en un año.</span>
           </div>
+        </article>
+      </div>
+    </section>
 
-          <!-- CARD 5 (premium v1: no mockup) -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex flex-col items-center justify-center text-center">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-white/60">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(216,170,90,0.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M22 16.9v3.2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3.2a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.4 2.1L8.5 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2.2Z" />
-                  </svg>
-                </span>
-                MINICALLS ESTRATÉGICAS
-              </div>
-
-              <p class="mt-4 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Minicalls estratégicas</p>
-
-              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">BLOQUEOS</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">CLARIDAD</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">DECISIÓN</span>
-              </div>
-            </div>
-            <p class="mt-3 text-sm leading-relaxed text-white/75">
-              Cuando aparezcan bloqueos importantes, tomamos decisiones rápidas y ajustamos dirección.
-              <br /><br />
-              Estas llamadas están pensadas para momentos donde:
-              <br /><span class="text-white/40">•</span> no sabes qué movimiento hacer
-              <br /><span class="text-white/40">•</span> sientes miedo o dudas
-              <br /><span class="text-white/40">•</span> estás perdiendo claridad
-              <br /><span class="text-white/40">•</span> o necesitas tomar decisiones incómodas sin volver atrás
-              <br /><br />
-              Porque durante el proceso no solo trabajamos mentalidad. Trabajamos ejecución real:
-              <br /><span class="text-white/40">•</span> cambios de estructura
-              <br /><span class="text-white/40">•</span> reposicionamiento profesional
-              <br /><span class="text-white/40">•</span> decisiones económicas
-              <br /><span class="text-white/40">•</span> nuevas habilidades
-              <br /><span class="text-white/40">•</span> aumento de ingresos
-              <br /><span class="text-white/40">•</span> y movimientos que afectan directamente a tu vida.
-              <br /><br />
-              A veces una sola decisión sostenida cambia completamente tu dirección.
-            </p>
-            <div class="mt-5 flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-white/70">
-              <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              INCLUIDO
-            </div>
-          </div>
-
-          <!-- CARD 6 (premium v1: no mockup) -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex flex-col items-center justify-center text-center">
-              <div class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-white/60">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(216,170,90,0.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Z" />
-                    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-                  </svg>
-                </span>
-                CIERRE + SISTEMA
-              </div>
-
-              <p class="mt-4 text-lg font-extrabold leading-snug tracking-tight text-white sm:text-xl">Cierre + sistema de continuidad</p>
-
-              <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">CONTINUIDAD</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">PROGRESIVO</span>
-                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-widest text-white/70 ring-1 ring-white/10">SISTEMA</span>
-              </div>
-            </div>
-            <p class="mt-3 text-sm leading-relaxed text-white/75">
-              El objetivo no es depender constantemente de mentorías o motivación externa.
-              <br /><br />
-              Es que salgas del proceso con:
-              <br /><span class="text-white/40">•</span> más capacidad
-              <br /><span class="text-white/40">•</span> más claridad
-              <br /><span class="text-white/40">•</span> más margen
-              <br /><span class="text-white/40">•</span> una estructura más sólida
-              <br /><span class="text-white/40">•</span> y una dirección mucho más fuerte para los próximos años
-              <br /><br />
-              Durante el proceso avanzas dentro de un sistema progresivo dividido por etapas y niveles estructurales reales.
-              <br /><br />
-              Cada fase está diseñada para ayudarte a:
-              <br /><span class="text-white/40">•</span> recuperar capacidad
-              <br /><span class="text-white/40">•</span> construir estabilidad
-              <br /><span class="text-white/40">•</span> aumentar ingresos
-              <br /><span class="text-white/40">•</span> desarrollar habilidades monetizables
-              <br /><span class="text-white/40">•</span> construir margen
-              <br /><span class="text-white/40">•</span> y avanzar hacia una vida con más libertad real
-              <br /><br />
-              Porque la verdadera transformación no ocurre cuando entiendes algo.
-              Ocurre cuando tu vida deja de depender constantemente de sobrevivir o de mantener una estructura que ya no quieres seguir sosteniendo.
-            </p>
-            <div class="mt-5 flex items-center justify-center gap-2 text-xs font-semibold tracking-widest text-white/70">
-              <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 ring-1 ring-emerald-500/30">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              INCLUIDO
-            </div>
+    <section class="section execution-section" id="recorrido-60d">
+      <div class="shell execution-layout">
+        <div class="execution-intro">
+          <span class="eyebrow copper">Cómo transcurren los 60 días</span>
+          <h2>Una dirección clara.<br /><em>Seguimiento hasta moverla.</em></h2>
+          <p>El plan no se entrega sin más. Se contrasta con tu vida real, se ejecuta contigo y se ajusta cuando la realidad cambia.</p>
+          <div class="execution-mark" aria-label="Intervención de 60 días, individual y adaptativa">
+            <strong>60D</strong>
+            <span>1:1 · semanal · adaptativo</span>
           </div>
         </div>
 
-        <div class="mx-auto mt-10 max-w-5xl rounded-2xl bg-white/5 px-6 py-6 ring-1 ring-white/10 backdrop-blur">
-          <p class="text-xs font-semibold tracking-widest text-white/60">LO QUE NO INCLUYE</p>
-          <ul class="mt-4 grid gap-2 text-sm text-white/70 sm:grid-cols-2">
-            <li>— No es terapia.</li>
-            <li>— No es mentoría diaria.</li>
-            <li>— No es disponibilidad inmediata.</li>
-            <li>— No ejecuto las decisiones por ti: <span class="font-semibold text-white">tú ejecutas</span>.</li>
+        <div class="execution-steps">
+          {journey.map((step) => (
+            <article>
+              <span class="execution-number" aria-hidden="true">{step.n}</span>
+              <div>
+                <span class="execution-meta">{step.meta}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section timeline-section light-section">
+      <div class="shell section-heading centered-heading">
+        <span class="eyebrow dark">Expectativas honestas</span>
+        <h2 class="display-dark">Sesenta días para cambiar la dirección.<br />Más tiempo para consolidarla.</h2>
+      </div>
+      <div class="shell timeline">
+        <article><span>01–02 semanas</span><h3>Entender</h3><p>Números reales, dependencia, identidad y coste de seguir igual.</p></article>
+        <article><span>02–06 meses</span><h3>Mover</h3><p>Reducir presión, ajustar estructura y activar nuevas decisiones o ingresos.</p></article>
+        <article><span>06–12 meses</span><h3>Consolidar</h3><p>Una estructura más ligera, flexible y menos dependiente.</p></article>
+      </div>
+    </section>
+
+    <section class="section fit-section">
+      <div class="shell fit-grid">
+        <div class="fit-card positive">
+          <span class="eyebrow copper">Es para ti si</span>
+          <h2>Estás preparado para cuestionar lo que sostienes.</h2>
+          <ul>
+            <li>Ganas bien, pero no te sientes libre.</li>
+            <li>Tu vida depende completamente de tu salario.</li>
+            <li>No quieres seguir construyendo algo cada vez más pesado.</li>
+            <li>Estás dispuesto a tomar decisiones incómodas.</li>
           </ul>
         </div>
-
-        <div class="mx-auto mt-8 flex w-full max-w-md flex-col items-center gap-2">
-          <a href="https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20v%C3%ADdeo%20y%20estoy%20interesad%40%20en%20la%20Intervenci%C3%B3n%2060D.%20%C2%BFTe%20cuento%20mi%20situaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="inline-flex h-12 w-full items-center justify-center bg-[#f5f0e6] px-8 text-center text-sm font-extrabold leading-tight tracking-tight text-black shadow-[0_18px_45px_rgba(0,0,0,0.55)] hover:bg-white">
-            👉 QUIERO DEJAR DE DEPENDER DE UN SALARIO
-          </a>
-          <p class="text-[12px] font-semibold text-white/75">Abre WhatsApp · Te hago 2 preguntas y me cuentas tu caso</p>
+        <div class="fit-card muted">
+          <span class="eyebrow">No es para ti si</span>
+          <h2>Solo quieres añadir más sin cambiar nada.</h2>
+          <ul>
+            <li>Buscas hacks, validación o motivación.</li>
+            <li>Quieres ganar más manteniendo intacta toda tu estructura.</li>
+            <li>Esperas que otra persona ejecute por ti.</li>
+            <li>No estás preparado para revisar identidad y estatus.</li>
+          </ul>
         </div>
       </div>
     </section>
 
+    <section class="section investment-section" id="inversion">
+      <span class="investment-watermark" aria-hidden="true">60D</span>
+      <div class="shell investment-layout">
+        <div class="investment-heading">
+          <span class="eyebrow copper">Inversión · Intervención 60D</span>
+          <h2>Una intervención sobre<br /><em>tu vida real.</em></h2>
+          <p>El formato y la profundidad se definen después de entender tu situación, no antes.</p>
+        </div>
 
-    <!-- PRIVATE ADVISORY (merged premium section) -->
-    <section class="relative px-6 pt-6 pb-14 sm:pt-10 sm:pb-16">
-      <div class="relative z-10 mx-auto max-w-6xl">
-        <div class="rounded-3xl bg-white/5 p-4 ring-1 ring-white/10 backdrop-blur sm:p-6">
-          <div class="grid gap-10 md:grid-cols-[380px_1fr] md:items-start">
-            <!-- LEFT: photo -->
-            <div class="relative overflow-hidden rounded-2xl bg-black">
-              <img
-                src="/intervencion/private-advisory.jpg"
-                alt=""
-                aria-hidden="true"
-                class="h-full w-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-              <!-- subtle premium overlay -->
-              <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/45"></div>
-              <div class="pointer-events-none absolute inset-0" style="box-shadow: inset 0 0 120px rgba(0,0,0,0.55);"></div>
-            </div>
-
-            <!-- RIGHT: content -->
-            <div class="pr-0 sm:pr-2">
-              <p class="text-[11px] font-semibold tracking-widest text-white/70">PROGRAMA DE INTERVENCIÓN 60D</p>
-              <h3 class="mt-4 text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
-                Intervención directa. Trabajo 1:1. Decisiones reales.
-              </h3>
-              <p class="mt-6 text-pretty text-base text-white/75 sm:text-lg">
-                60 días de enfoque absoluto. Sin teoría innecesaria. Sin motivación vacía. Sin perder el tiempo.
-              </p>
-              <p class="mt-6 text-pretty text-sm text-white/70 sm:text-base">
-                Trabajamos sobre tu situación real:
-                <span class="font-semibold text-white">ingresos</span>,
-                <span class="font-semibold text-white">dirección</span>,
-                <span class="font-semibold text-white">habilidades</span>,
-                <span class="font-semibold text-white">estructura de vida</span>,
-                <span class="font-semibold text-white">decisiones</span>
-                y <span class="font-semibold text-white">capacidad de movimiento</span>.
-              </p>
-
-              <div class="mt-10 h-px w-full bg-[linear-gradient(90deg,rgba(216,170,90,0),rgba(216,170,90,0.45),rgba(216,170,90,0))]"></div>
-
-              <h4 class="mt-10 text-xl font-extrabold tracking-tight text-white sm:text-2xl">Qué trabajamos exactamente</h4>
-
-              <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <p class="text-sm font-extrabold text-white">1. Diagnóstico real de situación</p>
-                  <p class="mt-3 text-sm text-white/70">Identificamos: qué estás sosteniendo, qué te está frenando y por qué tu vida sigue estancada en el mismo punto.</p>
-                </div>
-                <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <p class="text-sm font-extrabold text-white">2. Recuperar capacidad y margen</p>
-                  <p class="mt-3 text-sm text-white/70">Reducimos presión económica. Aumentamos capacidad de movimiento. Creamos espacio para empezar a avanzar.</p>
-                </div>
-                <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <p class="text-sm font-extrabold text-white">3. Aumentar ingresos estratégicamente</p>
-                  <p class="mt-3 text-sm text-white/70">Reposicionamiento profesional. Negociación salarial. Nueva habilidad monetizable. Ingresos mejor alineados con tu capacidad real.</p>
-                </div>
-                <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <p class="text-sm font-extrabold text-white">4. Movimiento principal</p>
-                  <p class="mt-3 text-sm text-white/70">Tomamos decisiones que devuelvan dirección y opciones reales a tu vida.</p>
-                </div>
-                <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <p class="text-sm font-extrabold text-white">5. Reconstrucción estructural</p>
-                  <p class="mt-3 text-sm text-white/70">Creamos una estructura de vida compatible con más libertad, más estabilidad y menos dependencia.</p>
-                </div>
-                <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <p class="text-sm font-extrabold text-white">6. Ejecución supervisada</p>
-                  <p class="mt-3 text-sm text-white/70">No se queda en intención. Lo conviertes en movimiento real, con seguimiento y ajuste constante durante el proceso.</p>
-                </div>
-              </div>
-
-              <p class="mt-10 text-sm text-white/65">
-                El objetivo no es motivarte. Es ayudarte a construir una vida que no dependa más de un salario.
-              </p>
-            </div>
+        <div class="investment-decision">
+          <div class="price-block">
+            <span>Inversión desde</span>
+            <strong>2.400 <small>€</small></strong>
+            <i>+ IVA</i>
           </div>
+          <div class="investment-admission">
+            <p>Antes de entrar, valoro personalmente tu caso. Si no encaja, te lo diré.</p>
+            <WhatsAppButton label="Quiero que valores mi caso" />
+            <small>Abre WhatsApp · Dos preguntas · Respondo yo personalmente</small>
+          </div>
+        </div>
+
+        <div class="investment-signals" aria-label="Principios de la intervención">
+          <article>
+            <span>01 · Trabajo directo</span>
+            <strong>Intervención 1:1 conmigo.</strong>
+          </article>
+          <article>
+            <span>02 · Entrada con criterio</span>
+            <strong>Primero entiendo tu situación.</strong>
+          </article>
+          <article>
+            <span>03 · Profundidad adaptada</span>
+            <strong>El plan se define según tu caso.</strong>
+          </article>
         </div>
       </div>
     </section>
 
-<!-- Casos reales / resultados -->
-    <section class="relative px-6 pt-3 pb-14 sm:pt-6 sm:pb-16">
-      <div class="relative z-10 mx-auto max-w-6xl">
-        <div class="mx-auto max-w-4xl text-center">
-          <p class="text-xs font-semibold tracking-widest text-white/60">RESULTADOS</p>
-          <h2 class="mt-4 text-balance text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
-            Casos reales. Cambios reales.
-          </h2>
-          <p class="mt-5 text-pretty text-base text-white/75 sm:text-lg">
-            Personas que ganaron margen, subieron ingresos… y recuperaron libertad real.
-          </p>
+    <section class="section faq-section light-section">
+      <div class="shell faq-grid">
+        <div>
+          <span class="eyebrow dark">Preguntas frecuentes</span>
+          <h2 class="display-dark">Las dudas correctas antes de tomar una decisión importante.</h2>
         </div>
-
-        <div class="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
-          <!-- BOX 1 -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 0 0-16 0" />
-                  <circle cx="12" cy="8" r="4" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de no tener dirección… a construir una vida con opciones reales.</p>
-                <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-                  “De 1.100€ en un bingo a trabajar en tech en menos de 12 meses”
-                </p>
-                <p class="mt-4 text-sm leading-relaxed text-white/75">
-                  Estaba en un mal trabajo y sin margen para moverse. Construimos un plan ejecutable: en 3 meses se formó en maquetación web, la preparé para entrevistas y consiguió trabajo en el sector. Un año después ya estaba cambiando de empresa, ganando el doble y consolidando una vida con más libertad.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOX 2 -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 0 0-16 0" />
-                  <circle cx="12" cy="8" r="4" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de depender de un sueldo… a tener margen para decidir cómo vivir.</p>
-                <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-                  “De empleada a propietaria en un año”
-                </p>
-                <p class="mt-4 text-sm leading-relaxed text-white/75">
-                  Tras estabilizar su nueva carrera, la ayudé a comprar su primer piso. Lo estructuramos para alquilar por habitaciones y maximizar ingresos. Pasó de depender solo de un sueldo a tener ingresos recurrentes que la daban margen todos los meses.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOX 3 -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 0 0-16 0" />
-                  <circle cx="12" cy="8" r="4" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de estar atrapada en una situación… a poder sostener su vida sin depender de nadie.</p>
-                <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-                  “De 1.200€ al mes a facturar más de 5.000€”
-                </p>
-                <p class="mt-4 text-sm leading-relaxed text-white/75">
-                  Después de más de 20 años trabajando para otros, la estaban presionando para que se fuera sin indemnización. La ayudé a sostener la situación, preparar el caso y conseguir su despido improcedente. Un año después trabaja por su cuenta, con costes mínimos, facturación propia y mucha más libertad.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOX 4 -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 0 0-16 0" />
-                  <circle cx="12" cy="8" r="4" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de ir ‘bien’… a tener opciones reales.</p>
-                <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-                  “De 35.000€ a 55.000€ en un cambio estratégico”
-                </p>
-                <p class="mt-4 text-sm leading-relaxed text-white/75">
-                  Ya ganaba suficiente (35.000€) y había construido una vida con margen, pero sabía que tenía potencial para ganar más sin echar más horas. Redefinimos su posicionamiento, planificamos la estrategia de negociación y su siguiente movimiento. En menos de 12 meses pasó a 55.000€ y consolidó más libertad real.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOX 5 -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 0 0-16 0" />
-                  <circle cx="12" cy="8" r="4" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de estar limitada… a tener opciones.</p>
-                <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-                  “Duplicó sus ingresos en 6 meses”
-                </p>
-                <p class="mt-4 text-sm leading-relaxed text-white/75">
-                  No buscaba “ganar más por ambición”. Buscaba margen: dejar de vivir condicionada. Identificamos el cuello de botella real, rediseñamos su enfoque y ejecutó un movimiento simple y medible. En 6 meses estaba ganando el doble y, sobre todo, con capacidad de elegir sin miedo.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- BOX 6 -->
-          <div class="rounded-2xl bg-white/5 p-8 shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-10">
-            <div class="flex items-start gap-4">
-              <div class="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21a8 8 0 0 0-16 0" />
-                  <circle cx="12" cy="8" r="4" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-extrabold tracking-tight text-white">Pasó de sentirse atrapado… a poder moverse.</p>
-                <p class="mt-3 text-xl font-extrabold leading-snug tracking-tight text-white sm:text-2xl">
-                  “Pasó de años estancado a ascender en su propia empresa”
-                </p>
-                <p class="mt-4 text-sm leading-relaxed text-white/75">
-                  Trabajaba bien, pero estaba atascado en un rol que no le daba margen ni movimiento. Ajustamos dónde ponía su energía, qué debía mostrar y qué decisión tenía que tomar para romper el bloqueo. En pocos meses consiguió el ascenso y recuperó capacidad de movimiento: más control, más opciones y menos sensación de estar atrapado.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-              </div>
-    </section>
-
-
-    
-    
-    <!-- INTERVENCIÓN ESTRATÉGICA 60D (high-ticket visual) -->
-    <section class="relative px-6 pt-10 pb-20 sm:pt-14 sm:pb-28">
-      <div class="relative z-10 mx-auto max-w-6xl">
-        <!-- HERO CARD (premium) -->
-        <div class="neon-panel mx-auto max-w-4xl rounded-3xl bg-white/5 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-          <!-- (removed) -->
-          <h2 class="mt-6 text-balance text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
-            Programa de Intervención 60D
-          </h2>
-          <p class="mt-6 text-pretty text-base text-white/80 sm:text-lg">
-            Para dejar de depender de un salario y ganar libertad real.
-          </p>
-          <div class="mt-10 flex flex-col items-center gap-2">
-            <a
-              href="https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20v%C3%ADdeo%20y%20estoy%20interesad%40%20en%20la%20Intervenci%C3%B3n%2060D.%20%C2%BFTe%20cuento%20mi%20situaci%C3%B3n%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex h-12 items-center justify-center rounded bg-[#f5f0e6] px-10 text-center text-sm font-extrabold leading-tight tracking-tight text-black hover:bg-white sm:h-14 sm:px-14 sm:text-base"
-            >
-              👉 QUIERO DEJAR DE DEPENDER DE UN SALARIO
-            </a>
-            <p class="text-[12px] font-semibold text-white/75">Abre WhatsApp · Te hago 2 preguntas y me cuentas tu caso</p>
-          </div>
-        </div>
-
-<div class="mx-auto mt-10 grid max-w-5xl gap-8">
-          <!-- Cómo funciona -->
-          <div class="rounded-2xl bg-white/5 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-            <h3 class="text-center text-3xl font-extrabold tracking-tight text-white sm:text-5xl">Cómo funciona</h3>
-            <div class="mx-auto mt-12 grid max-w-4xl gap-10 sm:grid-cols-3">
-              <div class="mx-auto max-w-xs">
-                <p class="text-6xl font-black tracking-tight text-white/90">01</p>
-                <p class="mt-4 text-base text-white/75">Me escribes por WhatsApp. Te hago 2 preguntas y me cuentas tu situación.</p>
-              </div>
-              <div class="mx-auto max-w-xs">
-                <p class="text-6xl font-black tracking-tight text-white/90">02</p>
-                <p class="mt-4 text-base text-white/75">Si encajas <span class="underline underline-offset-4 decoration-white/80 decoration-1">y estás preparado</span>, te digo la inversión y cómo entrar.</p>
-              </div>
-              <div class="mx-auto max-w-xs">
-                <p class="text-6xl font-black tracking-tight text-white/90">03</p>
-                <p class="mt-4 text-base text-white/75">60 días de intervención intensiva.</p>
-              </div>
-            </div>
-            <p class="mt-12 text-center text-sm text-white/60">El acceso es muy selectivo. Eso marca la diferencia.</p>
-          </div>
-
-          <!-- Para quién es -->
-          <div class="rounded-2xl bg-white/95 p-10 shadow-2xl ring-1 ring-black/5 sm:p-14">
-            <div class="mx-auto grid max-w-4xl gap-10 sm:grid-cols-2">
-              <div class="text-center">
-                <h3 class="text-2xl font-extrabold tracking-tight text-black sm:text-3xl">Para quién es</h3>
-                <ul class="mt-6 list-disc space-y-3 pl-5 text-left text-base text-black/75 sm:list-inside sm:pl-0 sm:text-center">
-                  <li>Sientes que estás atrapado en una vida que ya no sabes cómo cambiar.</li>
-                  <li>Te cuesta moverte sin miedo a romper algo (o a que todo se te venga encima).</li>
-                  <li>Tu vida “funciona” desde fuera, pero por dentro no tienes margen real.</li>
-                  <li>Ganas dinero, pero sigues dependiendo de un salario (o de aguantar) para que nada se caiga.</li>
-                  <li>Estás dispuesto a tomar decisiones incómodas para recuperar dirección, estabilidad y libertad real.</li>
-                </ul>
-              </div>
-              <div class="text-center">
-                <h3 class="text-2xl font-extrabold tracking-tight text-black sm:text-3xl">Para quién no es</h3>
-                <ul class="mt-6 list-disc space-y-3 pl-5 text-left text-base text-black/75 sm:list-inside sm:pl-0 sm:text-center">
-                  <li>Solo buscas sentirte mejor un rato (sin tocar decisiones ni estructura).</li>
-                  <li>Quieres que yo te dé motivación, pero tú no vas a ejecutar cambios reales.</li>
-                  <li>No quieres cuestionar la vida que has construido (aunque te esté costando caro).</li>
-                  <li>No estás dispuesto a perder comodidad para ganar libertad.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Inversión -->
-          <div class="rounded-2xl bg-white/5 p-10 text-center shadow-2xl ring-1 ring-white/10 backdrop-blur sm:p-14">
-            <p class="text-xs font-semibold tracking-widest text-white/60">INVERSIÓN a partir de</p>
-            <p class="mt-6 text-5xl font-extrabold tracking-tight text-white sm:text-7xl">2.400€ + IVA</p>
-            <div class="mt-10 flex flex-col items-center gap-2">
-              <a
-                href="https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20v%C3%ADdeo%20y%20estoy%20interesad%40%20en%20la%20Intervenci%C3%B3n%2060D.%20%C2%BFTe%20cuento%20mi%20situaci%C3%B3n%3F"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex h-12 items-center justify-center rounded bg-[#f5f0e6] px-10 text-center text-sm font-extrabold leading-tight tracking-tight text-black hover:bg-white sm:h-14 sm:px-14 sm:text-base"
-              >
-                👉 QUIERO DEJAR DE DEPENDER DE UN SALARIO
-              </a>
-              <p class="text-[12px] font-semibold text-white/75">Abre WhatsApp · Te hago 2 preguntas y me cuentas tu caso</p>
-            </div>
-          </div>
-
-          <!-- FAQ -->
-          <section class="rounded-2xl bg-white p-10 shadow-2xl ring-1 ring-black/5 sm:p-14">
-            <div class="grid gap-10 lg:grid-cols-[420px_1fr] lg:gap-14">
-              <div>
-                <p class="text-xs font-semibold tracking-widest text-black/50">FAQ</p>
-                <h2 class="mt-3 text-4xl font-extrabold tracking-tight text-black sm:text-5xl">Preguntas frecuentes</h2>
-                <p class="mt-5 text-base text-black/65">
-                  Si estás a punto de pagar por dirección, es normal tener dudas.
-                  Mejor resolverlas aquí que inventarte una excusa y seguir igual.
-                </p>
-              </div>
-
-              <div class="space-y-4">
-                <!-- (Oculto) Antes había una FAQ sobre reservar sesión 1:1. Ahora el proceso empieza por WhatsApp. -->
-
-                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm" open>
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Cómo empiezo? (sin reservar nada)</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
-                    <p><span class="font-semibold text-black/85">Me escribes por WhatsApp</span> (botón de esta página). Te haré 2 preguntas y me cuentas tu situación en 2–3 líneas.</p>
-                    <p>Si tu caso encaja, te diré <span class="font-semibold text-black/85">la inversión</span> y el siguiente paso para entrar en la Intervención 60D.</p>
-                    <p>Y si en tu perfil hace falta más claridad antes de tomar la decisión, te lo diré y te propondré el formato más lógico (sin vueltas).</p>
-                  </div>
-                </details>
-
-                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿En qué consiste el Programa de Intervención, exactamente?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
-                    <p>Es un período de intervención directa donde trabajamos para una cosa: que tu vida deje de depender de un <span class="font-semibold text-black/85">salario</span> (o de que sigas <span class="font-semibold text-black/85">facturando igual</span>).</p>
-                    <p>En la práctica, el Programa se organiza así:</p>
-                    <ul class="ml-5 list-disc space-y-1">
-                      <li><span class="font-semibold text-black/85">Diagnóstico sin autoengaños:</span> qué estás sosteniendo, dónde se te va el margen y qué <span class="font-semibold text-black/85">decisiones</span> estás evitando.</li>
-                      <li><span class="font-semibold text-black/85">Recuperar margen:</span> recortes + reestructura + primeros movimientos para que vuelvas a respirar.</li>
-                      <li><span class="font-semibold text-black/85">Ingresos (si aplica):</span> definimos la vía más realista (reposicionamiento / revalorización / nueva skill) y la ejecutas con dirección.</li>
-                      <li><span class="font-semibold text-black/85">Reglas de decisión:</span> marco mental + estructura para no dar pasos hacia atrás cuando empieces a mejorar.</li>
-                      <li><span class="font-semibold text-black/85">Inversiones (si procede):</span> planificamos y ejecutas las primeras, con criterio y sin improvisar.</li>
-                    </ul>
-                    <p>Es un programa con <span class="font-semibold text-black/85">dirección + ejecución</span> hasta que vuelvas a tener <span class="font-semibold text-black/85">opciones reales</span>.</p>
-                  </div>
-                </details>
-
-                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Para quién es?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
-                    <p>Para personas capaces que sienten que su vida <span class="font-semibold text-black/85">depende de que nada falle</span>.</p>
-                    <p>Gente que quiere <span class="font-semibold text-black/85">margen para decidir</span> (trabajo, ciudad, ingresos, ritmo) y está dispuesta a <span class="font-semibold text-black/85">ejecutar sin autoengaños</span>.</p>
-                    <p>Si el problema no es tu potencial, sino tu <span class="font-semibold text-black/85">falta de margen</span>, te encaja.</p>
-                  </div>
-                </details>
-
-                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Para quién NO es?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
-                    <p>Para quien vive en procrastinación, dopamina barata y parálisis por análisis.</p>
-                    <p>Para quien quiere que le digan lo que quiere oír.</p>
-                    <p>Para quien no está dispuesto a mirar su vida como es y <span class="font-semibold text-black/85">tocar lo que le está quitando margen</span>.</p>
-                    <p>Para quien todavía no está en un punto vital como para tomar <span class="font-semibold text-black/85">acción sostenida</span>.</p>
-                  </div>
-                </details>
-
-                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Qué me llevo en la práctica tras la sesión 1:1?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
-                    <p>Te llevas un <span class="font-semibold text-black/85">plan de acción</span> para empezar a recuperar margen, más dos entregables para ejecutarlo:</p>
-                    <ul class="ml-5 list-disc space-y-1">
-                      <li>un <span class="font-semibold text-black/85">resumen</span> con las conclusiones (qué te está atando, qué decisiones estás evitando y cuáles deberían ser tus <span class="font-semibold text-black/85">primeros movimientos</span>),</li>
-                      <li>y un <span class="font-semibold text-black/85">audio</span> con los primeros pasos para aplicarlo.</li>
-                    </ul>
-                    <p>Y si tu caso requiere proceso, te diré si tiene sentido pasar a la Intervención 60D y con qué <span class="font-semibold text-black/85">foco</span>.</p>
-                  </div>
-                </details>
-
-                <details class="group rounded-xl border border-black/10 bg-white p-6 shadow-sm">
-                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span class="text-lg font-extrabold tracking-tight text-black">¿Me garantizas resultados?</span>
-                    <span class="shrink-0 text-black/50 transition group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="mt-4 space-y-3 text-[15px] leading-relaxed text-black/70">
-                    <p>No. Y desconfía del que lo haga.</p>
-                    <p>Lo que sí garantizo es <span class="font-semibold text-black/85">criterio</span>, <span class="font-semibold text-black/85">dirección</span> y un proceso para tomar decisiones y ejecutarlas hasta que recuperes <span class="font-semibold text-black/85">margen</span>, subas tus <span class="font-semibold text-black/85">ingresos</span> (si ese es tu caso), construyamos <span class="font-semibold text-black/85">reglas de decisión</span> para no dar pasos para atrás, planifiquemos y realices tus <span class="font-semibold text-black/85">primeras inversiones</span>… todo depende de los <span class="font-semibold text-black/85">objetivos</span> que fijemos y del <span class="font-semibold text-black/85">tiempo contratado</span>. El resultado depende de que <span class="font-semibold text-black/85">hagas lo que toca</span>.</p>
-                  </div>
-                </details>
-              </div>
-            </div>
-          </section>
+        <div class="faq-list">
+          {faqs.map(([question, answer], index) => (
+            <details open={index === 0}>
+              <summary>{question}<span aria-hidden="true">+</span></summary>
+              <p>{answer}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>
 
-    </div>
-
-    <!-- Footer (premium, match page look) -->
-    <footer class="relative z-10 mt-12 px-6 pb-12 pt-10 text-white">
-      <div class="mx-auto max-w-5xl">
-        <!-- Gold neon separator -->
-        <div class="mx-auto h-px w-full max-w-5xl bg-[linear-gradient(90deg,rgba(216,170,90,0)_0%,rgba(216,170,90,0.85)_50%,rgba(216,170,90,0)_100%)] shadow-[0_0_28px_rgba(216,170,90,0.22)]"></div>
-
-        <div class="mt-8 flex flex-col items-center justify-center gap-6 text-center">
-          <div class="flex items-center justify-center gap-8">
-          <a href="https://www.instagram.com/gonzalo.pareja.ig/" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="Instagram">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
-            </svg>
-          </a>
-          <a href="https://www.youtube.com/@GonzaloParejaBola%C3%B1os" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="YouTube">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21.7 8.1a3 3 0 0 0-2.1-2.1C17.8 5.5 12 5.5 12 5.5s-5.8 0-7.6.5A3 3 0 0 0 2.3 8.1 31 31 0 0 0 2 12a31 31 0 0 0 .3 3.9 3 3 0 0 0 2.1 2.1c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.3-3.9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M10 9.5v5l5-2.5-5-2.5Z" fill="currentColor"/>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/gonzalo-pareja-bola%C3%B1os/" target="_blank" rel="noopener noreferrer" class="text-white/95 hover:text-white" aria-label="LinkedIn">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.5 9.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M6.5 6.8h0" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
-              <path d="M10 18v-5.2c0-1.8 1-3 2.7-3 1.6 0 2.3 1 2.3 3V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M10 9.5V18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M3.5 2h17a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-17a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="1.3"/>
-            </svg>
-          </a>
-          </div>
-
-          <p class="text-sm font-semibold text-white/75">© {new Date().getFullYear()} Gonzalo Pareja Bolaños</p>
-        </div>
+    <section class="section final-cta">
+      <div class="shell final-cta-inner">
+        <span class="eyebrow copper">Antes de necesitar una salida</span>
+        <h2>Empieza a construirla.</h2>
+        <p>No necesitas tenerlo todo claro. Necesitas estar dispuesto a mirar tu situación sin autoengaño.</p>
+        <WhatsAppButton label="Contarte mi situación" />
       </div>
-    </footer>
+    </section>
 
-    <script is:inline>
-      const v = document.getElementById('metodoFluirVideo');
-      const overlay = document.getElementById('videoEndOverlay');
-      const ignoreBtn = document.getElementById('ignoreOverlayBtn');
-
-      if (v && overlay) {
-        v.addEventListener('ended', () => {
-          overlay.classList.remove('hidden');
-          overlay.classList.add('flex');
-        });
-      }
-
-      if (ignoreBtn && overlay) {
-        ignoreBtn.addEventListener('click', () => {
-          overlay.classList.add('hidden');
-          overlay.classList.remove('flex');
-        });
-      }
-    </script>
-
-    <style>
-      /* Halo (white) — used only on premium boxes */
-      .neon-panel {
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.10),
-          0 0 26px rgba(255, 255, 255, 0.14),
-          0 0 72px rgba(255, 255, 255, 0.08);
-      }
-      .neon-soft {
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.08),
-          0 0 16px rgba(216, 170, 90, 0.16),
-          0 0 46px rgba(216, 170, 90, 0.10);
-      }
-    </style>
+    <Footer />
   </main>
 </BaseLayout>

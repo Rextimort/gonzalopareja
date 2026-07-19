@@ -1,0 +1,48 @@
+<form class="home-optin-form" data-home-optin>
+  <div class="home-field">
+    <label for="optin-name">Nombre</label>
+    <input id="optin-name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required />
+  </div>
+  <div class="home-field">
+    <label for="optin-email">Email</label>
+    <input id="optin-email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" required />
+  </div>
+  <button class="button button-primary button-premium home-submit" type="submit">
+    <span data-submit-label>Quiero la estrategia</span>
+    <span class="button-icon" aria-hidden="true">→</span>
+  </button>
+  <p class="home-form-status" aria-live="polite" data-home-status></p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-home-optin]");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const name = String(formData.get("name") || "");
+    const email = String(formData.get("email") || "");
+    const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
+    const label = form.querySelector<HTMLElement>("[data-submit-label]");
+    const status = form.querySelector<HTMLElement>("[data-home-status]");
+
+    if (button) button.disabled = true;
+    if (label) label.textContent = "Enviando…";
+    if (status) status.textContent = "Enviando…";
+
+    try {
+      const response = await fetch("https://app.gonzalopareja.com/newsletter/optin", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      });
+
+      if (!response.ok) throw new Error("No se pudo completar el registro");
+      window.location.assign("/intervencion-estrategica");
+    } catch {
+      if (status) status.textContent = "No he podido completar el registro. Revisa los datos e inténtalo de nuevo.";
+      if (button) button.disabled = false;
+      if (label) label.textContent = "Quiero la estrategia";
+    }
+  });
+</script>

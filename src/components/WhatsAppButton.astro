@@ -1,0 +1,13 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = "Contarte mi situación" } = Astro.props;
+const whatsapp = "https://wa.me/34690205133?text=Hola%20Gonzalo.%20He%20visto%20tu%20web%20y%20quiero%20saber%20si%20la%20Intervenci%C3%B3n%2060D%20encaja%20con%20mi%20situaci%C3%B3n.";
+---
+
+<a class="button button-primary" href={whatsapp} target="_blank" rel="noreferrer">
+  <span>{label}</span>
+  <span aria-hidden="true">↗</span>
+</a>
