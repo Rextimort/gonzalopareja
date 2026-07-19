@@ -1,0 +1,45 @@
+<video
+  class="home-hero-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"
+  poster="/home-hero-poster.jpg"
+  aria-hidden="true"
+  data-home-hero-video
+  data-mobile-playback="reverse-full-video"
+>
+  <source media="(max-width: 620px)" src="/home-hero-mobile-reverse.mp4" type="video/mp4" />
+  <source src="/home-hero.mp4" type="video/mp4" />
+</video>
+
+<script>
+  const mobileQuery = "(max-width: 620px)";
+  const mobileSource = "/home-hero-mobile-reverse.mp4";
+  const desktopSource = "/home-hero.mp4";
+  const video = document.querySelector<HTMLVideoElement>("[data-home-hero-video]");
+
+  if (video) {
+    const mobile = window.matchMedia(mobileQuery);
+
+    const selectPlayback = () => {
+      const nextSource = mobile.matches ? mobileSource : desktopSource;
+      const currentPath = video.currentSrc
+        ? new URL(video.currentSrc, window.location.href).pathname
+        : "";
+
+      if (currentPath !== nextSource) {
+        video.src = nextSource;
+        video.load();
+      }
+
+      void video.play().catch(() => {
+        // El vídeo permanece silenciado y listo si el navegador retrasa el autoplay.
+      });
+    };
+
+    selectPlayback();
+    mobile.addEventListener("change", selectPlayback);
+  }
+</script>

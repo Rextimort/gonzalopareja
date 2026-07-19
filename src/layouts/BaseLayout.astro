@@ -1,101 +1,52 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+}
 
 const {
-  // Page title (SEO/browser tab)
-  title = 'Deja de depender de un salario — Programa de Intervención 60D',
-  // Share title (Open Graph / Twitter): keep consistent across the whole site
-  ogTitle = 'Deja de depender de un salario — Programa de Intervención 60D',
-  description = 'El camino más rápido para dejar de depender de un salario. Diagnóstico 1:1 y Programa de Intervención 60D para ganar margen, ingresos y libertad real.',
+  title,
+  description,
+  ogTitle = "Una vida con opciones se construye antes de necesitarlas.",
+  ogDescription = "Capacidad, margen y dirección para recuperar libertad real de decisión.",
+  ogImage = "/og-home.png",
 } = Astro.props;
 
-const CANONICAL_BASE = 'https://gonzalopareja.com';
-const canonicalUrl = new URL(Astro.url.pathname, CANONICAL_BASE).toString();
-
-// Default share image (LinkedIn/Twitter/Facebook)
-const ogImageUrl = `${CANONICAL_BASE}/og/og-default.jpg`;
+const fullTitle = `${title} — Gonzalo Pareja`;
+const absoluteOgImage = new URL(ogImage, "https://gonzalopareja.com").toString();
 ---
+
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="utf-8" />
-
-    <!-- Preload: helps video start faster on pages that use it -->
-    <link rel="preload" as="video" href="/metodo-fluir.mp4" type="video/mp4" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
 
-    <!-- Open Graph / Twitter (sharing) -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Gonzalo Pareja" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:title" content={ogTitle} />
-    <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:secure_url" content={ogImageUrl} />
-    <meta property="og:image:alt" content="Gonzalo Pareja" />
+    <meta property="og:site_name" content="Gonzalo Pareja" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="Gonzalo Pareja — Capacidad, margen y dirección" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
-
-    <title>{title}</title>
-
-    <!-- Microsoft Clarity -->
-    <script is:inline>
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = 'https://www.clarity.ms/tag/' + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, 'clarity', 'script', 'vs4dl71i34');
-    </script>
-
-    <!-- Meta Pixel (base code) -->
-    <script is:inline>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '901287016144809');
-      fbq('track', 'PageView');
-    </script>
-    <noscript>
-      <img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=901287016144809&ev=PageView&noscript=1"
-      />
-    </noscript>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Chivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={absoluteOgImage} />
   </head>
-  <body class="min-h-dvh bg-black text-white antialiased" style="font-family: Cabin, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';">
+  <body>
     <slot />
   </body>
 </html>

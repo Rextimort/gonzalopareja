@@ -1,0 +1,113 @@
+<form class="login-form" data-login-form>
+  <div class="login-field">
+    <label for="login-email">Email asociado a tu acceso</label>
+    <input
+      id="login-email"
+      name="email"
+      type="email"
+      inputmode="email"
+      autocomplete="email"
+      placeholder="tu@email.com"
+      aria-describedby="login-help login-status"
+      required
+    />
+  </div>
+  <p class="login-help" id="login-help">
+    No necesitas contraseña. Recibirás un enlace seguro en tu correo.
+  </p>
+  <button class="button button-primary button-premium login-submit" type="submit">
+    <span data-login-button-label>Enviar enlace de acceso</span>
+    <span class="button-icon" aria-hidden="true">→</span>
+  </button>
+  <div class="login-status" id="login-status" role="status" aria-live="polite" data-login-status></div>
+</form>
+
+<script>
+  const endpoint = "https://fluirplus-webhook.gonzalo-pareja.workers.dev/auth/request-link";
+  const form = document.querySelector<HTMLFormElement>("[data-login-form]");
+
+  if (form) {
+    const emailInput = form.querySelector<HTMLInputElement>("#login-email");
+    const button = form.querySelector<HTMLButtonElement>("button[type='submit']");
+    const buttonLabel = form.querySelector<HTMLElement>("[data-login-button-label]");
+    const status = form.querySelector<HTMLElement>("[data-login-status]");
+    let sending = false;
+    let autoRequestStarted = false;
+
+    const renderStatus = (tone: "idle" | "sending" | "success" | "error", message: string) => {
+      if (!status) return;
+      status.className = tone === "idle" ? "login-status" : `login-status is-${tone}`;
+      status.replaceChildren();
+
+      if (!message) return;
+      const icon = document.createElement("span");
+      icon.setAttribute("aria-hidden", "true");
+      icon.textContent = tone === "success" ? "✓" : tone === "error" ? "!" : "·";
+      const copy = document.createElement("p");
+      copy.textContent = message;
+      status.append(icon, copy);
+    };
+
+    const requestMagicLink = async (email: string) => {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const error = new Error(payload?.error || "request_failed") as Error & { code?: string };
+        error.code = payload?.error || "request_failed";
+        throw error;
+      }
+    };
+
+    const sendLink = async (targetEmail: string, paymentConfirmed = false) => {
+      if (sending) return;
+      sending = true;
+      if (button) button.disabled = true;
+      if (buttonLabel) buttonLabel.textContent = "Enviando enlace…";
+      renderStatus(
+        "sending",
+        paymentConfirmed
+          ? "Pago confirmado. Estamos preparando tu enlace de acceso…"
+          : "Estamos preparando tu enlace seguro…",
+      );
+
+      try {
+        await requestMagicLink(targetEmail);
+        renderStatus("success", "Listo. Te hemos enviado el enlace de acceso. Revisa también la carpeta de Spam.");
+      } catch (error) {
+        const code = (error as Error & { code?: string })?.code;
+        renderStatus(
+          "error",
+          code === "no_entitlement"
+            ? paymentConfirmed
+              ? "El pago está confirmado, pero el acceso todavía no aparece asociado a este email. Espera 30 segundos y vuelve a intentarlo."
+              : "No encontramos un acceso asociado a este email. Comprueba que sea el mismo que utilizaste al realizar el pago."
+            : "No hemos podido enviar el enlace. Espera 30 segundos y vuelve a intentarlo.",
+        );
+      } finally {
+        sending = false;
+        if (button) button.disabled = false;
+        if (buttonLabel) buttonLabel.textContent = "Enviar enlace de acceso";
+      }
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void sendLink(emailInput?.value.trim() || "");
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const paid = params.get("paid") === "1";
+    const paidEmail = params.get("email") || "";
+
+    if (paid && paidEmail && !autoRequestStarted) {
+      autoRequestStarted = true;
+      if (emailInput) emailInput.value = paidEmail;
+      window.setTimeout(() => void sendLink(paidEmail, true), 50);
+    }
+  }
+</script>

@@ -1,0 +1,110 @@
+---
+const questions = [
+  "Sientes que tu vida no termina de arrancar, aunque sabes que tienes capacidad.",
+  "No tienes suficiente margen para equivocarte, parar o probar otra dirección.",
+  "No sabes qué habilidad, movimiento o cambio priorizar para mejorar tu situación.",
+  "Tu vida funciona desde fuera, pero depende de algo que no puedes permitirte perder.",
+  "Aunque te esfuerzas, tus opciones reales no parecen aumentar con el tiempo.",
+  "Has pensado en invertir, emprender, cambiar o ganar más, pero sin una ruta clara.",
+];
+---
+
+<div class="diagnostic-tool" data-diagnostic-tool>
+  <div class="diagnostic-head">
+    <div>
+      <span class="eyebrow">Autodiagnóstico · 2 minutos</span>
+      <h2>¿Qué está limitando hoy tu capacidad de avanzar?</h2>
+    </div>
+    <span class="score-orbit" aria-live="polite" data-score>0/6</span>
+  </div>
+  <div class="question-list">
+    {questions.map((question, index) => (
+      <label class="question" data-question>
+        <input type="checkbox" data-question-input />
+        <span class="custom-check" aria-hidden="true" data-check>{String(index + 1).padStart(2, "0")}</span>
+        <span>{question}</span>
+      </label>
+    ))}
+  </div>
+  <div class="diagnostic-action">
+    <button class="button button-primary button-premium" type="button" data-reveal>
+      Ver mi lectura
+      <span class="button-icon" aria-hidden="true">↓</span>
+    </button>
+    <span>Privado. No recoge ni envía ningún dato.</span>
+  </div>
+  <div class="diagnostic-result" aria-live="polite" data-result hidden>
+    <span class="eyebrow copper" data-result-code></span>
+    <h3 data-result-title></h3>
+    <p data-result-copy></p>
+    <a class="text-link" href="/intervencion-estrategica">
+      <span>Ver cómo funciona la Intervención 60D</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  const tool = document.querySelector<HTMLElement>("[data-diagnostic-tool]");
+
+  if (tool) {
+    const inputs = Array.from(tool.querySelectorAll<HTMLInputElement>("[data-question-input]"));
+    const scoreElement = tool.querySelector<HTMLElement>("[data-score]");
+    const resultElement = tool.querySelector<HTMLElement>("[data-result]");
+    const resultCode = tool.querySelector<HTMLElement>("[data-result-code]");
+    const resultTitle = tool.querySelector<HTMLElement>("[data-result-title]");
+    const resultCopy = tool.querySelector<HTMLElement>("[data-result-copy]");
+
+    const readResult = () => {
+      const checked = inputs.map((input) => input.checked);
+      const score = checked.filter(Boolean).length;
+      const levelOne = [0, 1, 2, 4, 5].filter((index) => checked[index]).length;
+      const levelTwo = [1, 3, 4, 5].filter((index) => checked[index]).length;
+
+      if (score === 0 || levelOne === levelTwo) {
+        return {
+          code: "DOS POSIBLES PUNTOS DE ENTRADA",
+          title: "La sensación es la misma. Ahora hay que identificar qué la está provocando.",
+          copy: "Puede faltarte capacidad, margen o una combinación de ambos. La intervención empieza separando esas piezas y ordenando qué debe cambiar primero.",
+        };
+      }
+
+      if (levelOne > levelTwo) {
+        return {
+          code: "TU FOCO INICIAL · CONSTRUIR CAPACIDAD",
+          title: "No necesitas hacer más cosas. Necesitas una dirección que haga avanzar tu situación.",
+          copy: "Tu primer recorrido pasa por claridad, habilidades monetizables, mejores ingresos y una estructura básica que te permita dejar de vivir al límite.",
+        };
+      }
+
+      return {
+        code: "TU FOCO INICIAL · RECUPERAR MARGEN",
+        title: "Tu vida funciona, pero depende de demasiadas condiciones que no controlas.",
+        copy: "Tu recorrido pasa por reducir dependencia, revisar la estructura que sostienes y recuperar opciones antes de que la vida te obligue a hacerlo.",
+      };
+    };
+
+    const refresh = () => {
+      const score = inputs.filter((input) => input.checked).length;
+      if (scoreElement) scoreElement.textContent = `${score}/6`;
+
+      inputs.forEach((input, index) => {
+        const label = input.closest<HTMLElement>("[data-question]");
+        const check = label?.querySelector<HTMLElement>("[data-check]");
+        label?.classList.toggle("checked", input.checked);
+        if (check) check.textContent = input.checked ? "✓" : String(index + 1).padStart(2, "0");
+      });
+
+      if (resultElement) resultElement.hidden = true;
+    };
+
+    inputs.forEach((input) => input.addEventListener("change", refresh));
+    tool.querySelector<HTMLElement>("[data-reveal]")?.addEventListener("click", () => {
+      const result = readResult();
+      if (resultCode) resultCode.textContent = result.code;
+      if (resultTitle) resultTitle.textContent = result.title;
+      if (resultCopy) resultCopy.textContent = result.copy;
+      if (resultElement) resultElement.hidden = false;
+    });
+  }
+</script>
