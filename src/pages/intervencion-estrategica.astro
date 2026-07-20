@@ -14,20 +14,68 @@ const workAreas = [
 
 const included = [
   ["90–120 min", "Diagnóstico inicial", "Una radiografía completa de tu situación y del coste real de seguir igual."],
-  ["60 días", "Plan estratégico", "Decisiones ordenadas, prioridades, responsables y plazos concretos."],
+  ["Ruta definida", "Plan de intervención", "Decisiones ordenadas, prioridades, responsables y plazos concretos."],
   ["Semanal", "Revisión 1:1", "Seguimiento, desbloqueo y ajuste del plan sobre lo que sucede en tu vida."],
   ["Directo", "Canal privado", "Contacto conmigo para decisiones clave y minicalls cuando haga falta."],
 ];
 
-const journey = [
-  { n: "01", meta: "Días 01–10", title: "Entender antes de mover", text: "Radiografía de ingresos, gastos, compromisos, identidad y coste real de la vida que sostienes." },
-  { n: "02", meta: "Días 11–30", title: "Decidir con margen", text: "Ordenamos prioridades y definimos la dirección: qué proteger, qué cambiar y qué empezar a construir." },
-  { n: "03", meta: "Días 31–60", title: "Ejecutar y ajustar", text: "Las decisiones salen del papel. Revisamos el movimiento real y corrijo contigo lo que haga falta." },
+const transformationStages = [
+  { n: "01", title: "Recuperar margen", text: "Eliminar fricción, revisar costes, ordenar decisiones y recuperar capacidad real de movimiento." },
+  { n: "02", title: "Elevar ingresos", text: "Optimizar la posición profesional actual o construir una habilidad que permita acceder a un nivel de ingresos superior." },
+  { n: "03", title: "Convertir ingresos en libertad", text: "Evitar que el aumento de ingresos se convierta en más dependencia. Reestructurar el margen y automatizar decisiones." },
+  { n: "04", title: "Construir los primeros activos", text: "Empezar a transformar ahorro estable en activos o fuentes de ingresos que no dependan del trabajo diario." },
+  { n: "05", title: "Diseñar la independencia", text: "Definir el plan, las reglas y la estructura de largo plazo que permitirán reducir progresivamente la dependencia del salario." },
+];
+
+const programFormats = [
+  {
+    n: "01",
+    duration: "60 días",
+    title: "Intervención 60D",
+    price: "2.400 €",
+    summary: "Para personas con una base sólida que necesitan recuperar margen, ordenar decisiones o ejecutar un movimiento principal claramente definido.",
+    detail: "La intervención concentra desde el primer día diagnóstico, dirección y ejecución.",
+    phases: ["Intervención intensiva · 60 días"],
+    included: [
+      "Diagnóstico y definición de la ruta.",
+      "Plan de intervención.",
+      "Revisión semanal.",
+      "Canal privado entre revisiones.",
+      "Minicalls cuando una decisión necesita resolverse con rapidez.",
+    ],
+  },
+  {
+    n: "02",
+    duration: "90 días",
+    title: "Intervención 90D",
+    price: "3.200 €",
+    summary: "Cuando el proceso exige una transición más profunda, negociación, reposicionamiento profesional o ejecución sostenida durante tres meses.",
+    detail: "Incluye todo lo anterior y un periodo adicional de intervención intensiva.",
+    phases: ["Intervención intensiva · 90 días"],
+  },
+  {
+    n: "03",
+    duration: "6 meses",
+    title: "Recorrido 6 meses",
+    price: "5.000 €",
+    summary: "Para procesos en los que hay que construir una nueva capacidad, elevar ingresos, reposicionarse y estabilizar la nueva estructura.",
+    detail: "Los primeros 90 días concentran el trabajo de intervención. Los tres meses posteriores se dedican a consolidación, seguimiento, corrección de desviaciones y decisiones puntuales.",
+    phases: ["90 días · Intervención", "3 meses · Consolidación"],
+  },
+  {
+    n: "04",
+    duration: "12 meses",
+    title: "Recorrido 12 meses",
+    price: "6.800 €",
+    summary: "Para personas que parten de una estructura más frágil o necesitan construir y consolidar una transformación completa a lo largo del tiempo.",
+    detail: "Los primeros 90 días concentran la intervención. Los nueve meses siguientes aportan dirección, seguimiento y continuidad durante la ejecución.",
+    phases: ["90 días · Intervención", "9 meses · Continuidad"],
+  },
 ];
 
 const faqs = [
   ["¿Tengo que dejar mi trabajo?", "No. El objetivo no es escapar del empleo, sino dejar de necesitar que sea tu única opción. En algunos casos la decisión correcta es reposicionarte y ganar más; en otros, reducir estructura o crear una vía adicional."],
-  ["¿Se consigue la libertad en 60 días?", "No prometo una vida resuelta en 60 días. En ese periodo diagnosticamos la dependencia, tomamos las decisiones principales y ponemos en marcha una salida. Las transformaciones profundas pueden necesitar entre 6 y 12 meses."],
+  ["¿Se consigue la libertad en 60 días?", "No prometo una vida resuelta en 60 días. 60D identifica el formato base y el origen del método, no la duración obligatoria de todos los procesos. Según el punto de partida, la ruta recomendada puede ser de 60 días, 90 días, 6 meses o 12 meses."],
   ["¿Voy a tener que cambiar radicalmente mi vida?", "No necesariamente. Muchas veces no se trata de destruir lo construido, sino de dejar de sostener partes que ya no eliges conscientemente. El proceso es estratégico y gradual."],
   ["¿Y si mi situación es demasiado particular?", "Por eso la intervención es personalizada. No trabajamos con una fórmula genérica: partimos de tu estructura, tus miedos, tus obligaciones y el margen que tienes hoy."],
   ["¿Es terapia o asesoría financiera?", "No es terapia ni una recomendación de inversión aislada. Es una intervención estratégica sobre ingresos, gastos, decisiones, identidad y estructura de vida. Cuando un asunto exige un profesional regulado, se deriva."],
@@ -37,7 +85,7 @@ const faqs = [
 
 <BaseLayout
   title="Intervención Estratégica 60D"
-  description="Intervención 1:1 para rediseñar ingresos, gastos, decisiones y estructura de vida, construir margen y reducir dependencia salarial."
+  description="Programa de Intervención 60D: acompañamiento privado 1:1 con recorridos de 60 días a 12 meses para construir margen, elevar ingresos y reducir dependencia salarial."
 >
   <main class="intervencion-page">
     <Header active="intervencion" />
@@ -45,7 +93,7 @@ const faqs = [
     <section class="hero intervention-hero">
       <div class="hero-glow copper-glow" aria-hidden="true"></div>
       <div class="shell intervention-intro">
-        <span class="eyebrow copper">Programa de Intervención 60D · 1:1</span>
+        <span class="eyebrow copper">Programa de Intervención 60D · Acompañamiento privado 1:1</span>
         <h1>Tu salario no es el problema.<br /><em>Que tu vida dependa de él, sí.</em></h1>
         <p class="hero-lead narrow">
           <span class="intervention-lead-desktop">Una intervención 1:1 para construir nuevas vías de ingresos, recuperar margen y alcanzar una libertad real: que tu vida responda a tus decisiones, no a una única fuente de estabilidad.</span>
@@ -95,9 +143,9 @@ const faqs = [
 
         <div class="advisory-copy">
           <div class="advisory-copy-intro">
-            <span class="eyebrow copper">Programa de Intervención 60D</span>
+            <span class="eyebrow copper">Programa de Intervención 60D · Método privado</span>
             <h2>Intervención directa.<br /><em>Trabajo 1:1. Decisiones reales.</em></h2>
-            <p class="advisory-lead">Sesenta días de trabajo sobre tu situación real: sin teoría innecesaria ni motivación vacía. Analizamos tus ingresos, gastos, obligaciones y decisiones para construir un plan viable y ejecutarlo contigo.</p>
+            <p class="advisory-lead">Una primera fase intensiva sobre tu situación real: sin teoría innecesaria ni motivación vacía. Analizamos tus ingresos, gastos, obligaciones y decisiones para construir una ruta viable y ejecutarla contigo.</p>
           </div>
 
           <div class="advisory-areas">
@@ -126,7 +174,7 @@ const faqs = [
     <section class="section origin-section" id="historia">
       <div class="shell origin-intro">
         <div>
-          <span class="eyebrow copper">No nace de un libro</span>
+          <span class="eyebrow copper">Un método construido desde la experiencia</span>
           <h2>“Mi vida funcionaba… mientras todo siguiera funcionando igual.”</h2>
         </div>
         <p class="origin-lead">En 2018, durante una comida con otros directivos, una decisión tomada por «los de arriba» me hizo ver que la vida que había construido podía dejar de depender de mí.</p>
@@ -214,42 +262,94 @@ const faqs = [
       </div>
     </section>
 
-    <section class="section execution-section" id="recorrido-60d">
-      <div class="shell execution-layout">
-        <div class="execution-intro">
-          <span class="eyebrow copper">Cómo transcurren los 60 días</span>
-          <h2>Una dirección clara.<br /><em>Seguimiento hasta moverla.</em></h2>
-          <p>El plan no se entrega sin más. Se contrasta con tu vida real, se ejecuta contigo y se ajusta cuando la realidad cambia.</p>
-          <div class="execution-mark" aria-label="Intervención de 60 días, individual y adaptativa">
-            <strong>60D</strong>
-            <span>1:1 · semanal · adaptativo</span>
-          </div>
-        </div>
+    <section class="section program-route-section" id="inversion">
+      <span class="program-route-watermark" aria-hidden="true">RUTA</span>
 
-        <div class="execution-steps">
-          {journey.map((step) => (
-            <article>
-              <span class="execution-number" aria-hidden="true">{step.n}</span>
-              <div>
-                <span class="execution-meta">{step.meta}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
+      <div class="shell program-route-intro">
+        <div>
+          <span class="eyebrow copper">Una ruta, no un programa genérico</span>
+          <h2>El tiempo necesario depende de dónde empiezas.</h2>
+        </div>
+        <div class="program-route-copy">
+          <p>La intervención no aplica una fórmula idéntica a todas las personas. Primero analizamos tu estructura, identificamos el movimiento que puede cambiarla y definimos el recorrido necesario para ejecutarlo.</p>
+          <p>En algunos casos, 60 días son suficientes para recuperar margen y tomar una decisión crítica. En otros, es necesario construir ingresos, desarrollar una nueva capacidad, consolidar los cambios o preparar las primeras inversiones.</p>
+          <p>Antes de empezar sabrás con claridad qué recorrido recomiendo, por qué y cuál será la inversión total.</p>
+        </div>
+      </div>
+
+      <div class="shell program-brand-note">
+        <strong>60D</strong>
+        <p><b>60D identifica el formato base y el origen del método,</b> no la duración obligatoria de todos los procesos. La ruta completa se define tras el Diagnóstico 1:1.</p>
+      </div>
+
+      <div class="shell transformation-route" aria-label="Posibles etapas del recorrido de transformación">
+        {transformationStages.map((stage) => (
+          <article>
+            <span>{stage.n}</span>
+            <h3>{stage.title}</h3>
+            <p>{stage.text}</p>
+          </article>
+        ))}
+      </div>
+
+      <p class="shell transformation-note">No todos los procesos comienzan en el mismo punto ni necesitan recorrer todas las etapas. El Diagnóstico 1:1 determina la ruta.</p>
+
+      <div class="shell program-formats-heading">
+        <span class="eyebrow copper">Formatos del Programa</span>
+        <h3>Una intensidad al principio.<br /><em>Una continuidad cuando hace falta.</em></h3>
+        <p>El formato recomendado se determina únicamente después del Diagnóstico 1:1. Cada importe corresponde a la inversión total del recorrido.</p>
+      </div>
+
+      <div class="shell program-formats">
+        {programFormats.map((format) => (
+          <article class="program-format">
+            <span class="program-format-index" aria-hidden="true">{format.n}</span>
+            <header class="program-format-name">
+              <span>{format.duration}</span>
+              <h4>{format.title}</h4>
+            </header>
+            <div class="program-format-content">
+              <p>{format.summary}</p>
+              <p class="program-format-detail">{format.detail}</p>
+              <div class="program-format-phases" aria-label="Fases del recorrido">
+                {format.phases.map((phase) => <span>{phase}</span>)}
               </div>
-            </article>
-          ))}
+              {format.included && (
+                <ul>
+                  {format.included.map((item) => <li>{item}</li>)}
+                </ul>
+              )}
+            </div>
+            <div class="program-format-price">
+              <span>Inversión total</span>
+              <strong>{format.price}</strong>
+              <small>+ IVA</small>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="shell direction-statement">
+        <div>
+          <span class="eyebrow copper">La lógica del acompañamiento</span>
+          <h3>No compras horas.<br /><em>Compras dirección.</em></h3>
+        </div>
+        <div>
+          <p>La intervención no es una mentoría basada en acumular videollamadas. Es un sistema de dirección, revisión y decisión.</p>
+          <p>Revisamos bloqueos, desviaciones y siguientes movimientos. La comunicación continúa entre revisiones mediante un canal privado, y las llamadas breves se utilizan únicamente cuando permiten resolver una decisión o evitar que el proceso se detenga.</p>
+          <p>El objetivo no es llenar la agenda. Es avanzar con criterio y sin fricción.</p>
         </div>
       </div>
-    </section>
 
-    <section class="section timeline-section light-section">
-      <div class="shell section-heading centered-heading">
-        <span class="eyebrow dark">Expectativas honestas</span>
-        <h2 class="display-dark">Sesenta días para cambiar la dirección.<br />Más tiempo para consolidarla.</h2>
-      </div>
-      <div class="shell timeline">
-        <article><span>01–02 semanas</span><h3>Entender</h3><p>Números reales, dependencia, identidad y coste de seguir igual.</p></article>
-        <article><span>02–06 meses</span><h3>Mover</h3><p>Reducir presión, ajustar estructura y activar nuevas decisiones o ingresos.</p></article>
-        <article><span>06–12 meses</span><h3>Consolidar</h3><p>Una estructura más ligera, flexible y menos dependiente.</p></article>
+      <div class="shell program-route-cta">
+        <div>
+          <span class="eyebrow copper">Antes de comprometerte</span>
+          <h3>Primero definimos la ruta.</h3>
+          <p>El Diagnóstico 1:1 permite ubicar tu punto de partida, identificar el bloqueo principal y determinar qué duración tiene sentido para tu caso. Antes de comenzar recibirás una recomendación clara, con alcance, duración e inversión cerrados.</p>
+        </div>
+        <a class="button button-primary button-premium" href="/diagnostico">
+          Solicitar diagnóstico <span class="button-icon" aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
 
@@ -278,45 +378,6 @@ const faqs = [
       </div>
     </section>
 
-    <section class="section investment-section" id="inversion">
-      <span class="investment-watermark" aria-hidden="true">60D</span>
-      <div class="shell investment-layout">
-        <div class="investment-heading">
-          <span class="eyebrow copper">Inversión · Intervención 60D</span>
-          <h2>Una intervención sobre<br /><em>tu vida real.</em></h2>
-          <p>El formato y la profundidad se definen después de entender tu situación, no antes.</p>
-        </div>
-
-        <div class="investment-decision">
-          <div class="price-block">
-            <span>Inversión desde</span>
-            <strong>2.400 <small>€</small></strong>
-            <i>+ IVA</i>
-          </div>
-          <div class="investment-admission">
-            <p>Antes de entrar, valoro personalmente tu caso. Si no encaja, te lo diré.</p>
-            <WhatsAppButton label="Quiero que valores mi caso" />
-            <small>Abre WhatsApp · Dos preguntas · Respondo yo personalmente</small>
-          </div>
-        </div>
-
-        <div class="investment-signals" aria-label="Principios de la intervención">
-          <article>
-            <span>01 · Trabajo directo</span>
-            <strong>Intervención 1:1 conmigo.</strong>
-          </article>
-          <article>
-            <span>02 · Entrada con criterio</span>
-            <strong>Primero entiendo tu situación.</strong>
-          </article>
-          <article>
-            <span>03 · Profundidad adaptada</span>
-            <strong>El plan se define según tu caso.</strong>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section faq-section light-section">
       <div class="shell faq-grid">
         <div>
@@ -336,8 +397,8 @@ const faqs = [
 
     <section class="section final-cta">
       <div class="shell final-cta-inner">
-        <span class="eyebrow copper">Antes de necesitar una salida</span>
-        <h2>Empieza a construirla.</h2>
+        <span class="eyebrow copper">Antes de que cambiar sea urgente</span>
+        <h2>Construye margen para elegir.</h2>
         <p>No necesitas tenerlo todo claro. Necesitas estar dispuesto a mirar tu situación sin autoengaño.</p>
         <WhatsAppButton label="Contarte mi situación" />
       </div>
