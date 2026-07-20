@@ -33,7 +33,12 @@ test("mantiene los textos y recorridos principales", async () => {
   const intervencion = await readRoute("intervencion-estrategica");
   const login = await readRoute("login");
 
-  assert.match(home, /Una vida con opciones se construye/);
+  assert.match(home, /Si tu vida depende de un sueldo, estás en riesgo/);
+  assert.match(home, /Yo te ayudo a cambiar eso/);
+  assert.match(home, /Dos puntos de entrada al Programa/);
+  assert.match(home, /convertir ese margen en inversión, patrimonio y fuentes de ingresos/);
+  assert.match(home, /TRABAJO PRIVADO 1:1/);
+  assert.match(home, /INVERSIÓN DESDE 2\.400 € \+ IVA/);
   assert.match(home, /Quiero la estrategia/);
   assert.match(diagnostico, /Tu vida puede no estar mal/);
   assert.match(diagnostico, /Alcanzar una libertad real/);
