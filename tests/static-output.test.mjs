@@ -36,7 +36,8 @@ test("mantiene los textos y recorridos principales", async () => {
   assert.match(home, /Si tu vida depende de un sueldo, estás en riesgo/);
   assert.match(home, /Yo te ayudo a cambiar eso/);
   assert.match(home, /Dos puntos de entrada al Programa/);
-  assert.match(home, /convertir ese margen en inversión, patrimonio y fuentes de ingresos/);
+  assert.match(home, /12–24 meses · De cero a libertad real/);
+  assert.match(home, /convertimos ese margen en inversión, patrimonio e ingresos menos ligados/);
   assert.match(home, /TRABAJO PRIVADO 1:1/);
   assert.match(home, /INVERSIÓN DESDE 2\.400 € \+ IVA/);
   assert.match(home, /Quiero la estrategia/);
@@ -44,6 +45,17 @@ test("mantiene los textos y recorridos principales", async () => {
   assert.match(diagnostico, /Alcanzar una libertad real/);
   assert.match(intervencion, /Tu salario no es el problema/);
   assert.match(intervencion, /Que tu vida dependa de él, sí/);
+  assert.match(intervencion, /El tiempo necesario depende de dónde empiezas/);
+  assert.match(intervencion, /Intervención 60D/);
+  assert.match(intervencion, /Intervención 90D/);
+  assert.match(intervencion, /Recorrido 6 meses/);
+  assert.match(intervencion, /Recorrido 12 meses/);
+  assert.match(intervencion, /2\.400 €/);
+  assert.match(intervencion, /3\.200 €/);
+  assert.match(intervencion, /5\.000 €/);
+  assert.match(intervencion, /6\.800 €/);
+  assert.match(intervencion, /No compras horas/);
+  assert.match(intervencion, /Solicitar diagnóstico/);
   assert.match(intervencion, /¿Me garantizas resultados\?/);
   assert.match(login, /Bienvenido/);
   assert.match(login, /Enviar enlace de acceso/);
