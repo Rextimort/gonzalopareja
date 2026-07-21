@@ -182,6 +182,7 @@ img { display: block; max-width: 100%; }
   line-height: .94;
 }
 .home-hero h1 em { color: var(--copper-bright); font-weight: 400; }
+.mobile-hero-break { display: none; }
 .home-hero-content > p {
   max-width: 720px;
   margin-bottom: 30px;
@@ -1640,18 +1641,20 @@ h1, h2 { text-wrap: balance; }
   .header-right { gap: 12px !important; }
   .mobile-login { font-size: 11px; }
   .header-cta { padding: 8px 0; font-size: 11px; }
-  .home-hero { height: auto; min-height: 100svh; }
+  .home-hero { height: auto; min-height: 100vh; min-height: 100dvh; }
   .home-hero-video { top: -2%; height: 105%; object-position: 46% center; filter: brightness(.78) saturate(.78) contrast(1.08); transform: scale(1.015); }
   .home-hero-overlay { background: linear-gradient(0deg, rgba(5,5,5,.99) 0%, rgba(5,5,5,.82) 47%, rgba(5,5,5,.52) 74%, rgba(5,5,5,.4) 100%); }
   .home-hero-content {
-    min-height: 100svh;
+    min-height: 100vh;
+    min-height: 100dvh;
     justify-content: flex-end;
     padding: 120px 0 92px;
-    /* Keep the existing right-aligned editorial composition intact; only reclaim upper air on mobile. */
-    transform: translateY(-58px);
+    /* Anchor the approved composition to the lower edge of the mobile viewport. */
+    transform: none;
   }
   .home-hero-content .eyebrow { margin-bottom: 18px; }
   .home-hero h1 { max-width: 100%; font-size: 43px; line-height: .96; }
+  .mobile-hero-break { display: inline; }
   .home-hero-content > p { margin-bottom: 28px; font-size: 15px; line-height: 1.48; }
   .home-hero-actions { width: 100%; align-items: stretch; flex-direction: column; gap: 23px; }
   .home-primary-action { width: 100%; align-items: center; }
