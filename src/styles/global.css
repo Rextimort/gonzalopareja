@@ -1643,7 +1643,13 @@ h1, h2 { text-wrap: balance; }
   .home-hero { height: auto; min-height: 100svh; }
   .home-hero-video { top: -2%; height: 105%; object-position: 46% center; filter: brightness(.78) saturate(.78) contrast(1.08); transform: scale(1.015); }
   .home-hero-overlay { background: linear-gradient(0deg, rgba(5,5,5,.99) 0%, rgba(5,5,5,.82) 47%, rgba(5,5,5,.52) 74%, rgba(5,5,5,.4) 100%); }
-  .home-hero-content { min-height: 100svh; justify-content: flex-end; padding: 120px 0 92px; transform: none; }
+  .home-hero-content {
+    min-height: 100svh;
+    justify-content: flex-end;
+    padding: 120px 0 92px;
+    /* Keep the existing right-aligned editorial composition intact; only reclaim upper air on mobile. */
+    transform: translateY(-58px);
+  }
   .home-hero-content .eyebrow { margin-bottom: 18px; }
   .home-hero h1 { max-width: 100%; font-size: 43px; line-height: .96; }
   .home-hero-content > p { margin-bottom: 28px; font-size: 15px; line-height: 1.48; }
