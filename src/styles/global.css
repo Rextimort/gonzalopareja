@@ -1648,7 +1648,13 @@ h1, h2 { text-wrap: balance; }
   .header-right { gap: 12px !important; }
   .mobile-login { font-size: 11px; }
   .header-cta { padding: 8px 0; font-size: 11px; }
-  .home-hero { height: auto; min-height: 100vh; min-height: 100dvh; }
+  .home-hero {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Safari can expose more visual space than its dynamic viewport reports. */
+    min-height: 100lvh;
+  }
   .home-hero-video { top: -2%; height: 105%; object-position: 46% center; filter: brightness(.78) saturate(.78) contrast(1.08); transform: scale(1.015); }
   .home-hero-overlay { background: linear-gradient(0deg, rgba(5,5,5,.99) 0%, rgba(5,5,5,.82) 47%, rgba(5,5,5,.52) 74%, rgba(5,5,5,.4) 100%); }
   .home-hero-content {
@@ -1665,7 +1671,7 @@ h1, h2 { text-wrap: balance; }
   .home-hero-content > p { margin-bottom: 28px; font-size: 15px; line-height: 1.48; }
   .home-hero-actions { width: 100%; align-items: stretch; flex-direction: column; gap: 23px; }
   .home-primary-action { width: 100%; align-items: center; }
-  .home-quiet-link { display: none; }
+  .home-quiet-link { align-self: center; }
   .home-hero-index { display: none; }
   .home-strategy, .home-paths { padding: 90px 0; }
   .home-strategy-copy h2 { font-size: 46px; }
