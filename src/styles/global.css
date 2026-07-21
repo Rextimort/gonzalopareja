@@ -257,13 +257,20 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 34px 80px rgba(19,14,10,.18);
 }
 .home-strategy-panel::before {
-  content: "01";
+  content: "GP";
   position: absolute;
-  top: 21px;
-  right: 24px;
-  color: rgba(225,167,118,.5);
+  top: 16px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(225,167,118,.42);
+  border-radius: 50%;
+  color: var(--copper-bright);
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 11px;
+  letter-spacing: -.04em;
 }
 .home-strategy-lead {
   max-width: 540px;
@@ -1658,7 +1665,7 @@ h1, h2 { text-wrap: balance; }
   .home-hero-content > p { margin-bottom: 28px; font-size: 15px; line-height: 1.48; }
   .home-hero-actions { width: 100%; align-items: stretch; flex-direction: column; gap: 23px; }
   .home-primary-action { width: 100%; align-items: center; }
-  .home-quiet-link { align-self: center; }
+  .home-quiet-link { display: none; }
   .home-hero-index { display: none; }
   .home-strategy, .home-paths { padding: 90px 0; }
   .home-strategy-copy h2 { font-size: 46px; }
