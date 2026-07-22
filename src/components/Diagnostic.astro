@@ -28,7 +28,7 @@ const questions = [
   </div>
   <div class="diagnostic-action">
     <button class="button button-primary button-premium" type="button" data-reveal>
-      Ver mi lectura
+      Ver mi resultado
       <span class="button-icon" aria-hidden="true">↓</span>
     </button>
     <span>Privado. No recoge ni envía ningún dato.</span>
@@ -37,7 +37,7 @@ const questions = [
     <span class="eyebrow copper" data-result-code></span>
     <h3 data-result-title></h3>
     <p data-result-copy></p>
-    <a class="text-link" href="/intervencion-estrategica">
+    <a class="text-link" href="/intervencion-estrategica" data-result-link>
       <span>Ver cómo funciona la Intervención 60D</span>
       <span aria-hidden="true">→</span>
     </a>
@@ -54,33 +54,192 @@ const questions = [
     const resultCode = tool.querySelector<HTMLElement>("[data-result-code]");
     const resultTitle = tool.querySelector<HTMLElement>("[data-result-title]");
     const resultCopy = tool.querySelector<HTMLElement>("[data-result-copy]");
+    const resultLink = tool.querySelector<HTMLAnchorElement>("[data-result-link]");
 
-    const readResult = () => {
+    type DiagnosticResult = {
+      hasSelection: boolean;
+      code: string;
+      title: string;
+      copy: string;
+    };
+
+    const singleResults: DiagnosticResult[] = [
+      {
+        hasSelection: true,
+        code: "TU LECTURA · UNA SEÑAL PRINCIPAL · ACTIVAR CAPACIDAD",
+        title: "En tu caso, parece que tienes capacidad, pero todavía no la has convertido en un movimiento capaz de cambiar tu situación.",
+        copy: "El primer paso no es acumular más información, sino elegir una dirección útil y desarrollar la capacidad que pueda traducirse en mejores ingresos y más opciones.",
+      },
+      {
+        hasSelection: true,
+        code: "TU LECTURA · UNA SEÑAL PRINCIPAL · RECUPERAR MARGEN",
+        title: "En tu caso, parece que el principal límite es no disponer de espacio para equivocarte o cambiar de dirección.",
+        copy: "Antes de asumir nuevos riesgos conviene reducir presión, revisar la estructura que sostienes y recuperar margen real para decidir sin ponerlo todo en peligro.",
+      },
+      {
+        hasSelection: true,
+        code: "TU LECTURA · UNA SEÑAL PRINCIPAL · ELEGIR DIRECCIÓN",
+        title: "En tu caso, parece que no te faltan posibilidades; te falta una prioridad capaz de ordenar las siguientes decisiones.",
+        copy: "Tu avance depende de identificar qué habilidad o movimiento puede producir el mayor cambio y convertirlo en una ruta concreta, medible y ejecutable.",
+      },
+      {
+        hasSelection: true,
+        code: "TU LECTURA · UNA SEÑAL PRINCIPAL · REDUCIR DEPENDENCIA",
+        title: "En tu caso, parece que tu vida funciona, pero depende demasiado de una condición que no controlas.",
+        copy: "El foco no sería empezar de cero, sino proteger lo construido, recuperar margen y crear alternativas antes de que una decisión externa limite tu capacidad de elegir.",
+      },
+      {
+        hasSelection: true,
+        code: "TU LECTURA · UNA SEÑAL PRINCIPAL · CONVERTIR ESFUERZO EN OPCIONES",
+        title: "En tu caso, parece que el esfuerzo existe, pero no está aumentando tu capacidad real de movimiento.",
+        copy: "Necesitas dejar de medir el avance por todo lo que haces y empezar a concentrarlo en decisiones que eleven ingresos, margen u opciones sostenibles con el tiempo.",
+      },
+      {
+        hasSelection: true,
+        code: "TU LECTURA · UNA SEÑAL PRINCIPAL · DEFINIR UNA RUTA",
+        title: "En tu caso, parece que quieres avanzar, pero todavía no has ordenado qué movimiento debe ir primero.",
+        copy: "Invertir, emprender o cambiar puede tener sentido, pero solo después de definir el objetivo, la secuencia y el nivel de riesgo que tu estructura puede sostener.",
+      },
+    ];
+
+    const readResult = (): DiagnosticResult => {
       const checked = inputs.map((input) => input.checked);
-      const score = checked.filter(Boolean).length;
-      const levelOne = [0, 1, 2, 4, 5].filter((index) => checked[index]).length;
-      const levelTwo = [1, 3, 4, 5].filter((index) => checked[index]).length;
+      const selected = checked.reduce<number[]>((indices, isChecked, index) => {
+        if (isChecked) indices.push(index);
+        return indices;
+      }, []);
+      const score = selected.length;
+      const has = (...indices: number[]) => indices.every((index) => checked[index]);
+      const code = (focus: string) => `TU LECTURA · ${score} SEÑALES CONECTADAS · ${focus}`;
 
-      if (score === 0 || levelOne === levelTwo) {
+      if (score === 0) {
         return {
-          code: "DOS POSIBLES PUNTOS DE ENTRADA",
-          title: "La sensación es la misma. Ahora hay que identificar qué la está provocando.",
-          copy: "Puede faltarte capacidad, margen o una combinación de ambos. La intervención empieza separando esas piezas y ordenando qué debe cambiar primero.",
+          hasSelection: false,
+          code: "ANTES DE CONTINUAR",
+          title: "Elige una o varias situaciones que reconozcas en tu vida.",
+          copy: "No hay una respuesta correcta. Marca las opciones que describan mejor tu situación actual para que esta lectura pueda orientarte con precisión.",
         };
       }
 
-      if (levelOne > levelTwo) {
+      if (score === 1) return singleResults[selected[0]];
+
+      if (score >= 4 && has(1, 3)) {
         return {
-          code: "TU FOCO INICIAL · CONSTRUIR CAPACIDAD",
-          title: "No necesitas hacer más cosas. Necesitas una dirección que haga avanzar tu situación.",
-          copy: "Tu primer recorrido pasa por claridad, habilidades monetizables, mejores ingresos y una estructura básica que te permita dejar de vivir al límite.",
+          hasSelection: true,
+          code: code("REORDENAR LA ESTRUCTURA"),
+          title: "En tu caso, parece que varias decisiones pendientes nacen del mismo problema: tu estructura actual exige demasiado y deja poco margen para moverte.",
+          copy: "Intentar resolver cada señal por separado añadiría más presión. La secuencia más sensata sería recuperar margen, definir una prioridad y, desde una base más segura, construir la capacidad o la vía de ingresos que amplíe tus opciones.",
+        };
+      }
+
+      if (score >= 4) {
+        return {
+          hasSelection: true,
+          code: code("CONCENTRAR EL MOVIMIENTO"),
+          title: "En tu caso, parece que no existe un bloqueo aislado: capacidad, dirección y ejecución se están frenando entre sí.",
+          copy: "El riesgo sería intentar cambiarlo todo a la vez. Tu recorrido debería elegir una palanca principal, convertirla en resultados y utilizar ese avance para corregir después el resto de la estructura.",
+        };
+      }
+
+      const combinedResults = [
+        {
+          matches: has(1, 3),
+          focus: "RECUPERAR MARGEN Y REDUCIR DEPENDENCIA",
+          title: "En tu caso, parece que la estabilidad que has construido también está reduciendo tu libertad para decidir.",
+          copy: "No necesitas romper con todo, sino disminuir la presión de la estructura actual, proteger lo valioso y crear alternativas antes de que una sola fuente de estabilidad condicione tus decisiones.",
+        },
+        {
+          matches: has(0, 2),
+          focus: "CONVERTIR POTENCIAL EN DIRECCIÓN",
+          title: "En tu caso, parece que tienes capacidad, pero no una prioridad suficientemente clara para convertirla en avance.",
+          copy: "Tu siguiente paso sería elegir la habilidad o el movimiento con mayor impacto, descartar el ruido y construir una ruta que transforme ese potencial en ingresos y opciones reales.",
+        },
+        {
+          matches: has(2, 5),
+          focus: "ORDENAR EL SIGUIENTE MOVIMIENTO",
+          title: "En tu caso, parece que el bloqueo no está en la falta de ideas, sino en no saber cuál debe convertirse primero en una decisión.",
+          copy: "Antes de invertir, emprender o cambiar necesitas comparar las alternativas, definir el movimiento principal y ordenar una secuencia que puedas ejecutar sin dispersarte.",
+        },
+        {
+          matches: has(0, 4),
+          focus: "HACER QUE EL ESFUERZO ACUMULE",
+          title: "En tu caso, parece que estás utilizando capacidad y esfuerzo sin conseguir que se conviertan en más opciones.",
+          copy: "La solución no pasa por exigirte más, sino por concentrar tu trabajo en una capacidad monetizable o un movimiento que produzca resultados acumulativos y cambie tu posición.",
+        },
+        {
+          matches: has(1, 4),
+          focus: "RECUPERAR ESPACIO PARA AVANZAR",
+          title: "En tu caso, parece que la falta de margen está neutralizando buena parte del esfuerzo que ya realizas.",
+          copy: "Mientras no exista espacio para probar, corregir o detenerte, trabajar más difícilmente ampliará tus opciones. Primero habría que reducir presión y después dirigir el esfuerzo hacia una palanca concreta.",
+        },
+        {
+          matches: has(3, 5),
+          focus: "EVOLUCIONAR SIN PONERLO TODO EN RIESGO",
+          title: "En tu caso, parece que quieres construir una etapa nueva, pero tu estabilidad actual condiciona cuánto puedes moverte.",
+          copy: "El recorrido debería proteger lo construido mientras recuperas margen, reposicionas tu perfil y preparas una vía adicional de ingresos o inversión con una secuencia controlada.",
+        },
+        {
+          matches: has(0, 1),
+          focus: "CONSTRUIR CAPACIDAD CON MARGEN",
+          title: "En tu caso, parece que necesitas desarrollar una vía nueva, pero hoy tienes poco espacio para experimentar con ella.",
+          copy: "La prioridad sería crear un margen mínimo de seguridad y utilizarlo para construir una capacidad monetizable sin convertir cada prueba en una amenaza para tu estabilidad.",
+        },
+        {
+          matches: has(3, 4),
+          focus: "TRANSFORMAR ESTABILIDAD EN OPCIONES",
+          title: "En tu caso, parece que tu vida funciona desde fuera, pero el esfuerzo necesario para sostenerla no está aumentando tu libertad.",
+          copy: "El foco estaría en revisar qué dependencias absorben tu energía y transformar parte de la estabilidad actual en margen, patrimonio y alternativas menos ligadas a tu tiempo.",
+        },
+        {
+          matches: has(1, 5),
+          focus: "PREPARAR EL CAMBIO ANTES DE EJECUTARLO",
+          title: "En tu caso, parece que ves posibles movimientos, pero todavía no dispones del margen necesario para asumirlos con criterio.",
+          copy: "Antes de emprender, invertir o cambiar conviene reducir presión, definir cuánto riesgo puedes sostener y preparar una ruta que no dependa de acertar a la primera.",
+        },
+        {
+          matches: has(0, 5),
+          focus: "CONSTRUIR UNA VÍA CONCRETA",
+          title: "En tu caso, parece que existe voluntad de cambio y capacidad para crecer, pero todavía falta el vehículo que las convierta en resultados.",
+          copy: "Tu recorrido debería elegir una vía de ingresos o reposicionamiento, validar que encaja con tu situación y ejecutarla con una secuencia clara antes de abrir nuevos frentes.",
+        },
+      ];
+
+      const matchedResult = combinedResults.find((result) => result.matches);
+      if (matchedResult) {
+        return {
+          hasSelection: true,
+          code: code(matchedResult.focus),
+          title: matchedResult.title,
+          copy: matchedResult.copy,
+        };
+      }
+
+      const capacitySignals = [0, 2, 4, 5].filter((index) => checked[index]).length;
+      const marginSignals = [1, 3].filter((index) => checked[index]).length;
+
+      if (capacitySignals > marginSignals) {
+        return {
+          hasSelection: true,
+          code: code("CONSTRUIR CAPACIDAD"),
+          title: "En tu caso, parece que el principal límite está en convertir intención y esfuerzo en una capacidad que cambie tu situación.",
+          copy: "El recorrido debería ordenar una prioridad, desarrollar una vía de ingresos o reposicionamiento y convertirla en resultados antes de añadir nuevos objetivos.",
+        };
+      }
+
+      if (marginSignals > capacitySignals) {
+        return {
+          hasSelection: true,
+          code: code("RECUPERAR MARGEN"),
+          title: "En tu caso, parece que el principal límite no es la falta de capacidad, sino una estructura que deja demasiado poco espacio para decidir.",
+          copy: "La prioridad sería reducir dependencia, revisar lo que sostienes y recuperar margen antes de ejecutar movimientos que necesiten tiempo, riesgo o inversión.",
         };
       }
 
       return {
-        code: "TU FOCO INICIAL · RECUPERAR MARGEN",
-        title: "Tu vida funciona, pero depende de demasiadas condiciones que no controlas.",
-        copy: "Tu recorrido pasa por reducir dependencia, revisar la estructura que sostienes y recuperar opciones antes de que la vida te obligue a hacerlo.",
+        hasSelection: true,
+        code: code("DOS FRENTES CONECTADOS"),
+        title: "En tu caso, parece que necesitas aumentar tu capacidad sin ignorar la dependencia que hoy limita tus decisiones.",
+        copy: "No conviene elegir entre ganar más o recuperar margen como si fueran problemas separados. La ruta debería crear espacio primero y utilizarlo después para construir ingresos, dirección y opciones sostenibles.",
       };
     };
 
@@ -104,6 +263,7 @@ const questions = [
       if (resultCode) resultCode.textContent = result.code;
       if (resultTitle) resultTitle.textContent = result.title;
       if (resultCopy) resultCopy.textContent = result.copy;
+      if (resultLink) resultLink.hidden = !result.hasSelection;
       if (resultElement) resultElement.hidden = false;
     });
   }
