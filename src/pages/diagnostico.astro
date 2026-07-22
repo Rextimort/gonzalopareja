@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Diagnostic from "../components/Diagnostic.astro";
+import VideoFrame from "../components/VideoFrame.astro";
 
 const signals = [
   ["01", "Te esfuerzas, pero no avanzas", "Haces cosas, aprendes y cumples. Pero nada parece cambiar de verdad tu situación."],
@@ -121,7 +122,7 @@ const method = [
       </div>
     </section>
 
-    <section class="section quote-section">
+    <section class="section quote-section" id="historia">
       <div class="shell quote-layout">
         <div class="story-photo">
           <img src="/diagnostico-abel.png" alt="Gonzalo Pareja junto a una ventana" />
@@ -141,6 +142,23 @@ const method = [
             </p>
           </div>
           <p class="origin-signature">No estaba bajando de nivel. Estaba financiando su libertad.</p>
+        </div>
+      </div>
+
+      <div class="shell story-film">
+        <div class="story-film-intro">
+          <div>
+            <span class="eyebrow copper">La historia completa · Primeros pasos</span>
+            <h3>Cuando avanzar se parecía demasiado a retroceder.</h3>
+          </div>
+          <p>Por qué entré en el alquiler de dormitorios cuando mi vida parecía resuelta, y qué tuve que romper para empezar a construir libertad real.</p>
+        </div>
+        <div class="story-film-frame">
+          <VideoFrame
+            eyebrow="Una decisión que cambió mi vida · 2018"
+            title="Mis primeros pasos hacia la libertad real"
+            src="https://www.loom.com/embed/8fee1fa77e2b4cda981507ad379f2525?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+          />
         </div>
       </div>
     </section>
