@@ -1,7 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, "");
+const apiBase = (
+  import.meta.env.PUBLIC_ADMIN_API_BASE ||
+  import.meta.env.PUBLIC_SESSIONS_API_BASE ||
+  ""
+).replace(/\/$/, "");
+const loginUrl = import.meta.env.PUBLIC_ADMIN_LOGIN_URL || "/login/";
 ---
 
 <BaseLayout
@@ -10,7 +15,12 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
   noindex
   enableAnalytics={false}
 >
-  <main class="session-admin" data-session-admin data-api-base={apiBase}>
+  <main
+    class="session-admin"
+    data-session-admin
+    data-api-base={apiBase}
+    data-login-url={loginUrl}
+  >
     <header class="session-admin-header">
       <div>
         <span>Gonzalo Pareja</span>
@@ -21,18 +31,11 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
 
     <section class="session-admin-auth" data-admin-auth>
       <h2>Acceso administrativo</h2>
-      <div class="session-admin-auth-fields">
-        <label>
-          Email administrador
-          <input type="email" data-admin-email autocomplete="username" placeholder="tu@email.com" />
-        </label>
-        <label>
-          Token de administración
-          <input type="password" data-admin-token autocomplete="current-password" placeholder="ADMIN_API_TOKEN" />
-        </label>
-        <button type="button" data-admin-connect>Entrar</button>
-      </div>
-      <p data-admin-auth-status aria-live="polite"></p>
+      <p class="session-admin-auth-copy">
+        Este espacio utiliza el mismo acceso seguro por email que el área privada.
+      </p>
+      <a class="session-admin-login" href="/login/" data-admin-login hidden>Acceder</a>
+      <p data-admin-auth-status aria-live="polite">Comprobando tu sesión…</p>
     </section>
 
     <section class="session-admin-workspace" data-admin-workspace hidden>
@@ -59,8 +62,8 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
 <script>
   const root = document.querySelector<HTMLElement>("[data-session-admin]");
   const apiBase = root?.dataset.apiBase || "";
-  const emailInput = root?.querySelector<HTMLInputElement>("[data-admin-email]");
-  const tokenInput = root?.querySelector<HTMLInputElement>("[data-admin-token]");
+  const configuredLoginUrl = root?.dataset.loginUrl || "/login/";
+  const loginLink = root?.querySelector<HTMLAnchorElement>("[data-admin-login]");
   const authStatus = root?.querySelector<HTMLElement>("[data-admin-auth-status]");
   const authSection = root?.querySelector<HTMLElement>("[data-admin-auth]");
   const workspace = root?.querySelector<HTMLElement>("[data-admin-workspace]");
@@ -69,6 +72,17 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
   const detailEmpty = root?.querySelector<HTMLElement>("[data-admin-detail-empty]");
   const globalStatus = root?.querySelector<HTMLElement>("[data-admin-global-status]");
   let activeSessionId = "";
+
+  class AdminApiError extends Error {
+    status: number;
+    code: string;
+
+    constructor(status: number, code: string) {
+      super(code);
+      this.status = status;
+      this.code = code;
+    }
+  }
 
   const escapeHtml = (value: unknown) =>
     String(value ?? "")
@@ -90,22 +104,36 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
       hourCycle: "h23",
     }).format(new Date(iso));
 
-  const credentials = () => ({
-    email: emailInput?.value.trim() || sessionStorage.getItem("sessions_admin_email") || "",
-    token: tokenInput?.value.trim() || sessionStorage.getItem("sessions_admin_token") || "",
-  });
-
   const api = async (path: string, options: RequestInit = {}) => {
-    const { email, token } = credentials();
     const headers = new Headers(options.headers);
     headers.set("accept", "application/json");
-    headers.set("authorization", `Bearer ${token}`);
-    headers.set("x-admin-email", email);
     if (options.body) headers.set("content-type", "application/json");
-    const response = await fetch(`${apiBase}${path}`, { ...options, headers });
+    const response = await fetch(`${apiBase}${path}`, {
+      ...options,
+      headers,
+      credentials: "include",
+    });
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+    if (!response.ok) {
+      throw new AdminApiError(response.status, payload.error || `HTTP ${response.status}`);
+    }
     return payload;
+  };
+
+  const loginHref = () => {
+    const target = new URL(configuredLoginUrl, window.location.origin);
+    target.searchParams.set("return_to", window.location.href);
+    return target.toString();
+  };
+
+  const showAccess = (message: string) => {
+    if (workspace) workspace.hidden = true;
+    if (authSection) authSection.hidden = false;
+    if (authStatus) authStatus.textContent = message;
+    if (loginLink) {
+      loginLink.href = loginHref();
+      loginLink.hidden = false;
+    }
   };
 
   const setStatus = (message: string, error = false) => {
@@ -183,22 +211,26 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
     setStatus("");
   };
 
-  root?.querySelector("[data-admin-connect]")?.addEventListener("click", async () => {
-    const { email, token } = credentials();
-    if (!email || !token) {
-      if (authStatus) authStatus.textContent = "Introduce el email y el token.";
-      return;
-    }
-    sessionStorage.setItem("sessions_admin_email", email);
-    sessionStorage.setItem("sessions_admin_token", token);
+  const startAdmin = async () => {
     try {
-      await loadSessions();
+      await api("/admin/session");
+      if (loginLink) loginLink.hidden = true;
+      if (authStatus) authStatus.textContent = "";
       if (authSection) authSection.hidden = true;
       if (workspace) workspace.hidden = false;
-    } catch {
-      if (authStatus) authStatus.textContent = "No se ha podido validar el acceso.";
+      await loadSessions();
+    } catch (error) {
+      if (error instanceof AdminApiError && error.status === 403) {
+        showAccess("Tu sesión es válida, pero este email no tiene acceso administrativo.");
+        return;
+      }
+      if (error instanceof AdminApiError && error.status === 401) {
+        showAccess("Accede mediante el enlace seguro que recibirás por email.");
+        return;
+      }
+      showAccess("No hemos podido comprobar tu sesión. Inténtalo de nuevo.");
     }
-  });
+  };
 
   root?.querySelector("[data-admin-refresh]")?.addEventListener("click", () => {
     void loadSessions().catch(() => setStatus("No se han podido cargar las sesiones.", true));
@@ -255,8 +287,5 @@ const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, 
     }
   });
 
-  const savedEmail = sessionStorage.getItem("sessions_admin_email");
-  const savedToken = sessionStorage.getItem("sessions_admin_token");
-  if (savedEmail && emailInput) emailInput.value = savedEmail;
-  if (savedToken && tokenInput) tokenInput.value = savedToken;
+  void startAdmin();
 </script>

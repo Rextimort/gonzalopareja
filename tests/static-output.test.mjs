@@ -18,13 +18,28 @@ async function listFiles(directory) {
   return nested.flat();
 }
 
-test("genera las cuatro rutas estáticas", async () => {
+test("genera las rutas estáticas principales y el backoffice", async () => {
   await Promise.all([
     access(path.join(root, "dist", "index.html")),
     access(path.join(root, "dist", "diagnostico", "index.html")),
     access(path.join(root, "dist", "intervencion-estrategica", "index.html")),
     access(path.join(root, "dist", "login", "index.html")),
+    access(path.join(root, "dist", "admin", "sesiones", "index.html")),
   ]);
+});
+
+test("el backoffice usa sesión por cookie y no expone un token administrativo", async () => {
+  const files = await listFiles(path.join(root, "dist"));
+  const adminFiles = files.filter((file) =>
+    /(?:admin\/sesiones\/index\.html|sesiones\.astro.*\.js)$/.test(file),
+  );
+  const output = (await Promise.all(adminFiles.map((file) => readFile(file, "utf8")))).join("\n");
+
+  assert.match(output, /\/admin\/session/);
+  assert.match(output, /credentials:\s*[`"']include[`"']/);
+  assert.doesNotMatch(output, /ADMIN_API_TOKEN/);
+  assert.doesNotMatch(output, /sessions_admin_token/);
+  assert.doesNotMatch(output, /data-admin-token/);
 });
 
 test("mantiene los textos y recorridos principales", async () => {
@@ -33,14 +48,14 @@ test("mantiene los textos y recorridos principales", async () => {
   const intervencion = await readRoute("intervencion-estrategica");
   const login = await readRoute("login");
 
-  assert.match(home, /Si tu vida depende de un sueldo, estás en riesgo/);
-  assert.match(home, /Yo te ayudo a cambiar eso/);
+  assert.match(home, /Si tu vida depende[\s\S]*de un sueldo,[\s\S]*estás en riesgo/);
+  assert.match(home, /Yo te ayudo a[\s\S]*cambiar eso/);
   assert.match(home, /Dos puntos de entrada al Programa/);
   assert.match(home, /12–24 meses · De cero a libertad real/);
   assert.match(home, /convertimos ese margen en inversión, patrimonio e ingresos menos ligados/);
   assert.match(home, /TRABAJO PRIVADO 1:1/);
   assert.match(home, /INVERSIÓN DESDE 2\.400 € \+ IVA/);
-  assert.match(home, /Quiero la estrategia/);
+  assert.match(home, /La sesión de las 6:00/);
   assert.match(diagnostico, /Tu vida puede no estar mal/);
   assert.match(diagnostico, /Alcanzar una libertad real/);
   assert.match(intervencion, /Tu salario no es el problema/);
@@ -69,7 +84,7 @@ test("conserva vídeos, formularios, WhatsApp y redes sociales", async () => {
   assert.match(output, /loom\.com\/embed\/4a023603841845c597abf82503b0e363/);
   assert.match(output, /loom\.com\/embed\/7e031a268cad4e969e2ce57c1c3de375/);
   assert.match(output, /loom\.com\/embed\/027f62c2c09442b89a67a6ab04469462/);
-  assert.match(output, /app\.gonzalopareja\.com\/newsletter\/optin/);
+  assert.match(output, /\/api\/sessions\/register/);
   assert.match(output, /fluirplus-webhook\.gonzalo-pareja\.workers\.dev\/auth\/request-link/);
   assert.match(output, /wa\.me\/34690205133/);
   assert.match(output, /instagram\.com\/gonzalo\.pareja\.ig/);
