@@ -88,14 +88,14 @@ const instanceId = `weekly-session-${Math.random().toString(36).slice(2)}`;
           month: "long",
           hour: "2-digit",
           minute: "2-digit",
-          hourCycle: "h23",
+          hour12: true,
         }).format(start);
         const cutoffText = new Intl.DateTimeFormat("es-ES", {
           timeZone: "Europe/Madrid",
           weekday: "long",
           hour: "2-digit",
           minute: "2-digit",
-          hourCycle: "h23",
+          hour12: true,
         }).format(cutoff);
 
         if (dateElement) dateElement.textContent = dateText.charAt(0).toUpperCase() + dateText.slice(1);
