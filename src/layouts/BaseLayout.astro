@@ -14,9 +14,9 @@ interface Props {
 const {
   title,
   description,
-  ogTitle = "Una vida con opciones se construye antes de necesitarlas.",
-  ogDescription = "Capacidad, margen y dirección para recuperar libertad real de decisión.",
-  ogImage = "/og-home.png",
+  ogTitle = "Deja de depender de un salario — Programa de Intervención 60D",
+  ogDescription = "Acompañamiento privado 1:1 para aumentar ingresos, recuperar margen y construir libertad real.",
+  ogImage = "/og-social-programa-intervencion.png",
   noindex = false,
   enableAnalytics = true,
 } = Astro.props;
@@ -45,9 +45,9 @@ const absoluteOgImage = new URL(ogImage, "https://gonzalopareja.com").toString()
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content={absoluteOgImage} />
-    <meta property="og:image:width" content="1731" />
-    <meta property="og:image:height" content="909" />
-    <meta property="og:image:alt" content="Gonzalo Pareja — Capacidad, margen y dirección" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Gonzalo Pareja — Tu vida. Tus decisiones. Sin depender de un sueldo." />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={ogTitle} />

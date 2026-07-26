@@ -107,6 +107,7 @@ test("incluye todos los assets obligatorios", async () => {
     "og.png",
     "og-v2.png",
     "og-home.png",
+    "og-social-programa-intervencion.png",
     "favicon.svg",
   ];
 
