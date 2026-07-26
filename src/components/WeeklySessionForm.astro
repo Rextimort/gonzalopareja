@@ -1,0 +1,143 @@
+---
+const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, "");
+const instanceId = `weekly-session-${Math.random().toString(36).slice(2)}`;
+---
+
+<div class="weekly-session" data-weekly-session data-api-base={apiBase}>
+  <div class="session-next" data-session-next aria-live="polite">
+    <span class="session-next-label">Próxima sesión</span>
+    <strong data-session-date>Consultando la próxima fecha…</strong>
+    <small data-session-cutoff></small>
+  </div>
+
+  <form class="home-optin-form session-registration-form" data-session-form hidden>
+    <input type="hidden" name="session_id" />
+    <div class="home-field">
+      <label for={`${instanceId}-name`}>Nombre</label>
+      <input id={`${instanceId}-name`} name="name" type="text" autocomplete="name" placeholder="Tu nombre" minlength="2" maxlength="80" required />
+    </div>
+    <div class="home-field">
+      <label for={`${instanceId}-email`}>Email</label>
+      <input id={`${instanceId}-email`} name="email" type="email" autocomplete="email" placeholder="tu@email.com" maxlength="254" required />
+    </div>
+    <div class="home-field">
+      <label for={`${instanceId}-question`}>¿Qué te gustaría preguntarme?</label>
+      <textarea id={`${instanceId}-question`} name="question" rows="4" minlength="10" maxlength="2000" placeholder="Cuéntame qué decisión, bloqueo o situación quieres comprender mejor." required></textarea>
+    </div>
+    <label class="session-policy">
+      <input type="checkbox" required />
+      <span>Entiendo que debo cancelar con al menos cuatro horas de antelación si finalmente no puedo asistir.</span>
+    </label>
+    <button class="button button-primary button-premium home-submit" type="submit">
+      <span data-submit-label>Reservar mi plaza</span>
+      <span class="button-icon" aria-hidden="true">→</span>
+    </button>
+    <p class="home-form-status" role="status" aria-live="polite" data-session-status></p>
+  </form>
+
+  <div class="session-rules">
+    <span>Registro hasta 12 h antes</span>
+    <span>Cancelación hasta 4 h antes</span>
+  </div>
+</div>
+
+<script>
+  const widgets = document.querySelectorAll<HTMLElement>("[data-weekly-session]");
+
+  const errorMessage = (code: string) => {
+    const messages: Record<string, string> = {
+      already_registered: "Este email ya está registrado para esta sesión.",
+      email_blocked: "Este email no puede reservar nuevas sesiones en este momento.",
+      registration_closed: "El registro para esta fecha ya ha cerrado. Actualiza la página para ver la siguiente.",
+      rate_limit_exceeded: "Has realizado demasiados intentos. Espera una hora antes de volver a probar.",
+      session_meet_url_not_configured: "La próxima sesión todavía no está lista para recibir reservas.",
+      invalid_name: "Revisa el nombre introducido.",
+      invalid_email: "Revisa el email introducido.",
+      invalid_question: "La pregunta debe tener al menos diez caracteres.",
+    };
+    return messages[code] || "No hemos podido completar la reserva. Inténtalo de nuevo en unos minutos.";
+  };
+
+  widgets.forEach((widget) => {
+    if (widget.dataset.initialized === "true") return;
+    widget.dataset.initialized = "true";
+
+    const apiBase = widget.dataset.apiBase || "";
+    const form = widget.querySelector<HTMLFormElement>("[data-session-form]");
+    const dateElement = widget.querySelector<HTMLElement>("[data-session-date]");
+    const cutoffElement = widget.querySelector<HTMLElement>("[data-session-cutoff]");
+    const status = widget.querySelector<HTMLElement>("[data-session-status]");
+    const button = form?.querySelector<HTMLButtonElement>("button[type='submit']");
+    const buttonLabel = form?.querySelector<HTMLElement>("[data-submit-label]");
+
+    const loadNextSession = async () => {
+      try {
+        const response = await fetch(`${apiBase}/api/sessions/next`, {
+          headers: { accept: "application/json" },
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.session) throw new Error("next_session_unavailable");
+
+        const session = payload.session;
+        const start = new Date(session.start_at);
+        const cutoff = new Date(session.registration_cutoff_at);
+        const dateText = new Intl.DateTimeFormat("es-ES", {
+          timeZone: "Europe/Madrid",
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+        }).format(start);
+        const cutoffText = new Intl.DateTimeFormat("es-ES", {
+          timeZone: "Europe/Madrid",
+          weekday: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+        }).format(cutoff);
+
+        if (dateElement) dateElement.textContent = dateText.charAt(0).toUpperCase() + dateText.slice(1);
+        if (cutoffElement) cutoffElement.textContent = `Registro abierto hasta el ${cutoffText}`;
+        const sessionInput = form?.querySelector<HTMLInputElement>("[name='session_id']");
+        if (sessionInput) sessionInput.value = session.id;
+        if (form) form.hidden = false;
+      } catch {
+        if (dateElement) dateElement.textContent = "La próxima fecha se publicará en breve.";
+        if (cutoffElement) cutoffElement.textContent = "Vuelve a consultarlo más adelante.";
+      }
+    };
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      if (button) button.disabled = true;
+      if (buttonLabel) buttonLabel.textContent = "Reservando…";
+      if (status) status.textContent = "Estamos reservando tu plaza…";
+
+      try {
+        const response = await fetch(`${apiBase}/api/sessions/register`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            name: formData.get("name"),
+            email: formData.get("email"),
+            question: formData.get("question"),
+            session_id: formData.get("session_id"),
+          }),
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(payload.error || "registration_failed");
+        window.location.assign(payload.redirect_url || "/sesion-6/confirmacion/");
+      } catch (error) {
+        const code = error instanceof Error ? error.message : "registration_failed";
+        if (status) status.textContent = errorMessage(code);
+        if (button) button.disabled = false;
+        if (buttonLabel) buttonLabel.textContent = "Reservar mi plaza";
+      }
+    });
+
+    void loadNextSession();
+  });
+</script>

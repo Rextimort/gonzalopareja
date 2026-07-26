@@ -1,0 +1,262 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const apiBase = (import.meta.env.PUBLIC_SESSIONS_API_BASE || "").replace(/\/$/, "");
+---
+
+<BaseLayout
+  title="Administración de sesiones"
+  description="Backoffice de La sesión de las 6:00."
+  noindex
+  enableAnalytics={false}
+>
+  <main class="session-admin" data-session-admin data-api-base={apiBase}>
+    <header class="session-admin-header">
+      <div>
+        <span>Gonzalo Pareja</span>
+        <h1>La sesión de las 6:00</h1>
+      </div>
+      <a href="/">Volver a la web</a>
+    </header>
+
+    <section class="session-admin-auth" data-admin-auth>
+      <h2>Acceso administrativo</h2>
+      <div class="session-admin-auth-fields">
+        <label>
+          Email administrador
+          <input type="email" data-admin-email autocomplete="username" placeholder="tu@email.com" />
+        </label>
+        <label>
+          Token de administración
+          <input type="password" data-admin-token autocomplete="current-password" placeholder="ADMIN_API_TOKEN" />
+        </label>
+        <button type="button" data-admin-connect>Entrar</button>
+      </div>
+      <p data-admin-auth-status aria-live="polite"></p>
+    </section>
+
+    <section class="session-admin-workspace" data-admin-workspace hidden>
+      <aside>
+        <div class="session-admin-toolbar">
+          <h2>Sesiones</h2>
+          <button type="button" data-admin-refresh>Actualizar</button>
+        </div>
+        <div data-admin-sessions></div>
+      </aside>
+      <section class="session-admin-detail">
+        <div data-admin-detail-empty>
+          <h2>Selecciona una sesión</h2>
+          <p>Aquí aparecerán las reservas y las acciones disponibles.</p>
+        </div>
+        <div data-admin-detail hidden></div>
+      </section>
+    </section>
+
+    <p class="session-admin-global-status" data-admin-global-status aria-live="polite"></p>
+  </main>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-session-admin]");
+  const apiBase = root?.dataset.apiBase || "";
+  const emailInput = root?.querySelector<HTMLInputElement>("[data-admin-email]");
+  const tokenInput = root?.querySelector<HTMLInputElement>("[data-admin-token]");
+  const authStatus = root?.querySelector<HTMLElement>("[data-admin-auth-status]");
+  const authSection = root?.querySelector<HTMLElement>("[data-admin-auth]");
+  const workspace = root?.querySelector<HTMLElement>("[data-admin-workspace]");
+  const sessionsContainer = root?.querySelector<HTMLElement>("[data-admin-sessions]");
+  const detailContainer = root?.querySelector<HTMLElement>("[data-admin-detail]");
+  const detailEmpty = root?.querySelector<HTMLElement>("[data-admin-detail-empty]");
+  const globalStatus = root?.querySelector<HTMLElement>("[data-admin-global-status]");
+  let activeSessionId = "";
+
+  const escapeHtml = (value: unknown) =>
+    String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  const madridDate = (iso: string) =>
+    new Intl.DateTimeFormat("es-ES", {
+      timeZone: "Europe/Madrid",
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    }).format(new Date(iso));
+
+  const credentials = () => ({
+    email: emailInput?.value.trim() || sessionStorage.getItem("sessions_admin_email") || "",
+    token: tokenInput?.value.trim() || sessionStorage.getItem("sessions_admin_token") || "",
+  });
+
+  const api = async (path: string, options: RequestInit = {}) => {
+    const { email, token } = credentials();
+    const headers = new Headers(options.headers);
+    headers.set("accept", "application/json");
+    headers.set("authorization", `Bearer ${token}`);
+    headers.set("x-admin-email", email);
+    if (options.body) headers.set("content-type", "application/json");
+    const response = await fetch(`${apiBase}${path}`, { ...options, headers });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+    return payload;
+  };
+
+  const setStatus = (message: string, error = false) => {
+    if (!globalStatus) return;
+    globalStatus.textContent = message;
+    globalStatus.classList.toggle("is-error", error);
+  };
+
+  const renderSessions = (sessions: Array<Record<string, unknown>>) => {
+    if (!sessionsContainer) return;
+    sessionsContainer.innerHTML = sessions
+      .map(
+        (session) => `<button type="button" class="session-admin-session${session.id === activeSessionId ? " is-active" : ""}" data-session-id="${escapeHtml(session.id)}">
+          <strong>${escapeHtml(madridDate(String(session.start_at)))}</strong>
+          <span>${escapeHtml(session.registration_count || 0)} reservas · ${escapeHtml(session.attended_count || 0)} asistieron</span>
+        </button>`,
+      )
+      .join("");
+  };
+
+  const loadSessions = async () => {
+    setStatus("Cargando sesiones…");
+    const payload = await api("/admin/sessions");
+    renderSessions(payload.sessions || []);
+    setStatus("");
+  };
+
+  const renderDetail = (payload: Record<string, any>) => {
+    if (!detailContainer) return;
+    const session = payload.session;
+    const registrations = payload.registrations || [];
+    detailContainer.innerHTML = `
+      <div class="session-admin-detail-heading">
+        <span>${escapeHtml(session.id)}</span>
+        <h2>${escapeHtml(madridDate(session.start_at))}</h2>
+        <p>${registrations.length} registros</p>
+      </div>
+      <div class="session-admin-table-wrap">
+        <table>
+          <thead><tr><th>Persona</th><th>Pregunta</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody>
+            ${registrations
+              .map(
+                (registration: Record<string, any>) => `<tr>
+                  <td><strong>${escapeHtml(registration.name)}</strong><small>${escapeHtml(registration.email)}</small>${registration.block_active ? `<em>Bloqueado${registration.blocked_until ? ` hasta ${escapeHtml(madridDate(registration.blocked_until))}` : ""}</em>` : ""}</td>
+                  <td>${escapeHtml(registration.question)}</td>
+                  <td><span class="admin-status status-${escapeHtml(registration.status)}">${escapeHtml(registration.status)}</span></td>
+                  <td>
+                    <div class="session-admin-actions">
+                      <button data-action="mark" data-registration="${escapeHtml(registration.id)}" data-status="attended">Asistió</button>
+                      <button data-action="mark" data-registration="${escapeHtml(registration.id)}" data-status="no_show">No-show</button>
+                      <button data-action="mark" data-registration="${escapeHtml(registration.id)}" data-status="cancelled">Cancelar</button>
+                      <button data-action="resend" data-registration="${escapeHtml(registration.id)}">Reenviar email</button>
+                      ${registration.block_active
+                        ? `<button data-action="unblock" data-email="${escapeHtml(registration.email)}">Desbloquear</button>`
+                        : `<button data-action="block" data-email="${escapeHtml(registration.email)}">Bloquear</button>`}
+                    </div>
+                  </td>
+                </tr>`,
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>`;
+    detailEmpty?.setAttribute("hidden", "");
+    detailContainer.hidden = false;
+  };
+
+  const loadDetail = async (sessionId: string) => {
+    activeSessionId = sessionId;
+    setStatus("Cargando registros…");
+    const payload = await api(`/admin/sessions/${encodeURIComponent(sessionId)}`);
+    renderDetail(payload);
+    await loadSessions();
+    setStatus("");
+  };
+
+  root?.querySelector("[data-admin-connect]")?.addEventListener("click", async () => {
+    const { email, token } = credentials();
+    if (!email || !token) {
+      if (authStatus) authStatus.textContent = "Introduce el email y el token.";
+      return;
+    }
+    sessionStorage.setItem("sessions_admin_email", email);
+    sessionStorage.setItem("sessions_admin_token", token);
+    try {
+      await loadSessions();
+      if (authSection) authSection.hidden = true;
+      if (workspace) workspace.hidden = false;
+    } catch {
+      if (authStatus) authStatus.textContent = "No se ha podido validar el acceso.";
+    }
+  });
+
+  root?.querySelector("[data-admin-refresh]")?.addEventListener("click", () => {
+    void loadSessions().catch(() => setStatus("No se han podido cargar las sesiones.", true));
+  });
+
+  sessionsContainer?.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-session-id]");
+    if (button?.dataset.sessionId) {
+      void loadDetail(button.dataset.sessionId).catch(() =>
+        setStatus("No se ha podido cargar esta sesión.", true),
+      );
+    }
+  });
+
+  detailContainer?.addEventListener("click", async (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-action]");
+    if (!button || !activeSessionId) return;
+    const action = button.dataset.action;
+    button.disabled = true;
+    setStatus("Aplicando cambio…");
+    try {
+      if (action === "mark") {
+        await api("/admin/mark", {
+          method: "POST",
+          body: JSON.stringify({
+            registration_id: button.dataset.registration,
+            status: button.dataset.status,
+          }),
+        });
+      } else if (action === "resend") {
+        await api("/admin/resend-confirmation", {
+          method: "POST",
+          body: JSON.stringify({ registration_id: button.dataset.registration }),
+        });
+      } else if (action === "unblock") {
+        await api("/admin/unblock", {
+          method: "POST",
+          body: JSON.stringify({ email: button.dataset.email }),
+        });
+      } else if (action === "block") {
+        const reason = window.prompt("Motivo del bloqueo:", "Bloqueo manual");
+        if (reason === null) return;
+        await api("/admin/block", {
+          method: "POST",
+          body: JSON.stringify({ email: button.dataset.email, reason }),
+        });
+      }
+      await loadDetail(activeSessionId);
+      setStatus("Cambio guardado.");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "No se ha podido guardar.", true);
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  const savedEmail = sessionStorage.getItem("sessions_admin_email");
+  const savedToken = sessionStorage.getItem("sessions_admin_token");
+  if (savedEmail && emailInput) emailInput.value = savedEmail;
+  if (savedToken && tokenInput) tokenInput.value = savedToken;
+</script>

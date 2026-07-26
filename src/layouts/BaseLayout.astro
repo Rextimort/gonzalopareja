@@ -7,6 +7,8 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  noindex?: boolean;
+  enableAnalytics?: boolean;
 }
 
 const {
@@ -15,6 +17,8 @@ const {
   ogTitle = "Una vida con opciones se construye antes de necesitarlas.",
   ogDescription = "Capacidad, margen y dirección para recuperar libertad real de decisión.",
   ogImage = "/og-home.png",
+  noindex = false,
+  enableAnalytics = true,
 } = Astro.props;
 
 const fullTitle = `${title} — Gonzalo Pareja`;
@@ -28,6 +32,7 @@ const absoluteOgImage = new URL(ogImage, "https://gonzalopareja.com").toString()
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -49,20 +54,24 @@ const absoluteOgImage = new URL(ogImage, "https://gonzalopareja.com").toString()
     <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={absoluteOgImage} />
 
-    <script is:inline>
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "vs4dl71i34");
-    </script>
+    {
+      enableAnalytics && (
+        <script is:inline>
+          (function (c, l, a, r, i, t, y) {
+            c[a] =
+              c[a] ||
+              function () {
+                (c[a].q = c[a].q || []).push(arguments);
+              };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+          })(window, document, "clarity", "script", "vs4dl71i34");
+        </script>
+      )
+    }
   </head>
   <body>
     <slot />
