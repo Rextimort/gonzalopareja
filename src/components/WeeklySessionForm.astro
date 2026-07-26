@@ -81,7 +81,11 @@ const instanceId = `weekly-session-${Math.random().toString(36).slice(2)}`;
         const session = payload.session;
         const start = new Date(session.start_at);
         const cutoff = new Date(session.registration_cutoff_at);
-        const dateText = new Intl.DateTimeFormat("es-ES", {
+        const compactDayPeriod = (value: string) =>
+          value
+            .replace(/\s*a\.\s*m\./giu, " am")
+            .replace(/\s*p\.\s*m\./giu, " pm");
+        const dateText = compactDayPeriod(new Intl.DateTimeFormat("es-ES", {
           timeZone: "Europe/Madrid",
           weekday: "long",
           day: "numeric",
@@ -89,14 +93,14 @@ const instanceId = `weekly-session-${Math.random().toString(36).slice(2)}`;
           hour: "2-digit",
           minute: "2-digit",
           hour12: true,
-        }).format(start);
-        const cutoffText = new Intl.DateTimeFormat("es-ES", {
+        }).format(start));
+        const cutoffText = compactDayPeriod(new Intl.DateTimeFormat("es-ES", {
           timeZone: "Europe/Madrid",
           weekday: "long",
           hour: "2-digit",
           minute: "2-digit",
           hour12: true,
-        }).format(cutoff);
+        }).format(cutoff));
 
         if (dateElement) dateElement.textContent = dateText.charAt(0).toUpperCase() + dateText.slice(1);
         if (cutoffElement) cutoffElement.textContent = `Registro abierto hasta el ${cutoffText}`;
