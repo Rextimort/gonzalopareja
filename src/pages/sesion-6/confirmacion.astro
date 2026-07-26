@@ -2,6 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+
+const whatsappSupport = "https://wa.me/34690205133?text=Hola%20Gonzalo.%20Me%20he%20registrado%20en%20La%20sesi%C3%B3n%20de%20las%206%3A00%2C%20pero%20no%20he%20recibido%20el%20email%20de%20confirmaci%C3%B3n.";
 ---
 
 <BaseLayout
@@ -18,7 +20,8 @@ import Footer from "../../components/Footer.astro";
         <h1>Revisa<br /><em>tu email.</em></h1>
         <p>Te hemos enviado la confirmación, el enlace de Google Meet, el evento para tu calendario y tu enlace personal de cancelación.</p>
         <div class="session-confirmation-notes">
-          <span>Comprueba también Spam o Promociones.</span>
+          <span>Si no te llega en 5 minutos, revisa Spam o Promociones.</span>
+          <span>Si sigue sin aparecer, <a href={whatsappSupport} target="_blank" rel="noreferrer">escríbeme por WhatsApp</a>.</span>
           <span>Si no puedes asistir, cancela con 4 h de antelación.</span>
         </div>
         <a class="button button-primary button-premium" href="/">

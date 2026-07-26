@@ -472,6 +472,16 @@ img { display: block; max-width: 100%; }
 .session-confirmation h1 em { color: var(--copper-bright); font-weight: 400; }
 .session-confirmation-inner > p { max-width: 650px; margin: 0 auto 30px; color: var(--muted-dark); font-size: 18px; line-height: 1.65; }
 .session-confirmation-notes { margin-bottom: 38px; display: flex; justify-content: center; gap: 30px; color: rgba(248,245,237,.46); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.session-confirmation-notes a {
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(225,167,118,.42);
+  color: var(--copper-bright);
+  transition: border-color 180ms ease, color 180ms ease;
+}
+.session-confirmation-notes a:hover {
+  border-color: var(--paper-bright);
+  color: var(--paper-bright);
+}
 
 .session-admin { min-height: 100vh; padding: 28px; background: #0b0b0b; color: #f8f5ed; font-family: var(--sans); }
 .session-admin button { cursor: pointer; border: 1px solid rgba(225,167,118,.35); background: transparent; color: #e1a776; font: inherit; }

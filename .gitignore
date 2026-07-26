@@ -5,6 +5,3 @@ dist/
 .env
 .env.*
 !.env.example
-
-# local drop-in bundle (do not commit)
-cloudflare-worker-drop-in/
