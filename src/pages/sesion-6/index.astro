@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import WeeklySessionForm from "../../components/WeeklySessionForm.astro";
+---
+
+<BaseLayout
+  title="La sesión de las 6:00"
+  description="Una conversación semanal con Gonzalo Pareja sobre ingresos, margen, decisiones y libertad real."
+>
+  <main class="session-public-page">
+    <Header active="home" />
+
+    <section class="session-public-hero">
+      <div class="shell session-public-grid">
+        <div class="session-public-copy">
+          <span class="eyebrow copper">Una vez a la semana · En directo</span>
+          <h1>La sesión<br /><em>de las 6:00.</em></h1>
+          <p>Para profesionales que quieren dejar de depender por completo de su salario. Una conversación sobre ingresos, margen, decisiones y libertad real.</p>
+          <div class="session-boundary">
+            <span>Lo que sí es</span>
+            <p>Un espacio para plantear preguntas, comprender principios y ganar claridad sobre tu siguiente movimiento.</p>
+          </div>
+          <div class="session-boundary">
+            <span>Lo que no es</span>
+            <p>Un diagnóstico individual ni una estrategia personal. Ese trabajo pertenece al Programa de Intervención.</p>
+          </div>
+        </div>
+
+        <div class="home-strategy-panel session-public-panel">
+          <p class="home-strategy-lead">Reserva tu plaza para la próxima conversación abierta conmigo.</p>
+          <WeeklySessionForm />
+          <p class="home-privacy">Miércoles · 06:00 Europe/Madrid · Google Meet</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="session-commitment">
+      <div class="shell session-commitment-grid">
+        <span class="eyebrow copper">Una reserva implica compromiso</span>
+        <h2>El acceso es gratuito.<br />Tu palabra no.</h2>
+        <div>
+          <p>Puedes cancelar mediante el enlace personal incluido en tu email hasta cuatro horas antes de la sesión.</p>
+          <p>La primera ausencia no justificada suspende el acceso durante 30 días. La segunda puede bloquear futuras reservas de forma indefinida.</p>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</BaseLayout>

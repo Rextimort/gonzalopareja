@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Reserva recibida"
+  description="Tu solicitud de reserva para La sesión de las 6:00 ha sido recibida."
+  noindex
+>
+  <main class="session-confirmation-page">
+    <Header active="home" />
+    <section class="session-confirmation">
+      <div class="shell session-confirmation-inner">
+        <span class="eyebrow copper">Reserva completada</span>
+        <span class="session-confirmation-mark" aria-hidden="true">GP</span>
+        <h1>Revisa<br /><em>tu email.</em></h1>
+        <p>Te hemos enviado la confirmación, el enlace de Google Meet, el evento para tu calendario y tu enlace personal de cancelación.</p>
+        <div class="session-confirmation-notes">
+          <span>Comprueba también Spam o Promociones.</span>
+          <span>Si no puedes asistir, cancela con 4 h de antelación.</span>
+        </div>
+        <a class="button button-primary button-premium" href="/">
+          Volver a la web <span class="button-icon" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+    <Footer />
+  </main>
+</BaseLayout>
