@@ -80,20 +80,28 @@ const instanceId = `weekly-session-${Math.random().toString(36).slice(2)}`;
 
         const session = payload.session;
         const start = new Date(session.start_at);
+        const end = new Date(start.getTime() + 45 * 60 * 1000);
         const cutoff = new Date(session.registration_cutoff_at);
         const compactDayPeriod = (value: string) =>
           value
             .replace(/\s*a\.\s*m\./giu, " am")
             .replace(/\s*p\.\s*m\./giu, " pm");
-        const dateText = compactDayPeriod(new Intl.DateTimeFormat("es-ES", {
+        const datePart = new Intl.DateTimeFormat("es-ES", {
           timeZone: "Europe/Madrid",
           weekday: "long",
           day: "numeric",
           month: "long",
+        }).format(start);
+        const timeFormatter = new Intl.DateTimeFormat("es-ES", {
+          timeZone: "Europe/Madrid",
           hour: "2-digit",
           minute: "2-digit",
           hour12: true,
-        }).format(start));
+        });
+        const startTime = compactDayPeriod(timeFormatter.format(start));
+        const endTime = compactDayPeriod(timeFormatter.format(end));
+        const startClock = startTime.replace(/\s+(am|pm)$/i, "");
+        const dateText = `${datePart} · ${startClock}–${endTime}`;
         const cutoffText = compactDayPeriod(new Intl.DateTimeFormat("es-ES", {
           timeZone: "Europe/Madrid",
           weekday: "long",
