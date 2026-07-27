@@ -319,6 +319,15 @@ img { display: block; max-width: 100%; }
 .home-submit:disabled { cursor: wait; opacity: .66; }
 .home-form-status { min-height: 18px; margin: 0; color: var(--copper-bright); font-size: 13px; line-height: 1.45; }
 .home-privacy { margin: 10px 0 0; color: rgba(248,245,237,.56); font-size: 13px; line-height: 1.5; }
+.session-value-line {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(248,245,237,.12);
+  color: rgba(248,245,237,.86);
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.45;
+}
 .session-next {
   margin: 0 0 24px;
   padding: 0 0 22px;
