@@ -70,7 +70,7 @@ test("mantiene los textos y recorridos principales", async () => {
   assert.match(intervencion, /5\.000 €/);
   assert.match(intervencion, /6\.800 €/);
   assert.match(intervencion, /No compras horas/);
-  assert.match(intervencion, /Primero comprobamos si encaja/);
+  assert.match(intervencion, /Primero comprobamos si encaja contigo/);
   assert.match(intervencion, /Quiero que valores mi caso/);
   assert.match(intervencion, /Mi%20situaci%C3%B3n%20actual%20es%E2%80%A6/);
   assert.doesNotMatch(intervencion, /Solicitar diagnóstico/);
