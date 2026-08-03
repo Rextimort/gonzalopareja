@@ -76,6 +76,7 @@ test("mantiene los textos y recorridos principales", async () => {
   assert.doesNotMatch(intervencion, /Solicitar diagnóstico/);
   assert.match(intervencion, /¿Me garantizas resultados\?/);
   assert.match(login, /Bienvenido/);
+  assert.match(login, /te enviaré un enlace para entrar/);
   assert.match(login, /Enviar enlace de acceso/);
 });
 
